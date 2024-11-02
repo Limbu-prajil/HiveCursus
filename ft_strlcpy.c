@@ -8,14 +8,19 @@ int	ft_strlength(char *str)
 	return (i);
 }
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+unsigned int	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	unsigned int	i;
 	unsigned int	x;
-
+	
 	x = ft_strlength(src);
+	if (src[x] != '\0')
+		return (x);
+	else
+		src[x] = '\0';
+		continue;
 	i = 0;
-	if (size != 0)
+	if (size > 0)
 	{
 		while (src[i] != '\0' && i < size - 1)
 		{
