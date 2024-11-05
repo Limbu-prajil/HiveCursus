@@ -1,18 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 14:23:26 by plimbu            #+#    #+#             */
-/*   Updated: 2024/07/10 14:19:00 by plimbu           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdio.h>
+#include <bsd/string.h>
 
-int	ft_strlen(char *str)
+unsigned long	ft_strlen(const char *str)
 {
-	int	i;
+	unsigned long	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -22,12 +13,12 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+unsigned long	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	dlen;
-	unsigned int	slen;
+	unsigned long	i;
+	unsigned long	j;
+	unsigned long	dlen;
+	unsigned long	slen;
 
 	i = 0;
 	j = 0;
@@ -47,4 +38,18 @@ unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 	}
 	dest[j] = '\0';
 	return (dlen + slen);
+}
+
+int	main(void)
+{
+	char dest[20] = "Source";
+	char dst[20] = "Source";
+	const char *src = "Source";
+	size_t size= 15;
+	
+	printf("Return value is :%lu\n", ft_strlcat(dest, src, size));
+	printf("Return value is :%lu\n", strlcat(dst, src, size));
+	printf("New dest is :%s", dest);
+	
+	return (0);
 }
