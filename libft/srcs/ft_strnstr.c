@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <bsd/string.h>
-
 char*	ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
@@ -20,17 +17,4 @@ char*	ft_strnstr(const char *big, const char *little, size_t len)
 		j = 0;
 	}
 	return (char *)NULL;
-}
-
-
-int	main(void)
-{
-	const char *big = "crazy!";
-	const char *little = "raz";
-	size_t len = 6;
-	
-	printf("Searched string is found as: %s\n", ft_strnstr(big, little, len));
-	printf("Searchd string is found as: %s\n", strnstr(big, little, len));
-	
-	return (0);
 }

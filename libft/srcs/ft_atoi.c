@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <bsd/string.h>
-
 int	ft_atoi(const char *s)
 {
 	int		sign;
@@ -24,11 +20,4 @@ int	ft_atoi(const char *s)
 		s++;
 	}
 	return (sign * (int)res);
-}
-
-int		main(void)
-{
-	char *a = "    \n\n\v\f\r\t -5432100AAAgreghrsth";
-	printf("Returned integer is: %d\n",ft_atoi(a));
-	printf("Returned integer is: %d\n", atoi(a));
 }
