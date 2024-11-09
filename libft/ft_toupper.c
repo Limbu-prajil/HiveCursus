@@ -1,6 +1,8 @@
+#include "libft.h"
+
 int	ft_toupper(int c)
 {
-	if (c >= 'A' && c <= 'Z')
+	if ((char)c >= 'A' && (char)c <= 'Z')
 	{
 		return (c);
 	}

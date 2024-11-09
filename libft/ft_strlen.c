@@ -1,3 +1,5 @@
+#include "libft.h"
+
 unsigned long	ft_strlen(const char *str)
 {
 	unsigned long	i;
