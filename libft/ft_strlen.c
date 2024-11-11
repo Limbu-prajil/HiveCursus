@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 16:31:34 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/11 16:31:38 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-unsigned long	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	unsigned long	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i] != '\0')

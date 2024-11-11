@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 16:31:53 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/11 16:31:55 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -9,7 +21,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		n--;
 	}
 	if (n)
-		return *s1 - *s2;
+		return (*s1 - *s2);
 	else
 		return (0);
 }
