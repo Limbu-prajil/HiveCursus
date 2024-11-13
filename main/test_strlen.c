@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void test_ft_strlen_empty_string() {
     char *empty_string = "";

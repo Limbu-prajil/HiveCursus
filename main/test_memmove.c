@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void print_test_result(const char *description, int result) {
     printf("%s: %s\n", description, result ? "PASS" : "FAIL");
@@ -28,6 +28,10 @@ void test_ft_memmove() {
     char dest[20] = "Destination";
     ft_memmove(dest, src, 0);
     print_test_result("Zero-length move", strcmp(dest, "Destination") == 0);
+    
+    // Empty src copy ( 0 byte from src is copied )
+    ft_memmove(dest3, src3, 1);
+    print_test_result("", strcmp(dest3, "Non-empty buffer") == 0);
     
     printf("\n");
     // Standard copy (non-overlapping)

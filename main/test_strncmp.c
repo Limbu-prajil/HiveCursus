@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void test_ft_strncmp_equal_strings() {
     char *str1 = "hello";

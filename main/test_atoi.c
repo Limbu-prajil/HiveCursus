@@ -1,6 +1,6 @@
 #include "../libft/libft.h"
 
-void test_my_atoi() {
+void test_ft_atoi() {
     // Basic Valid Integer Strings
     printf("Test '123': %d\n", ft_atoi("123") == 123 ? 1 : 0);
     printf("Test '-456': %d\n", ft_atoi("-456") == -456 ? 1 : 0);

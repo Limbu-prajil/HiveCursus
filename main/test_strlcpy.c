@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void print_test_result(const char *description, int result) {
     printf("%s: %s\n", description, result ? "PASS" : "FAIL");

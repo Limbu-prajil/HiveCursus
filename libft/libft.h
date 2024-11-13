@@ -14,13 +14,13 @@
 # define LIBFT_H
 
 # include <string.h>
-# include <bsd/string.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <assert.h>
 # include <limits.h>
 # include <ctype.h>
+# include <stdint.h>
 
 int		ft_atoi(const char *s);
 void	ft_bzero(void *s, size_t n);

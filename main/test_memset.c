@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void print_test_result(const char *description, int result) {
     printf("%s: %s\n", description, result ? "PASS" : "FAIL");
@@ -23,7 +23,7 @@ void test_ft_memset() {
     // Standard fill
     ft_memset(buffer1, 'A', sizeof(buffer1));
     int standard_fill_pass = 1;
-    for (int i = 0; i < sizeof(buffer1); i++) {
+    for (int i = 0; i < buffer1[i]; i++) {
         if (buffer1[i] != 'A') {
             standard_fill_pass = 0;
             break;
@@ -36,9 +36,9 @@ void test_ft_memset() {
     print_test_result("Zero-length set", strcmp(buffer2, "InitialBufferData") == 0);
 
     // Full buffer set
-    ft_memset(buffer2, 'C', sizeof(buffer2));
+    ft_memset(buffer2, 'C', strlen(buffer2));
     int full_buffer_set_pass = 1;
-    for (int i = 0; i < sizeof(buffer2); i++) {
+    for (int i = 0; i < buffer2[i]; i++) {
         if (buffer2[i] != 'C') {
             full_buffer_set_pass = 0;
             break;

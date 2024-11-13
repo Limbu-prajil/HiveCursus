@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void print_test_result(const char *description, int result) {
     printf("%s: %s\n", description, result ? "PASS" : "FAIL");
@@ -26,7 +26,7 @@ void test_ft_bzero() {
     printf("\n");
 
     // Edge case: Clear zero bytes
-    bzero(buffer0, 0);
+    ft_bzero(buffer0, 0);
     for (int i = 0; i < 10; i++) {
         printf("%d ", buffer0[i]);  // Expected output: 0 0 0 0 0 65 65 65 65 65
     }

@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void print_test_result(const char *description, int result) {
     printf("%s: %s\n", description, result ? "PASS" : "FAIL");
@@ -38,7 +38,7 @@ void test_ft_isalnum() {
     // Boundary Characters
     pass = 1;
     const char boundary_chars[] = "/: @[`{";
-    for (int i = 0; i < sizeof(boundary_chars) - 1; i++) {
+    for (int i = 0; boundary_chars[i]; i++) {
         if (ft_isalnum(boundary_chars[i]) != 0) pass = 0;
     }
     print_test_result("Boundary characters", pass);

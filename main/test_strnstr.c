@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void test_ft_strnstr_found() {
     char *haystack = "Hello, world!";

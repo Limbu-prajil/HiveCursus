@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft/libft.h"
 
 void print_test_result(const char *description, int result) {
     printf("%s: %s\n", description, result ? "PASS" : "FAIL");
@@ -18,6 +18,10 @@ void test_ft_memcpy() {
     // Zero-length copy (should not change destination)
     ft_memcpy(dest2, src1, 0);
     print_test_result("Zero-length copy", strcmp(dest2, "Unchanged buffer") == 0);
+    
+    // Empty src copy ( 0 byte from src is copied )
+    ft_memcpy(dest3, src3, 1);
+    print_test_result("", strcmp(dest3, "Non-empty buffer") == 0);
 
     // Exact size copy
     char src4[] = "Exact";
