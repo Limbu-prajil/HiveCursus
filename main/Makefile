@@ -12,51 +12,55 @@ TEST_BIN = ${TEST_SRC:.c=}
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I${LIBFT_DIR}
 
-# Target to create libft.a
-${LIBFT_AR}: ${LIBFT_OBJ}
-	@ar rcs $@ ${LIBFT_OBJ}
-	@echo "libft.a created in ${LIBFT_DIR}"
-
 # Compile libft sources into object files
 ${LIBFT_DIR}/%.o: ${LIBFT_DIR}/%.c ${LIBFT_HEADER}
 	@${CC} ${CFLAGS} -c $< -o $@
 	@echo "Compiled $< to $@"
 
-# Compile each test binary, linking directly with libft.a
+# Create static library with libft object files
+${LIBFT_AR}: ${LIBFT_OBJ}
+	@ar rcs $@ ${LIBFT_OBJ}
+	@echo "libft.a created in ${LIBFT_DIR}"
+
+# Compile each test source code (*.c) into test executables (test_exec), linking each directly with libft.a
 ${TEST_BIN}: %: %.c ${LIBFT_AR}
-	@${CC} ${CFLAGS} $< ${LIBFT_AR} -o $@  # Link each test with libft.a
+	@${CC} ${CFLAGS} $< ${LIBFT_AR} -o $@
 	@echo "Linked $@ with libft.a"
 
-# Run all tests and print results with line-by-line output for each test
-all_tests: ${LIBFT_AR} ${TEST_BIN}
+# Run all tests and save ouput to test_output.log file
+all_tests: ${TEST_BIN}
+	@echo "Executng all tests and capturing results in test_output.log ..."
+	@rm -f test_outut.log
 	@for test in ${TEST_BIN}; do \
-		echo "Running $$test...................."; \
-		./$$test | tee /dev/stderr; \
+		echo "Executing $$test......" | tee -a test_output.log; \
+		./$$test | tee -a test_output.log; \
 	done
+	@echo "All tests completed. Check test_output.log for full results."
 
-# Run specific test
-run_test: ${LIBFT_AR}
-	@read -p "Enter test file name (without 'test_' prefix): " test_name; \
+# Run each specific test
+one_test: ${LIBFT_AR} ${TEST_BIN}
+	@read -p "Enter test_file_name (without 'test_' prefix): " test_name; \
 	test_exec="test_$$test_name"; \
 	if [ -x "$$test_exec" ]; then \
-		echo "Running $$test_exec....................."; \
-		./$$test_exec; \
+		echo "Executing $$test_exec......"; \
+		./$$test_exec ${LIBFT_AR}; \
 	else \
 		echo "Test file '$$test_exec' not found or not compiled."; \
 	fi
 
 # Clean object files and test binaries
 clean:
-	@rm -f ${LIBFT_OBJ} ${TEST_OBJ) ${TEST_BIN}
+	@rm -f ${LIBFT_OBJ} ${TEST_OBJ} ${TEST_BIN} *.log
 	@rm -rf *.dSYM
-	@echo "Cleaned object files, test binaries, and .dSYM directories."
+	@echo "Cleaned object files, test executables, and .dSYM directories."
 
 # Clean all, including libft.a
 fclean: clean
-	@rm -f ${LIBFT_AR} ${TEST_BIN}
-	@echo "Cleaned libft.a and test executables."
+	@rm -f ${LIBFT_AR}
+	@echo "Cleaned libft.a"
 
-# Rebuild everything
+# Rebuild after cleaning everything
 re: fclean all_tests
 
-.PHONY: all_tests run_test clean fclean re
+# Phony targets
+.PHONY: all_tests one_test clean fclean re

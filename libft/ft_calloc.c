@@ -14,12 +14,16 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	total_size;
-	void	*ptr;
+	unsigned char	*ptr;
+	size_t			total_size;
 
 	total_size = nmemb * size;
-	ptr = malloc(total_size);
-	if (ptr)
-		ft_memset(ptr, 0, total_size);
+	ptr = (unsigned char *)malloc(total_size);
+	if (!ptr)
+		return (NULL);
+	while (total_size--)
+	{
+		ptr[total_size] = 0;
+	}
 	return (ptr);
 }

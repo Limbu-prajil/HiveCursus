@@ -16,7 +16,7 @@ RM = rm -f
 
 .PHONY: all clean fclean re
 
-.c.o:
+%o: %.c
 	${CC} ${FLAGS} -c $< -o $@ -I ${HDR}
 
 ${NAME}: ${OBJS}
