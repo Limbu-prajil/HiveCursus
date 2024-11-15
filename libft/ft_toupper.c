@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: aymoulou <aymoulou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 16:32:58 by plimbu            #+#    #+#             */
-/*   Updated: 2024/11/11 16:33:02 by plimbu           ###   ########.fr       */
+/*   Created: 2021/08/10 15:31:35 by aymoulou          #+#    #+#             */
+/*   Updated: 2021/11/08 16:33:55 by aymoulou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
-		return (c - 32);
+		c -= 32;
 	return (c);
 }

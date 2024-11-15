@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: aymoulou <aymoulou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 16:30:09 by plimbu            #+#    #+#             */
-/*   Updated: 2024/11/11 16:30:11 by plimbu           ###   ########.fr       */
+/*   Created: 2021/08/16 15:03:56 by aymoulou          #+#    #+#             */
+/*   Updated: 2021/11/10 14:37:42 by aymoulou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s != '\0')
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (c == '\0')
-		return ((char *)s);
-	return ((char *) NULL);
+	char	*str;
+
+	str = (char *)s;
+	while (*str != (char)c && *str)
+		str++;
+	if (*str == (char)c)
+		return (str);
+	return (0);
 }

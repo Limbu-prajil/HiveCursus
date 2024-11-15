@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: aymoulou <aymoulou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 16:28:11 by plimbu            #+#    #+#             */
-/*   Updated: 2024/11/11 16:28:13 by plimbu           ###   ########.fr       */
+/*   Created: 2021/08/10 15:26:57 by aymoulou          #+#    #+#             */
+/*   Updated: 2021/11/10 12:09:27 by aymoulou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_isascii(int c)
 {
-	if ((char)c >= '\0' && c <= 127)
+	if (c >= 0 && c <= 127)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
