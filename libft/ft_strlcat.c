@@ -23,6 +23,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	cut = 0;
 	lsrc = ft_strlen(src);
 	ldst = ft_strlen(dst);
+
+	if (!dst && !size)
+		return (lsrc);
 	if (size > ldst)
 	{
 		cut = size - ldst - 1;
