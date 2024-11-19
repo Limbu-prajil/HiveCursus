@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymoulou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/13 09:12:01 by aymoulou          #+#    #+#             */
-/*   Updated: 2021/08/31 13:30:10 by aymoulou         ###   ########.fr       */
+/*   Created: 2024/11/18 09:45:32 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:45:36 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	t_list	*start;
 	t_list	*temp;
 
-	if (!lst)
+	if (!lst || !del)
 		return ;
 	start = *lst;
 	temp = NULL;

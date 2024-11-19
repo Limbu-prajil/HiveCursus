@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymoulou <aymoulou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/19 18:09:38 by aymoulou          #+#    #+#             */
-/*   Updated: 2021/11/12 11:10:22 by aymoulou         ###   ########.fr       */
+/*   Created: 2024/11/18 09:50:52 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:50:54 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	words(char *str, char c)
+static int	words_count(char *str, char c)
 {
 	int			i;
 	int			j;
@@ -34,31 +34,29 @@ static int	words(char *str, char c)
 	return (j);
 }
 
-static void	*leak(char **spl, int j)
+static void	*stop_leak(char **out_tab, int j)
 {
 	j = j - 1;
-	while (spl[j])
+	while (out_tab[j])
 	{
-		free(spl[j]);
+		free(out_tab[j]);
 		j--;
 	}
-	free(spl);
+	free(out_tab);
 	return (NULL);
 }
 
-static int	carcts(char *str, char c)
+static int	word_len(char *str, char c)
 {
 	int			i;
 
 	i = 0;
 	while (str[i] && str[i] != c)
-	{
 		i++;
-	}
 	return (i);
 }
 
-static char	*allocandfill(char **tab, char *src, char c)
+static char	*allocandfill(char **out_tab, char *src, char c)
 {
 	int			i;
 	int			j;
@@ -68,21 +66,21 @@ static char	*allocandfill(char **tab, char *src, char c)
 	k = 0;
 	while (src[k] == c)
 		k++;
-	while (j < words(src, c))
+	while (j < words_count(src, c))
 	{
 		i = 0;
-		tab[j] = malloc(sizeof(char) * (carcts(&src[k], c) + 1));
-		if (!tab[j])
-			return (leak(tab, j));
+		out_tab[j] = (char *)malloc(sizeof(char) * (word_len(&src[k], c) + 1));
+		if (!out_tab[j])
+			return (stop_leak(out_tab, j));
 		while (src[k] != c && src[k])
-			tab[j][i++] = src[k++];
-		tab[j][i] = '\0';
+			out_tab[j][i++] = src[k++];
+		out_tab[j][i] = '\0';
 		while (src[k] == c && src[k])
 			k++;
 		j++;
 	}
-	tab[j] = NULL;
-	return (*tab);
+	out_tab[j] = NULL;
+	return (*out_tab);
 }
 
 char	**ft_split(char const *s, char c)
@@ -95,9 +93,12 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	str = (char *)s;
-	tab = malloc(sizeof(char *) * (words(str, c) + 1));
+	tab = (char **)malloc(sizeof(char *) * (words_count(str, c) + 1));
 	if (!tab)
+	{
+		free(tab);
 		return (NULL);
+	}
 	tab[j] = allocandfill(tab, str, c);
 	return (tab);
 }

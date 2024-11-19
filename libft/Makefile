@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/18 09:55:15 by plimbu            #+#    #+#              #
+#    Updated: 2024/11/18 09:55:29 by plimbu           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
 
 SRCS = ft_atoi.c ft_strlen.c ft_putstr_fd.c ft_putchar_fd.c ft_putnbr_fd.c \
@@ -42,7 +54,7 @@ so:
 		@${CC} -nostartfiles -shared -o libft.so ${OBJS} ${OBJSBNS}
 
 clean:
-		@${RM} ${OBJS} ${OBJSBNS}
+		@${RM} ${OBJS} ${OBJSBNS} *.out *.so
 		@echo "$(YELLOW)---Objects cleaned!---$(RESET)"
 
 fclean:	clean
