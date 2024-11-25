@@ -18,11 +18,11 @@ void test_ft_lstclear()
     t_list *list = ft_lstnew(strdup("First"));
     t_list *new2 = ft_lstnew(strdup("Second"));
     t_list *new3 = ft_lstnew(strdup("Third"));
-	t_list *new4 = ft_lstnew(strdup("Forth"));
+    t_list *new4 = ft_lstnew(strdup("Forth"));
 
     ft_lstadd_back(&list, new2);
     ft_lstadd_back(&list, new3);
-	ft_lstadd_back(&list, new4);
+    ft_lstadd_back(&list, new4);
 
     printf(BOLD BLUE "List before clearing:\n"RESET);
     t_list *node = list;
@@ -32,7 +32,7 @@ void test_ft_lstclear()
         node = node->next;
     }
 
-    ft_lstclear(&list, free);  
+    ft_lstclear(&list, free);
 
     printf(BOLD BLUE"List after clearing:\n"RESET);
     if (list == NULL)

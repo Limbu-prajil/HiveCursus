@@ -1,4 +1,3 @@
-
 CC = cc
 
 NAME = libftprintf.a
