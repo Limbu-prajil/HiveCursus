@@ -1,8 +1,5 @@
 #include "ft_printf.h"
 
-//%X
-//Convert a number to a uppercase hexadecimal
-
 int	ft_printf_hexupp(unsigned int num)
 {
 	char	*base;
