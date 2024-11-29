@@ -2,7 +2,7 @@
 
 //%x
 //Convert a number to a lowercase hexadecimal
-int	ft_printf_hexlow(unsigned long long num)
+int	ft_printf_hexlow(unsigned int num)
 {
 	char	*base;
 	int		count;

@@ -1,0 +1,120 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+*.pyo
+*.pyd
+*.out
+*.dSYM/
+*.egg
+*.egg-info/
+dist/
+build/
+*.manifest
+*.app
+*.log
+
+# Dependency directories #
+##########################
+node_modules/
+vendor/
+.bower_components/
+jspm_packages/
+
+# Temporary files #
+###################
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+*.~lock.*
+*.sass-cache/
+*.idea/
+*.vscode/
+*.code-workspace
+*.iml
+*.lock
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# OS or Editor-specific files #
+###############################
+Thumbs.db
+.DS_Store
+*.icloud
+*.ini
+*.tmp
+*.bak
+*.swp
+
+# Version control backups #
+###########################
+*.orig
+
+# Python-specific files #
+#########################
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+
+# Java-specific files #
+#######################
+*.class
+
+# Ruby-specific files #
+#######################
+*.gem
+.sass-cache/
+
+# PHP-specific files #
+######################
+*.phar
+
+# Package managers #
+####################
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and text editor configurations #
+######################################
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+# Environment files #
+#####################
+.env
+.env.local
+.env.*.local
+
+# Generated documentation #
+###########################
+/doc/
+/docs/
+
+# Archives #
+############
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Optional: Customize for your language or framework #
+
