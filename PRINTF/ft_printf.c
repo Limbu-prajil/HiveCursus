@@ -7,25 +7,32 @@ static int	ft_verify(char c, va_list args)
 	size = 0;
 	if (c == 'c')
 		size = ft_printf_char(va_arg(args, int));
+		return (size);
 	else if (c == 's')
 		size = ft_printf_string(va_arg(args, char *));
+		return (size);
 	else if (c == 'd' || c == 'i')
 		size = ft_printf_nbr(va_arg(args, int));
+		return (size);
 	else if (c == 'u')
 		size = ft_printf_unbr(va_arg(args, unsigned int));
+		return (size);
 	else if (c == 'x')
 		size = ft_printf_hexlow(va_arg(args, unsigned int));
+		return (size);
 	else if (c == 'X')
 		size = ft_printf_hexupp(va_arg(args, unsigned int));
+		return (size);
 	else if (c == '%')
-	{
-		ft_putchar_fd('%', 1);
-		size = 1;
-	}
+		size = ft_putchar_fd('%', 1);
+		return (size);
 	else if (c == 'p')
 		size = ft_printf_pointer(va_arg(args, void *));
-	return (size);
+	else
+		return (size);
 }
+
+static int	ft_check()
 
 static int	ft_write(const char *s, va_list args)
 {
@@ -34,16 +41,27 @@ static int	ft_write(const char *s, va_list args)
 
 	i = 0;
 	size = 0;
+	rtn = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
-			size += ft_verify(s[i + 1], args);
+			s = s[i + 1];
+			if (!s || s == ' ' || s != 'c' || s != 's' || s != 'd'
+				|| s != 'i' || s != 'u' || s != 'x' || s != 'X'
+					|| s != '%' || s != 'p')
+				return (-1);
+			rtn = ft_verify(s[i + 1], args);
+			if (rtn == -1)
+				return (-1);
+			size += rtn;
 			i += 2;
 		}
 		else
 		{
-			ft_putchar_fd(s[i], 1);
+			rtn = ft_putchar_fd(s[i], 1);
+			if (rtn == -1)
+				return (-1);
 			size++;
 			i++;
 		}
