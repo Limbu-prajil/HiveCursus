@@ -1,9 +1,18 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_char.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 11:07:09 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/30 11:07:13 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//%c
-//Function to print a character
+#include "ft_printf.h"
 
 int	ft_printf_char(char c)
 {
-	return(ft_putchar_fd(c, 1));
+	return (ft_putchar_fd(c, 1));
 }

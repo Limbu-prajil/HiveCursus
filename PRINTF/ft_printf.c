@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 11:09:14 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/30 11:09:21 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int	ft_verify(char c, va_list args)
+static int	ft_verify(const char c, va_list args)
 {
 	int	size;
 
@@ -28,32 +40,33 @@ static int	ft_check(const char s)
 {
 	if (!s || s == ' ' || s != 'c' || s != 's' || s != 'd'
 		|| s != 'i' || s != 'u' || s != 'x' || s != 'X'
-				|| s != '%' || s != 'p')
-		return (-1);
+		|| s != '%' || s != 'p')
+		return (-1);
+	return (0);
 }
 
 static int	ft_write(const char *str, va_list args)
 {
-	size_t		size;
+	int	size;
+	int	i;
 
 	size = 0;
-	while (str)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (str == '%')
+		if (str[i] == '%')
 		{
-			if (ft_check(str + 1) == -1)
+			if (ft_check(str[i + 1]) == -1 || ft_verify(str[i + 1], args) == -1)
 				return (-1);
-			if (ft_verify(str + 1, args) == -1)
-				return (-1);
-			size += ft_verify(str - 1, args);
-			str += 2;
+			size += ft_verify(str[i - 1], args);
+			i += 2;
 		}
 		else
 		{
-			if (ft_putchar_fd(str, 1) == -1)
+			if (ft_putchar_fd(str[i], 1) == -1)
 				return (-1);
 			size++;
-			str++;
+			i++;
 		}
 	}
 	return (size);

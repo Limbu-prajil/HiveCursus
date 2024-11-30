@@ -1,7 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_nbr.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 11:07:48 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/30 11:07:49 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//%d e %i
-//Print an integer decimal number
+#include "ft_printf.h"
 
 static int	get_size(int nb)
 {
