@@ -34,7 +34,8 @@ static int	get_size(int nb)
 
 int	ft_printf_nbr(int nb)
 {
-	ft_putnbr_fd(nb, 1);
+	if (ft_putnbr_fd(nb, 1) == -1)
+		return (-1);
 	if (nb == 0)
 		return (1);
 	return (get_size(nb));
