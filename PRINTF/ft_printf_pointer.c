@@ -20,17 +20,17 @@ int	ft_printf_pointer(void *ptr)
 	int					count;
 	int					hex_count;
 
-	count = 0;
 	address = (unsigned long long)ptr;
-	if (write(1, "0x", 2) != 2)
-		return (-1);
-	count += 2;
+	count = 0;
 	if (address == 0)
 	{
 		if (write(1, "(nil)", 5) != 5)
 			return (-1);
 		return (count + 5);
 	}
+	if (write(1, "0x", 2) != 2)
+		return (-1);
+	count += 2;
 	hex_count = ft_printf_hexlow(address);
 	if (hex_count == -1)
 		return (-1);

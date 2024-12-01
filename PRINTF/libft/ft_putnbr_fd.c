@@ -14,28 +14,25 @@
 
 int	ft_putnbr_fd(int n, int fd)
 {
-	int	a;
-	int	rtn;
 
-	a = n;
-	if (a < 0 || a == INT_MIN)
+	if (n == INT_MIN)
 	{
-		rtn = ft_putchar_fd('-', fd);
-		if (rtn == -1)
+		if (write(fd, "-2147483648", 11) != 11)
 			return (-1);
-		a = -n;
+		return (0);
 	}
-	if (a > 9)
+	if (n < 0)
 	{
-		if (ft_putnbr_fd((a / 10), fd) == -1)
+		if (ft_putchar_fd('-', fd) == -1)
 			return (-1);
-		if (ft_putchar_fd((a % 10) + '0', fd) == -1)
-			return (-1);
+		n = -n;
 	}
-	else
+	if (n > 9)
 	{
-		if (ft_putchar_fd(a + '0', fd) == -1)
+		if (ft_putnbr_fd(n / 10, fd) == -1)
 			return (-1);
 	}
+	if (ft_putchar_fd((n % 10) + '0', fd) == -1)
+		return (-1);
 	return (0);
 }

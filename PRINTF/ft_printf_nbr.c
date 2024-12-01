@@ -17,13 +17,15 @@ static int	get_size(int nb)
 	int	count;
 
 	count = 0;
-	if (nb == -2147483648)
+	if (nb == INT_MIN)
 		return (11);
 	if (nb < 0)
 	{
 		count++;
-		nb *= -1;
+		nb = -nb;
 	}
+	if (nb == 0)
+		return (1);
 	while (nb != 0)
 	{
 		nb = nb / 10;
