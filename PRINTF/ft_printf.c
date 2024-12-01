@@ -38,17 +38,31 @@ static int	ft_verify(const char c, va_list args)
 
 static int	ft_check(const char s)
 {
-	if (!s || s == ' ' || s != 'c' || s != 's' || s != 'd'
-		|| s != 'i' || s != 'u' || s != 'x' || s != 'X'
-		|| s != '%' || s != 'p')
+	if (s == '\0' && s == ' ' && s != 'c' && s != 's' && s != 'd'
+		&& s != 'i' && s != 'u' && s != 'x' && s != 'X'
+		&& s != '%' && s != 'p')
 		return (-1);
 	return (0);
+}
+
+static int	ft_handle_format(const char *str, int *i, va_list args)
+{
+	int	rtn;
+
+	if (ft_check(str[*i + 1]) == -1)
+		return (-1);
+	rtn = ft_verify(str[*i + 1], args);
+	if (rtn == -1)
+		return (-1);
+	*i += 2;
+	return (rtn);
 }
 
 static int	ft_write(const char *str, va_list args)
 {
 	int	size;
 	int	i;
+	int	rtn;
 
 	size = 0;
 	i = 0;
@@ -56,17 +70,16 @@ static int	ft_write(const char *str, va_list args)
 	{
 		if (str[i] == '%')
 		{
-			if (ft_check(str[i + 1]) == -1 || ft_verify(str[i + 1], args) == -1)
+			rtn = ft_handle_format(str, &i, args);
+			if (rtn == -1)
 				return (-1);
-			size += ft_verify(str[i - 1], args);
-			i += 2;
+			size += rtn;
 		}
 		else
 		{
-			if (ft_putchar_fd(str[i], 1) == -1)
+			if (ft_putchar_fd(str[i++], 1) == -1)
 				return (-1);
 			size++;
-			i++;
 		}
 	}
 	return (size);

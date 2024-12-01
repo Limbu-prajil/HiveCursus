@@ -18,15 +18,22 @@ int	ft_printf_pointer(void *ptr)
 {
 	unsigned long long	address;
 	int					count;
+	int					hex_count;
 
+	count = 0;
 	address = (unsigned long long)ptr;
-	write(1, "0x", 2);
-	count = 2;
+	if (write(1, "0x", 2) != 2)
+		return (-1);
+	count += 2;
 	if (address == 0)
 	{
-		write(1, "(nil)", 5);
+		if (write(1, "(nil)", 5) != 5)
+			return (-1);
 		return (count + 5);
 	}
-	count += ft_printf_hexlow(address);
+	hex_count = ft_printf_hexlow(address);
+	if (hex_count == -1)
+		return (-1);
+	count += hex_count;
 	return (count);
 }
