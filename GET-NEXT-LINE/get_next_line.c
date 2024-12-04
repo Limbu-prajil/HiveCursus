@@ -1,19 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Oceano <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 11:48:03 by Oceano            #+#    #+#             */
-/*   Updated: 2023/02/19 18:50:24 by utente           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "get_next_line.h"
+#include "./get_next_line.h"
 #include <stdlib.h>
-#include <stdio.h>//TODO
-
 /*
  * Polish linked list for next call
 */
@@ -43,7 +29,7 @@ void	polish_list(t_list **list)
 }
 
 /*
- * Get my (line\n] 
+ * Get my (line\n]
 */
 char	*get_line(t_list *list)
 {
@@ -83,9 +69,9 @@ void	append(t_list **list, char *buf)
 
 void	create_list(t_list **list, int fd)
 {
-	int		char_read;	
+	int		char_read;
 	char	*buf;
-
+	//printf("%p\n", list);
 	while (!found_newline(*list))
 	{
 		buf = malloc(BUFFER_SIZE + 1);
@@ -105,7 +91,7 @@ void	create_list(t_list **list, int fd)
 /*
  * Mother function
  * 	~Took a fildes
- * 	~Gives back the next_string 
+ * 	~Gives back the next_string
 */
 char	*get_next_line(int fd)
 {
@@ -114,6 +100,8 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
+	printf("%p\n", &list);
+	printf("%p\n", list);
 	create_list(&list, fd);
 	if (list == NULL)
 		return (NULL);
