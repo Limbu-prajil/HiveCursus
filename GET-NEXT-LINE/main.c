@@ -9,7 +9,7 @@ int main()
 
 	while ((line = get_next_line(fd)) != NULL) // Loop until all lines are read
 	{
-		printf("%s", line); // Print each line
+		printf("* %s", line); // Print each line
 		free(line);         // Free the memory allocated for the line
 	}
 

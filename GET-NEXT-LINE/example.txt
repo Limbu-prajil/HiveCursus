@@ -1,4 +1,2 @@
-This is a sample text.
-It contains nothing special that mean anything.
-This text file is to test the validity of get_next_line function.
-I hope it helps to learn the workflow of the function.
+This is a sample
+And this is another sample.

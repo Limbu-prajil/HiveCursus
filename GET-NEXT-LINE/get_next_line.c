@@ -71,7 +71,7 @@ void	create_list(t_list **list, int fd)
 {
 	int		char_read;
 	char	*buf;
-	//printf("%p\n", list);
+
 	while (!found_newline(*list))
 	{
 		buf = malloc(BUFFER_SIZE + 1);
@@ -100,12 +100,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
-	printf("%p\n", &list);
-	printf("%p\n", list);
 	create_list(&list, fd);
 	if (list == NULL)
 		return (NULL);
 	next_line = get_line(list);
+	printf("%s\n", "line");
 	polish_list(&list);
 	return (next_line);
 }
