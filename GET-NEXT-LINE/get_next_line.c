@@ -41,7 +41,6 @@ void	polish_list(t_list **list)
 	clean_node->next = NULL;
 	dealloc(list, clean_node, buf);
 }
-
 /*
  * Get my (line\n] 
 */
@@ -59,7 +58,6 @@ char	*get_line(t_list *list)
 	copy_str(list, next_str);
 	return (next_str);
 }
-
 /*
  * append one node
  * to the end of list
@@ -80,7 +78,6 @@ void	append(t_list **list, char *buf)
 	new_node->str_buf = buf;
 	new_node->next = NULL;
 }
-
 void	create_list(t_list **list, int fd)
 {
 	int		char_read;	
@@ -101,7 +98,6 @@ void	create_list(t_list **list, int fd)
 		append(list, buf);
 	}
 }
-
 /*
  * Mother function
  * 	~Took a fildes
