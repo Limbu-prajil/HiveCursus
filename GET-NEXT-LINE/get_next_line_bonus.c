@@ -1,22 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: utente <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 00:45:29 by utente            #+#    #+#             */
-/*   Updated: 2023/02/20 00:45:34 by utente           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line_bonus.h"
-#include <stdlib.h>
-#include <stdio.h>//TODO
 
-/*
- * Polish linked list for next call
-*/
 void	polish_list(t_list **list)
 {
 	t_list	*last_node;
@@ -41,10 +24,6 @@ void	polish_list(t_list **list)
 	clean_node->next = NULL;
 	dealloc(list, clean_node, buf);
 }
-
-/*
- * Get my (line\n]
-*/
 char	*get_line(t_list *list)
 {
 	int		str_len;
@@ -59,11 +38,6 @@ char	*get_line(t_list *list)
 	copy_str(list, next_str);
 	return (next_str);
 }
-
-/*
- * append one node
- * to the end of list
-*/
 void	append(t_list **list, char *buf, int fd)
 {
 	t_list	*new_node;
@@ -80,7 +54,6 @@ void	append(t_list **list, char *buf, int fd)
 	new_node->str_buf = buf;
 	new_node->next = NULL;
 }
-
 void	create_list(t_list **list, int fd)
 {
 	int		char_read;
@@ -101,12 +74,6 @@ void	create_list(t_list **list, int fd)
 		append(list, buf, fd);
 	}
 }
-
-/*
- * Mother function
- * 	~Taked a fildes
- * 	~Gives back the next_string
-*/
 char	*get_next_line(int fd)
 {
 	static t_list	*list[4096];
