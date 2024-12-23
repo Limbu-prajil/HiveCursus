@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Oceano <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 17:58:53 by Oceano            #+#    #+#             */
-/*   Updated: 2023/02/19 18:51:33 by utente           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
-#include <stdlib.h>
 
 int	found_newline(t_list *list)
 {
@@ -41,10 +28,7 @@ t_list	*find_last_node(t_list *list)
 		list = list->next;
 	return (list);
 }
-
-/*
- * Copy (string\n]
-*/
+//Copy (string\n]
 void	copy_str(t_list *list, char *str)
 {
 	int	i;
@@ -70,11 +54,7 @@ void	copy_str(t_list *list, char *str)
 	}
 	str[k] = '\0';
 }
-
-/*
- * find the len to new line in
- * my linked list
-*/
+//find the len to new line in linked list
 int	len_to_newline(t_list *list)
 {
 	int	i;
@@ -97,14 +77,10 @@ int	len_to_newline(t_list *list)
 			++len;
 		}
 		list = list->next;
-	}	
+	}
 	return (len);
 }
-
-/*
- * dealloc all from head
- * set heat->NULL
-*/
+//dealloc all from head and set head->NULL
 void	dealloc(t_list **list, t_list *clean_node, char *buf)
 {
 	t_list	*tmp;

@@ -1,22 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Oceano <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 11:48:03 by Oceano            #+#    #+#             */
-/*   Updated: 2023/02/19 18:50:24 by utente           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
-#include <stdlib.h>
-#include <stdio.h>//TODO
 
-/*
- * Polish linked list for next call
-*/
+//Polish linked list for next call
 void	polish_list(t_list **list)
 {
 	t_list	*last_node;
@@ -41,9 +25,13 @@ void	polish_list(t_list **list)
 	clean_node->next = NULL;
 	dealloc(list, clean_node, buf);
 }
+<<<<<<< HEAD
 /*
  * Get my (line\n] 
 */
+=======
+//Get my (line\n)
+>>>>>>> 3e1d048d7910ef49a00cdeb92ee5d28a071fff31
 char	*get_line(t_list *list)
 {
 	int		str_len;
@@ -58,10 +46,14 @@ char	*get_line(t_list *list)
 	copy_str(list, next_str);
 	return (next_str);
 }
+<<<<<<< HEAD
 /*
  * append one node
  * to the end of list
 */
+=======
+//append one node to the end of list
+>>>>>>> 3e1d048d7910ef49a00cdeb92ee5d28a071fff31
 void	append(t_list **list, char *buf)
 {
 	t_list	*new_node;
@@ -78,9 +70,13 @@ void	append(t_list **list, char *buf)
 	new_node->str_buf = buf;
 	new_node->next = NULL;
 }
+<<<<<<< HEAD
+=======
+//
+>>>>>>> 3e1d048d7910ef49a00cdeb92ee5d28a071fff31
 void	create_list(t_list **list, int fd)
 {
-	int		char_read;	
+	int		char_read;
 	char	*buf;
 
 	while (!found_newline(*list))
@@ -98,11 +94,15 @@ void	create_list(t_list **list, int fd)
 		append(list, buf);
 	}
 }
+<<<<<<< HEAD
 /*
  * Mother function
  * 	~Took a fildes
  * 	~Gives back the next_string 
 */
+=======
+//Takes a fildes and gives back the next_string
+>>>>>>> 3e1d048d7910ef49a00cdeb92ee5d28a071fff31
 char	*get_next_line(int fd)
 {
 	static t_list	*list = NULL;
