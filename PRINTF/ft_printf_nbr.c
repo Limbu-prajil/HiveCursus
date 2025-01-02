@@ -1,28 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf_nbr.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 11:07:48 by plimbu            #+#    #+#             */
-/*   Updated: 2024/11/30 11:07:49 by plimbu           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
+
+//%d e %i
+//Print an integer decimal number
 
 static int	get_size(int nb)
 {
 	int	count;
 
 	count = 0;
-	if (nb == INT_MIN)
+	if (nb == -2147483648)
 		return (11);
 	if (nb < 0)
 	{
 		count++;
-		nb = -nb;
+		nb *= -1;
 	}
 	if (nb == 0)
 		return (1);

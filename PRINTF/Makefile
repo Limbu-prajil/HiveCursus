@@ -5,8 +5,8 @@ NAME = libftprintf.a
 LIBFTNAME = libft.a
 
 MY_SOURCES = ft_printf.c ft_printf_char.c ft_printf_string.c \
-	ft_printf_nbr.c ft_printf_unbr.c ft_printf_hexlow.c \
-	ft_printf_pointer.c ft_printf_hexupp.c
+ft_printf_nbr.c ft_printf_unbr.c ft_printf_hexlow.c \
+ft_printf_pointer.c ft_printf_hexupp.c
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -34,5 +34,3 @@ fclean: clean
 	cd ./libft && make fclean
 
 re: fclean all
-
-.PHONY = all makelib clean clean re

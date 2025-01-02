@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf_hexupp.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 11:07:29 by plimbu            #+#    #+#             */
-/*   Updated: 2024/11/30 11:07:31 by plimbu           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
-int	ft_printf_hexupp(unsigned long long num)
+int	ft_printf_hexupp(unsigned int num)
 {
 	char	*base;
 	int		count;
