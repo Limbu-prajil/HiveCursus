@@ -17,7 +17,7 @@ int main()
     }
 
     // Read lines alternately from each file descriptor
-    for (int i = 0; i < 4; i++) // Adjust the loop count as needed
+    for (int i = 0; i < 11; i++) // Adjust the loop count as needed
     {
         // Read from fd1
         line = get_next_line(fd1);

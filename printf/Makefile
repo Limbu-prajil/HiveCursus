@@ -1,7 +1,5 @@
 CC = cc
 
-HDR = ft_printf.h
-
 NAME = libftprintf.a
 
 LIBFTNAME = libft.a
@@ -19,7 +17,7 @@ OBJS = ${SRCS:.c=.o}
 all: ${NAME}
 
 .c.o:
-	${CC} ${CFLAGS} -c $< -o $@ -I${HDR}
+	${CC} ${CFLAGS} -c $< -o $@
 
 makelib:
 	make -C ./libft

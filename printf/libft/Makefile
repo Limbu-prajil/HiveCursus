@@ -23,7 +23,7 @@ CC = cc
 RM = rm -f
 AR = ar -rcs
 CFLAGS = -Wall -Wextra -Werror
-HDR = libft.h
+
 
 .PHONY: all clean fclean re
 
@@ -33,7 +33,7 @@ $(NAME): ${OBJ}
 	${AR} ${NAME} ${OBJ}
 
 %.o: %.c
-	${CC} ${CFLAGS} -c $< -o $@ -I${HDR}
+	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
 	${RM} ${OBJ}
