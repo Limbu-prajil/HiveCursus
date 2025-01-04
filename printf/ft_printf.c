@@ -36,10 +36,36 @@ static int	ft_verify(const char c, va_list args)
 	return (size);
 }
 
+static int	ft_char_checker(const char c)
+{
+	char	alwd_chars[9];
+	int		i;
+
+	i = 0;
+	alwd_chars[0] = 'c';
+	alwd_chars[1] = 's';
+	alwd_chars[2] = 'p';
+	alwd_chars[3] = 'd';
+	alwd_chars[4] = 'i';
+	alwd_chars[5] = 'u';
+	alwd_chars[6] = 'x';
+	alwd_chars[7] = 'X';
+	alwd_chars[8] = '%';
+	while (i < 9)
+	{
+		if (c == alwd_chars[i])
+			return (0);
+		i++;
+	}
+	return (-1);
+}
+
 static int	ft_handle_format(const char *str, int *i, va_list args)
 {
 	int	rtn;
 
+	if (ft_char_checker(s[*i + 1]) == -1)
+		return (-1);
 	rtn = ft_verify(str[*i + 1], args);
 	if (rtn == -1)
 		return (-1);
