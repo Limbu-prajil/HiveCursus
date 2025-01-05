@@ -18,7 +18,7 @@ static int	ft_verify(const char c, va_list args)
 
 	size = 0;
 	if (c == 'c')
-		size = ft_printf_char(va_arg(args, int));
+		size = ft_printf_char((char) va_arg(args, int));
 	else if (c == 's')
 		size = ft_printf_string(va_arg(args, char *));
 	else if (c == 'd' || c == 'i')
@@ -26,9 +26,9 @@ static int	ft_verify(const char c, va_list args)
 	else if (c == 'u')
 		size = ft_printf_unbr(va_arg(args, unsigned int));
 	else if (c == 'x')
-		size = ft_printf_hexlow(va_arg(args, unsigned int));
+		size = ft_printf_hexlow(va_arg(args, unsigned long long));
 	else if (c == 'X')
-		size = ft_printf_hexupp(va_arg(args, unsigned int));
+		size = ft_printf_hexupp(va_arg(args, unsigned long long));
 	else if (c == '%')
 		size = ft_putchar_fd('%', 1);
 	else if (c == 'p')

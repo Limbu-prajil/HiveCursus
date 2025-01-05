@@ -1,12 +1,14 @@
 #include "ft_printf.h"
 
-static int	ft_print_counter(char c, va_list args)
+static int	ft_print_counter(const char c, va_list args)
 {
 	int	size;
 
 	size = 0;
 	if (c == 'c')
-		size = ft_printf_char(va_arg(args, int));
+		//char arguments are automatically promoted to int when passed to variadic funcs.
+		//Meaning actual type of the argument in the variadic function is int not char.
+		size = ft_printf_char((char) va_arg(args, int)); // Advances the VAL and retrieves the next argument from the VAL.
 	else if (c == 's')
 		size = ft_printf_string(va_arg(args, char *));
 	else if (c == 'd' || c == 'i')
@@ -14,9 +16,9 @@ static int	ft_print_counter(char c, va_list args)
 	else if (c == 'u')
 		size = ft_printf_unbr(va_arg(args, unsigned int));
 	else if (c == 'x')
-		size = ft_printf_hexlow(va_arg(args, unsigned int));
+		size = ft_printf_hexlow(va_arg(args, unsigned long long));
 	else if (c == 'X')
-		size = ft_printf_hexupp(va_arg(args, unsigned int));
+		size = ft_printf_hexupp(va_arg(args, unsigned long long));
 	else if (c == '%')
 		size = ft_putchar_fd('%', 1);
 	else if (c == 'p')
@@ -91,14 +93,14 @@ static int	ft_write(const char *s, va_list args)
 int	ft_printf(const char *s, ...)
 {
 	int		size;
-	va_list	args;
+	va_list	args; // a type that holds info about the location of the next argument in VAL
 
 	if (!s)
 		return (-1);
 	if (!ft_strchr(s, '%'))
 		return (ft_printf_string((char *)s));
-	va_start(args, s);
+	va_start(args, s); // Initialise the VAL with provided format
 	size = ft_write(s, args);
-	va_end(args);
+	va_end(args); // Reset the info in va_list
 	return (size);
 }
