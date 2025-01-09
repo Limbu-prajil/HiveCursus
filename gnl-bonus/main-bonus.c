@@ -18,7 +18,7 @@ int main()
     }
 
     // Read lines alternately from each file descriptor
-    for (int i = 0; i < 11; i++) // Adjust the loop count as needed
+    for (int i = 0; i < 20; i++) // Adjust the loop count as needed
     {
         // Read from fd3
         line = get_next_line(fd3);
@@ -43,6 +43,13 @@ int main()
             printf("FD5: %s", line);
             free(line);
         }
+        
+        /* line = get_next_line(0);
+        if (line)
+        {
+            printf("FD0: %s", line);
+            free(line);
+        } */
     }
 
     // Close all file descriptors

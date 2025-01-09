@@ -1,0 +1,12 @@
+First the variable argument list is declared
+
+str is checked if it is NULL or not, if NULL then return error
+
+str is checked if it contains % or not, if not then str is printed right away
+
+variable argument list is initialised with str
+
+In ft_write(), str is checked until end, if in loop it finds %specifier then NEXT CHAR which is next to % is handled and if in loop it does not find % then the char is printed as is.
+	In handle spec, we call char checker to check the next char if it falls within {cspdiuxX%}, if inside of the array then we continue, if not then we return error. Continuing we check if the next char is either of the chars in our array. With help of if blocks we call a function which matches for each next char. The function called with respective next char return number of char printed as size, if there is error then -1 is returned. Value of i is incremented by 2 to make sure our while loop checks next correct char.
+	Loop is continued until the end of str. At last, size is returned which is the total size of chars printed.
+

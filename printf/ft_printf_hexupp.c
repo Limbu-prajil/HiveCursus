@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_printf_hexupp(unsigned long long num)
+int	ft_printf_hexupp(unsigned long num)
 {
 	char	*base;
 	int		count;

@@ -16,9 +16,9 @@ static int	ft_print_counter(const char c, va_list args)
 	else if (c == 'u')
 		size = ft_printf_unbr(va_arg(args, unsigned int));
 	else if (c == 'x')
-		size = ft_printf_hexlow(va_arg(args, unsigned long long));
+		size = ft_printf_hexlow(va_arg(args, unsigned int));
 	else if (c == 'X')
-		size = ft_printf_hexupp(va_arg(args, unsigned long long));
+		size = ft_printf_hexupp(va_arg(args, unsigned int));
 	else if (c == '%')
 		size = ft_putchar_fd('%', 1);
 	else if (c == 'p')
@@ -50,20 +50,20 @@ static int	ft_char_checker(const char c)
 	return (-1);
 }
 
-static int	ft_format_handler(const char *s, int *i, va_list args)
+static int	ft_format_handler(const char *str, int *i, va_list args)
 {
 	int	rtn;
 
-	if (ft_char_checker(s[*i + 1]) == -1)
+	if (ft_char_checker(str[*i + 1]) == -1)
 		return (-1);
-	rtn = ft_print_counter(s[*i + 1], args);
+	rtn = ft_print_counter(str[*i + 1], args);
 	if (rtn == -1)
 		return (-1);
 	*i += 2;
 	return (rtn);
 }
 
-static int	ft_write(const char *s, va_list args)
+static int	ft_write(const char *str, va_list args)
 {
 	int	size;
 	int	i;
@@ -71,18 +71,18 @@ static int	ft_write(const char *s, va_list args)
 
 	size = 0;
 	i = 0;
-	while (s[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (s[i] == '%' && s[i + 1] != '\0' && s[i + 1] != ' ')
+		if (str[i] == '%' && str[i + 1] != '\0' && str[i + 1] != ' ')
 		{
-			rtn = ft_format_handler(s, &i, args);
+			rtn = ft_format_handler(str, &i, args);
 			if (rtn == -1)
 				return (-1);
 			size += rtn;
 		}
 		else
 		{
-			if (ft_putchar_fd(s[i++], 1) == -1)
+			if (ft_putchar_fd(str[i++], 1) == -1)
 				return (-1);
 			size++;
 		}
@@ -90,17 +90,17 @@ static int	ft_write(const char *s, va_list args)
 	return (size);
 }
 
-int	ft_printf(const char *s, ...)
+int	ft_printf(const char *str, ...)
 {
 	int		size;
 	va_list	args; // a type that holds info about the location of the next argument in VAL
 
-	if (!s)
+	if (!str)
 		return (-1);
-	if (!ft_strchr(s, '%'))
-		return (ft_printf_string((char *)s));
-	va_start(args, s); // Initialise the VAL with provided format
-	size = ft_write(s, args);
+	if (!ft_strchr(str, '%'))
+		return (ft_printf_string((char *)str));
+	va_start(args, str); // Initialise the VAL with provided format
+	size = ft_write(str, args);
 	va_end(args); // Reset the info in va_list
 	return (size);
 }
