@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/10 16:41:57 by plimbu            #+#    #+#             */
+/*   Updated: 2025/01/10 16:42:02 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 void	polish_list(t_list **list)
@@ -24,6 +36,7 @@ void	polish_list(t_list **list)
 	clean_node->next = NULL;
 	dealloc(list, clean_node, buf);
 }
+
 char	*get_line(t_list *list)
 {
 	int		str_len;
@@ -38,6 +51,7 @@ char	*get_line(t_list *list)
 	copy_str(list, next_str);
 	return (next_str);
 }
+
 void	append(t_list **list, char *buf, int fd)
 {
 	t_list	*new_node;
@@ -54,6 +68,7 @@ void	append(t_list **list, char *buf, int fd)
 	new_node->str_buf = buf;
 	new_node->next = NULL;
 }
+
 void	create_list(t_list **list, int fd)
 {
 	int		char_read;
@@ -74,6 +89,7 @@ void	create_list(t_list **list, int fd)
 		append(list, buf, fd);
 	}
 }
+
 char	*get_next_line(int fd)
 {
 	static t_list	*list[4096];
