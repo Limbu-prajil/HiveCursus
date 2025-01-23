@@ -1,1 +1,0 @@
-/home/plimbu/Desktop/42Cursus/libft/libft.h: OK!
