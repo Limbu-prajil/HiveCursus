@@ -5,7 +5,6 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -19,6 +18,7 @@ int		found_newline(t_list *list);
 t_list	*find_last_node(t_list *list);
 char	*get_line(t_list *list);
 void	copy_str(t_list *list, char *str);
+void	append(t_list **list, char *buf, int fd);
 int		len_to_newline(t_list *list);
 void	polish_list(t_list **list);
 char	*get_next_line(int fd);

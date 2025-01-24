@@ -76,10 +76,10 @@ void	create_list(t_list **list, int fd)
 }
 char	*get_next_line(int fd)
 {
-	static t_list	*list[4096];
+	static t_list	*list[42];
 	char			*next_line;
 
-	if (fd < 0 || fd > 4095 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || fd > 41 || BUFFER_SIZE <= 0)
 		return (NULL);
 	create_list(list, fd);
 	if (list[fd] == NULL)

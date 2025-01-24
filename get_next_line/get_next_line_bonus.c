@@ -15,14 +15,14 @@
 void	polish_list(t_list **list)
 {
 	t_list	*last_node;
-	t_list	*clean_node;
+	t_list	*node_ritend;
 	int		i;
 	int		k;
 	char	*buf;
 
 	buf = malloc(BUFFER_SIZE + 1);
-	clean_node = malloc(sizeof(t_list));
-	if (NULL == buf || NULL == clean_node)
+	node_ritend = malloc(sizeof(t_list));
+	if (NULL == buf || NULL == node_ritend)
 		return ;
 	last_node = find_last_node(*list);
 	i = 0;
@@ -32,9 +32,9 @@ void	polish_list(t_list **list)
 	while (last_node->str_buf[i] && last_node->str_buf[++i])
 		buf[k++] = last_node->str_buf[i];
 	buf[k] = '\0';
-	clean_node->str_buf = buf;
-	clean_node->next = NULL;
-	dealloc(list, clean_node, buf);
+	node_ritend->str_buf = buf;
+	node_ritend->next = NULL;
+	dealloc(list, node_ritend, buf);
 }
 
 char	*get_line(t_list *list)
@@ -80,7 +80,7 @@ void	create_list(t_list **list, int fd)
 		if (NULL == buf)
 			return ;
 		char_read = read(fd, buf, BUFFER_SIZE);
-		if (!char_read)
+		if (char_read <= 0)
 		{
 			free(buf);
 			return ;
@@ -92,10 +92,10 @@ void	create_list(t_list **list, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[4096];
+	static t_list	*list[5001];
 	char			*next_line;
 
-	if (fd < 0 || fd > 4095 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || fd > 5000 || BUFFER_SIZE <= 0)
 		return (NULL);
 	create_list(list, fd);
 	if (list[fd] == NULL)

@@ -4,16 +4,27 @@
 
 int main()
 {
-	int fd = open("./example.txt", O_RDONLY); // Open file for reading
-	char *line;
-	
+    // Open the file
+    //int fd = open("./example2.txt", O_RDONLY);
+    int fd = 4;
+    if (fd < 0) // Check if file opening failed
+    {
+        perror("Error opening file!");
+        return (1);
+    }
 
-	while ((line = get_next_line(fd)) != NULL) // Loop until all lines are read
-	{
-		printf("* %s", line); // Print each line
-		free(line);         // Free the memory allocated for the line
-	}
-
-	close(fd); // Close the file
-	return 0;
+    char *line;
+    while ((line = get_next_line(fd)) != NULL)
+    {
+     printf("%s", line);
+     free(line);
+    }
+    if (NULL == line)
+    {
+    	perror("EOF or Error reading file!");
+    	close(fd);
+    	return (1);
+    }
+    return (0);
 }
+

@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 // Prepare the list for the next call by removing processed nodes.
 void polish_list(t_list **list)
@@ -87,7 +88,7 @@ void create_list(t_list **list, int fd)
         if (buf == NULL) // If allocation fails, return.
             return;
 
-        char_read = read(fd, buf, BUFFER_SIZE); // Read data from the file.
+        char_read = read(fd, buf, BUFFER_SIZE); // Read data from the file into buf.
 
         if (char_read <= 0) // If EOF or error, free buffer and return.
         {
@@ -104,13 +105,12 @@ void create_list(t_list **list, int fd)
 // Main function to extract the next line from the file.
 char *get_next_line(int fd)
 {
-    static t_list *list = NULL; // Static variable to persist the linked list.
+    static t_list *list; // Static variable to persist the linked list.
     char *next_line;
-
-    // Validate file descriptor and buffer size.
-    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
-        return NULL;
-
+    
+    if (fd < 0 || BUFFER_SIZE <= 0)
+	return (NULL);
+  
     create_list(&list, fd); // Populate the list with data.
 
     if (list == NULL) // If the list is empty, return NULL.

@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 #include <stdlib.h>
 
-// Check if any node in the linked list contains a newline character.
+// Check if any node in the linked list contains a \n character.
 int found_newline(t_list *list)
 {
     int i;

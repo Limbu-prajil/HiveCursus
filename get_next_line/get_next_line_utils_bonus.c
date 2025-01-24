@@ -93,7 +93,7 @@ int	len_to_newline(t_list *list)
 	return (len);
 }
 
-void	dealloc(t_list **list, t_list *clean_node, char *buf)
+void	dealloc(t_list **list, t_list *node_ritend, char *buf)
 {
 	t_list	*tmp;
 
@@ -107,11 +107,11 @@ void	dealloc(t_list **list, t_list *clean_node, char *buf)
 		*list = tmp;
 	}
 	*list = NULL;
-	if (clean_node->str_buf[0])
-		*list = clean_node;
+	if (node_ritend->str_buf[0])
+		*list = node_ritend;
 	else
 	{
 		free(buf);
-		free(clean_node);
+		free(node_ritend);
 	}
 }
