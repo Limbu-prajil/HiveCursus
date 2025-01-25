@@ -5,7 +5,7 @@
 int main()
 {
     // Open the file
-    int fd = open("./example.txt", O_RDONLY);
+    int fd = open("./test.txt", O_RDONLY);
     //int fd = 0;
     
     if (fd < 0) // Check if file opening failed
