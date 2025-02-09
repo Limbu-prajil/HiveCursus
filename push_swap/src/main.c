@@ -6,10 +6,12 @@ int main(int argc, char **argv) {
     t_operation_list *ops;
 
     // Validate empty argument
-    if (argc == 1) {
+    if (argc == 1)
+    {
       printf("Usage: ./push_swap <list of ints>");
       return (0);
     }
+
     // Validate input
     if (!validate_input(argc, argv))
       handle_error();
@@ -23,9 +25,10 @@ int main(int argc, char **argv) {
 
     // Initialize stack_b
     stack_b = stack_init();
-    if (!stack_b) {
-        stack_free(stack_a);
-        handle_error();
+    if (!stack_b)
+    {
+      stack_free(stack_a);
+      handle_error();
     }
 
     // Initialize operation list

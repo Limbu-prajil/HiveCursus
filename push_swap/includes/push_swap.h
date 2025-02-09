@@ -6,7 +6,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
-# include "libft.h"    // Include libft header
+# include "libft.h"
 
 /* Define the structure for a stack node (using libft's t_list)
 typedef struct s_list {
