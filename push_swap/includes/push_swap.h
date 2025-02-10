@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdbool.h>
 
 typedef struct s_stack
 {
@@ -34,7 +35,6 @@ int     is_sorted(t_stack *stack);
 // Sorting
 void    sort_stack(t_stack **a, t_stack **b);
 void    sort_three(t_stack **a);
-void    sort_large(t_stack **a, t_stack **b);
 
 // Timsort utils
 void    insertion_sort(t_stack **a, int n);
@@ -44,7 +44,7 @@ void    timsort(t_stack **a, t_stack **b, int n);
 // Error handling
 void    error_exit(t_stack **a, t_stack **b);
 
-// Parsing
-int     is_valid_input(int ac, char **av);
+// Parsing and validation
+bool     is_valid_input(int ac, char **av);
 
 #endif

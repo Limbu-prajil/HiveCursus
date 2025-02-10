@@ -1,5 +1,4 @@
 #include "../includes/push_swap.h"
-#include "../libft/libft.h"
 
 int main(int ac, char **av)
 {
@@ -12,8 +11,12 @@ int main(int ac, char **av)
         error_exit(NULL, NULL);
     a = create_stack(ac, av);
     b = NULL;
-    if (!is_sorted(a))
-        sort_stack(&a, &b);
+    if (is_sorted(a))
+    {
+        free_stack(&a);
+        return (0);
+    }
+    sort_stack(&a, &b);
     free_stack(&a);
     free_stack(&b);
     return (0);
