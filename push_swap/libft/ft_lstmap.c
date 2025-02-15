@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-t_list	*ft_lsapply(t_list *l, t_list *s, void *(*f)(void *), void (*d)(void *))
+t_stack	*ft_lsapply(t_stack *l, t_stack *s, int (f)(int), int (d)(int))
 {
 	if (l)
 	{
-		s = ft_lstnew(f(l->content));
+		s = ft_lstnew(f(l->value));
 		if (!s)
 		{
 			ft_lstclear(&s, d);
@@ -27,9 +27,9 @@ t_list	*ft_lsapply(t_list *l, t_list *s, void *(*f)(void *), void (*d)(void *))
 	return (s);
 }
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_stack	*ft_lstmap(t_stack *lst, int (f)(int), int (del)(int))
 {
-	t_list	*start;
+	t_stack	*start;
 
 	start = NULL;
 	start = ft_lsapply(lst, start, f, del);

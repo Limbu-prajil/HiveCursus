@@ -16,10 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_list {
-  void *content;
-  struct s_list *next;
-} t_list;
+typedef struct s_stack
+{
+    int             value;
+    struct s_stack  *next;
+} t_stack;
 
 size_t		ft_strlen(const char *s);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
@@ -35,15 +36,15 @@ void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
 void		*ft_memchr(const void *s, int c, size_t n);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-void    ft_lstadd_back(t_list **lst, t_list *new_node);
-void    ft_lstadd_front(t_list **lst, t_list *new_node);
-void    ft_lstclear(t_list **lst, void (*del)(void*));
-void    ft_lstdelone(t_list *lst, void (*del)(void*));
-void    ft_lstiter(t_list *lst, void (*f)(void *));
-t_list  *ft_lstlast(t_list *lst);
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-t_list  *ft_lstnew(void *value);
-int     ft_lstsize(t_list *lst);
+void    ft_lstadd_back(t_stack **lst, t_stack *new_node);
+void    ft_lstadd_front(t_stack **lst, t_stack *new_node);
+void    ft_lstclear(t_stack **lst, int (del)(int));
+void    ft_lstdelone(t_stack *lst, int (del)(int));
+void    ft_lstiter(t_stack *lst, void (*f)(int));
+t_stack  *ft_lstlast(t_stack *lst);
+t_stack	*ft_lstmap(t_stack *lst, int (f)(int), int (del)(int));
+t_stack  *ft_lstnew(int value);
+int     ft_lstsize(t_stack *lst);
 char		*ft_strrchr(const char *s, int c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s);

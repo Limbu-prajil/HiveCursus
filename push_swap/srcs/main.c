@@ -1,5 +1,5 @@
 #include "../includes/push_swap.h"
-#include "../libft/libft.h"
+#include <stdio.h>
 
 void    print_stack_vertical(t_stack *stack, const char *stack_name)
 {
@@ -12,6 +12,13 @@ void    print_stack_vertical(t_stack *stack, const char *stack_name)
         stack = stack->next;
     }
     write(1, "\n", 1);
+}
+
+int last_node(t_stack *stack)
+{
+    while (stack->next)
+        stack = stack->next;
+    return (stack->value);
 }
 
 int main(int ac, char **av)
@@ -31,6 +38,7 @@ int main(int ac, char **av)
 
     write(1, "Before sorting:\n", 16);
     print_stack_vertical(a, "Stack a");
+    printf("%d\n", last_node(a));
 
     if (is_sorted(a))
     {

@@ -1,5 +1,4 @@
 #include "../includes/push_swap.h"
-# include "../libft/libft.h"
 
 t_stack *get_node(t_stack *stack, int index)
 {
@@ -17,7 +16,7 @@ t_stack *get_node(t_stack *stack, int index)
 t_stack *create_stack(int ac, char **av)
 {
     t_stack *stack;
-    t_stack *new;
+    t_stack *new_node;
     int     i;
     int     j;
     char    **split;
@@ -33,12 +32,12 @@ t_stack *create_stack(int ac, char **av)
         j = 0;
         while (split[j])
         {
-            new = (t_stack *)malloc(sizeof(t_stack));
-            if (!new)
+            new_node = (t_stack *)malloc(sizeof(t_stack));
+            if (!new_node)
                 error_exit(&stack, NULL);
-            new->value = ft_atoi(split[j]);
-            new->next = stack;
-            stack = new;
+            new_node->value = ft_atoi(split[j]);
+            new_node->next = NULL;
+            ft_lstadd_back(&stack, new_node);
             j++;
         }
         i++;

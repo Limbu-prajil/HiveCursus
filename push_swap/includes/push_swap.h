@@ -5,12 +5,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdbool.h>
-
-typedef struct s_stack
-{
-    int             value;
-    struct s_stack  *next;
-} t_stack;
+# include "../libft/libft.h"
 
 // stack_operations.c
 void    sa(t_stack **a);
@@ -51,6 +46,5 @@ bool     is_valid_input(int ac, char **av);
 
 // main.c
 void    print_stack_vertical(t_stack *stack, const char *stack_name);
-
 
 #endif

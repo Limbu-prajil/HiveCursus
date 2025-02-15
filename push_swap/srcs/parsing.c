@@ -1,5 +1,4 @@
 #include "../includes/push_swap.h"
-# include "../libft/libft.h"
 
 bool is_integer(const char *str)
 {
