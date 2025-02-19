@@ -39,6 +39,8 @@ void    pa(t_stack **a, t_stack **b)
 {
     t_stack *tmp;
 
+    if (!*b)
+        return ;
     if (*b)
     {
         tmp = *b;
@@ -53,6 +55,8 @@ void    pb(t_stack **a, t_stack **b)
 {
     t_stack *tmp;
 
+    if (!*a)
+        return ;
     if (*a)
     {
         tmp = *a;

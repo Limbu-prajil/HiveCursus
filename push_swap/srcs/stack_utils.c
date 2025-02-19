@@ -32,11 +32,9 @@ t_stack *create_stack(int ac, char **av)
         j = 0;
         while (split[j])
         {
-            new_node = (t_stack *)malloc(sizeof(t_stack));
+            new_node = ft_lstnew(ft_atoi(split[j]));
             if (!new_node)
                 error_exit(&stack, NULL);
-            new_node->value = ft_atoi(split[j]);
-            new_node->next = NULL;
             ft_lstadd_back(&stack, new_node);
             j++;
         }
