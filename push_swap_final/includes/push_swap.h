@@ -3,6 +3,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include "libft.h"
 
 typedef struct s_stack
@@ -38,7 +39,7 @@ int		validate_args(int argc, char **argv);
 void	sort_stack(t_stack **a, t_stack **b);
 
 // Timsort
-void	timsort(t_stack **a, t_stack **b);
+void	optimized_sort(t_stack **a, t_stack **b);
 
 // Utilities
 void	error_exit(void);
