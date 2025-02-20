@@ -1,36 +1,48 @@
 NAME = push_swap
 
-SRCS = srcs/main.c srcs/stack_operations.c srcs/stack_utils.c srcs/sort.c\
-	srcs/error_handling.c srcs/parsing.c\
+SRC_DIR = srcs
+OBJ_DIR = obj
+INC_DIR = includes
+LIBFT_DIR = libft
+PRINTF_DIR = printf
 
-OBJS = $(SRCS:.c=.o)
+SRC = $(SRC_DIR)/main.c \
+	$(SRC_DIR)/error.c \
+	$(SRC_DIR)/stack_utils.c \
+	$(SRC_DIR)/parsing.c \
+	$(SRC_DIR)/sorting/sort_more.c \
+	$(SRC_DIR)/sorting/sort_stack.c \
+	$(SRC_DIR)/sorting/sort_three.c \
+	$(SRC_DIR)/operations/swap.c \
+	$(SRC_DIR)/operations/push.c \
+	$(SRC_DIR)/operations/rotate.c \
+	$(SRC_DIR)/operations/rev_rotate.c
+OBJ = $(SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
-
-.PHONY: all clean fclean re
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR)/$(INC_DIR)
 
 all: $(NAME)
 
-%.o: %.c
+$(NAME): $(OBJ)
+	make -C $(LIBFT_DIR)
+	make -C $(PRINTF_DIR)
+	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf -o $(NAME)
+
+$(OBJ_DIR)/%.o: $(SRC)
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-
-
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft
-
 clean:
-	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
+	make -C $(PRINTF_DIR) clean
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
 	make -C $(LIBFT_DIR) fclean
+	make -C $(PRINTF_DIR) fclean
+	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

@@ -1,17 +1,4 @@
-#include "../includes/push_swap.h"
-
-t_stack *get_node(t_stack *stack, int index)
-{
-    int i;
-
-    i = 0;
-    while (i < index && stack)
-    {
-        stack = stack->next;
-        i++;
-    }
-    return (stack);
-}
+#include "push_swap.h"
 
 t_stack *create_stack(int ac, char **av)
 {
