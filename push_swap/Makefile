@@ -17,7 +17,7 @@ SRC = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/operations/push.c \
 	$(SRC_DIR)/operations/rotate.c \
 	$(SRC_DIR)/operations/rev_rotate.c
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR)/$(INC_DIR)
@@ -29,8 +29,8 @@ $(NAME): $(OBJ)
 	make -C $(PRINTF_DIR)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC)
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

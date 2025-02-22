@@ -5,10 +5,10 @@ int get_chunk_size(int size)
 {
     if (size <= 10) return 2;
     if (size <= 50) return 5;
-    if (size <= 100) return 10;
-    if (size <= 250) return 20;
-    if (size <= 500) return 30;
-    return 40;
+    if (size <= 100) return 18;
+    if (size <= 250) return 25;
+    if (size <= 500) return 40;
+    return 50;
 }
 
 // Copy stack values into an array
@@ -72,11 +72,10 @@ int *find_pivots(t_stack *a, int size, int chunk_size)
 }
 
 // Push chunks to B with minimal rotations
-void push_chunks_to_b(t_stack **a, t_stack **b, int *pivots, int size, int chunk_size)
+void push_chunks_to_b(t_stack **a, t_stack **b, int *pivots, int num_chunks, int chunk_size)
 {
     if (!pivots || !(*a)) return;
 
-    int num_chunks = size / chunk_size;
     for (int i = 0; i < num_chunks; i++)
     {
         int moves = 0;
@@ -131,15 +130,17 @@ void merge_sorted_to_a(t_stack **a, t_stack **b)
 {
     while (*b)
     {
-        int target = find_max(*b);
-        int pos = find_position(*b, target);
+        int max_value = find_max(*b);
+        int pos = find_position(*b, max_value);
+        int size_b = stack_size(*b);
+        
         if (pos == -1) break;
 		// Rotate B in the optimal direction
-        if (pos <= stack_size(*b) / 2)
-            while (*b && (*b)->value != target)
+        if (pos <= size_b / 2)
+            while (*b && (*b)->value != max_value)
                 rb(b);
         else
-            while (*b && (*b)->value != target)
+            while (*b && (*b)->value != max_value)
                 rrb(b);
         if (*b) pa(a, b);
     }
@@ -149,16 +150,15 @@ void merge_sorted_to_a(t_stack **a, t_stack **b)
 void sort_algo(t_stack **a, t_stack **b)
 {
     int size = stack_size(*a);
-    if (size <= 1 || !(*a)) return;
+    if (size <= 1 || is_sorted(*a) || !(*a)) return;
 
     int chunk_size = get_chunk_size(size);
+    int num_chunks = size / chunk_size;
     int *pivots = find_pivots(*a, size, chunk_size);
     if (!pivots) return;
 
-    push_chunks_to_b(a, b, pivots, size, chunk_size);
+    push_chunks_to_b(a, b, pivots, num_chunks, chunk_size);
     free(pivots);
 
     merge_sorted_to_a(a, b);
 }
-
-
