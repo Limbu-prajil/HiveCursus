@@ -22,7 +22,6 @@ int main(int ac, char **av)
         return (0);
     }
     print_stack(a, "Stack A (Initial)");
-
     push_swap_sort(&a, &b);
     print_stack(a, "Stack A (Sorted)");
 

@@ -18,10 +18,10 @@ t_stack *find_min(t_stack *a);
 void move_to_top(t_stack **a, t_stack *min_node);
 
 // parsing
-int     is_sorted(t_stack *stack);
-bool    is_integer(const char *str);
+bool     is_sorted(t_stack *stack);
+bool    not_integer(const char *str);
 bool    is_duplicate(t_stack *stack, int value);
-bool    is_within_int_range(const char *str);
+bool    not_within_int_range(const char *str);
 bool    not_valid_input(int ac, char **av);
 
 // stack_utils

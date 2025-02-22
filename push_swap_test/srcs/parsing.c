@@ -1,17 +1,17 @@
 #include "push_swap.h"
 
-int    is_sorted(t_stack *stack)
+bool    is_sorted(t_stack *stack)
 {
     while (stack && stack->next)
     {
         if (stack->value > stack->next->value)
-            return (0);
+            return (false);
         stack = stack->next;
     }
-    return (1);
+    return (true);
 }
 
-bool is_integer(const char *str)
+bool not_integer(const char *str)
 {
     int i;
 
@@ -19,14 +19,24 @@ bool is_integer(const char *str)
     if (str[i] == '-' || str[i] == '+')
         i++;
     if (!str[i])
-        return (false);
+        return (true);
     while (str[i])
     {
         if (!ft_isdigit(str[i]))
-            return (false);
+            return (true);
         i++;
     }
-    return (true);
+    return (false);
+}
+
+bool not_within_int_range(const char *str)
+{
+    long num;
+
+    num = ft_atol(str);
+    if (num < INT_MIN || num > INT_MAX)
+        return (true);
+    return (false);
 }
 
 bool is_duplicate(t_stack *stack, int value)
@@ -38,16 +48,6 @@ bool is_duplicate(t_stack *stack, int value)
         stack = stack->next;
     }
     return (false);
-}
-
-bool is_within_int_range(const char *str)
-{
-    long num;
-
-    num = ft_atol(str);
-    if (num < INT_MIN || num > INT_MAX)
-        return (false);
-    return (true);
 }
 
 bool    not_valid_input(int ac, char **av)
@@ -62,12 +62,12 @@ bool    not_valid_input(int ac, char **av)
     while (i < ac)
     {
         split = ft_split(av[i]);
-        if (!split)
+        if (!split[0])
             return (true);
         j = 0;
         while (split[j])
         {
-            if (!is_integer(split[j]) || !is_within_int_range(split[j]))
+            if (not_integer(split[j]) || not_within_int_range(split[j]))
             {
                 free_stack(&stack);
                 return (true);

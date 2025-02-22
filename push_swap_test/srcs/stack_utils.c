@@ -37,7 +37,7 @@ t_stack *create_stack(int ac, char **av)
     t_stack *a;
     t_stack *new_node;
     int     i;
-    int     j;
+    int     len;
     char    **split;
 
     a = NULL;
@@ -47,14 +47,16 @@ t_stack *create_stack(int ac, char **av)
         split = ft_split(av[i]);
         if (!split)
             error_exit(&a, NULL);
-        j = 0;
-        while (split[j])
+        len= 0;
+        while (split[len])
+            len++;
+        while (len > 0)
         {
-            new_node = ft_lstnew(ft_atoi(split[j]));
+            new_node = ft_lstnew(ft_atoi(split[len - 1]));
             if (!new_node)
                 error_exit(&a, NULL);
             ft_lstadd_front(&a, new_node);
-            j++;
+            len--;
         }
         i--;
     }
