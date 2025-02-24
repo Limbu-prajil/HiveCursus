@@ -1,43 +1,42 @@
 NAME = push_swap
 
-SRC_DIR = src
-SRC = $(SRC_DIR)/main.c \
-	$(SRC_DIR)/operations_utils.c \
-	$(SRC_DIR)/stack_utils.c \
-	$(SRC_DIR)/input_utils.c \
-	$(SRC_DIR)/sorting/simple_case.c \
-	$(SRC_DIR)/sorting/medium_case.c \
-	$(SRC_DIR)/operations/swap.c \
-	$(SRC_DIR)/operations/push.c \
-	$(SRC_DIR)/operations/rotate.c \
-	$(SRC_DIR)/operations/reverse_rotate.c
-
-OBJ = $(SRC:.c=.o)
-
+SRC_DIR = srcs
+OBJ_DIR = obj
+INC_DIR = includes
 LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF_DIR = printf
+
+SRCS = $(SRC_DIR)/main.c \
+		$(SRC_DIR)/stack_utils.c \
+		$(SRC_DIR)/parsing.c \
+		$(SRC_DIR)/sorting/push_swap_sort.c \
+		$(SRC_DIR)/operations/push.c \
+
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes -I$(LIBFT_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR)/$(INC_DIR) -I$(PRINTF_DIR)/$(INC_DIR)
 
 all: $(NAME)
 
-%.o: %.c
-		${CC} ${CFLAGS} -c $< -o $@
+$(NAME): $(OBJS)
+	make -C $(LIBFT_DIR)
+	make -C $(PRINTF_DIR)
+	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf -o $(NAME)
 
-$(LIBFT):
-		make -C $(LIBFT_DIR)
-
-$(NAME): $(OBJ) $(LIBFT)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFT_DIR) -lft
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-		rm -f $(OBJ)
-		make -C $(LIBFT_DIR) clean
+	make -C $(LIBFT_DIR) clean
+	make -C $(PRINTF_DIR) clean
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-		rm -f $(NAME)
-		make -C $(LIBFT_DIR) fclean
+	make -C $(LIBFT_DIR) fclean
+	make -C $(PRINTF_DIR) fclean
+	rm -f $(NAME)
 
 re: fclean all
 

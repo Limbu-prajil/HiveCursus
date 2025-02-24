@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 #include "../includes/push_swap.h"
 #include "../libft/libft.h"
+=======
+#include "push_swap.h"
+>>>>>>> 8ecde523285e98afb0b452b4f0a0c3ac8970f57d
 
-static bool is_integer(const char *str)
+bool is_integer(const char *str)
 {
     int i;
 
@@ -19,7 +23,7 @@ static bool is_integer(const char *str)
     return (true);
 }
 
-static bool is_duplicate(t_stack *stack, int value)
+bool is_duplicate(t_stack *stack, int value)
 {
     while (stack)
     {
@@ -30,7 +34,7 @@ static bool is_duplicate(t_stack *stack, int value)
     return (false);
 }
 
-static bool is_within_int_range(const char *str)
+bool is_within_int_range(const char *str)
 {
     long num;
 
@@ -51,7 +55,8 @@ bool    is_valid_input(int ac, char **av)
     i = 1;
     while (i < ac)
     {
-        split = ft_split(av[i], ' ');
+        split = ft_split(av[i]);
+        //split = ft_split_del(av[i], ' ');
         if (!split)
             return (false);
         j = 0;

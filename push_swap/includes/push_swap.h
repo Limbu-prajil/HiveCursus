@@ -5,14 +5,9 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdbool.h>
+# include "libft.h"
 
-typedef struct s_stack
-{
-    int             value;
-    struct s_stack  *next;
-} t_stack;
-
-// Stack operations
+// operations
 void    sa(t_stack **a);
 void    sb(t_stack **b);
 void    ss(t_stack **a, t_stack **b);
@@ -25,26 +20,33 @@ void    rra(t_stack **a);
 void    rrb(t_stack **b);
 void    rrr(t_stack **a, t_stack **b);
 
-// Stack utils
+// sorting
+void    sort_stack(t_stack **a, t_stack **b);
+void    sort_three(t_stack **a);
+void    sort_algo(t_stack **a, t_stack **b);
+int get_chunk_size(int size);
+int *copy_stack_to_array(t_stack *a, int size);
+void    swap(int *a, int *b);
+void    quick_sort(int *arr, int low, int high);
+int *find_pivots(t_stack *a, int size, int chunk_size);
+void    push_chunks_to_b(t_stack **a, t_stack **b, int *pivots, int size, int chunk_size);
+int find_max(t_stack *b);
+int find_position(t_stack *b, int target);
+void    merge_sorted_to_a(t_stack **a, t_stack **b);
+
+// error
+void    error_exit(t_stack **a, t_stack **b);
+
+// parsing
+bool    is_integer(const char *str);
+bool    is_duplicate(t_stack *stack, int value);
+bool    is_within_int_range(const char *str);
+bool    is_valid_input(int ac, char **av);
+
+// stack_utils
 t_stack *create_stack(int ac, char **av);
-t_stack *get_node(t_stack *stack, int index);
 void    free_stack(t_stack **stack);
 int     stack_size(t_stack *stack);
 int     is_sorted(t_stack *stack);
-
-// Sorting
-void    sort_stack(t_stack **a, t_stack **b);
-void    sort_three(t_stack **a);
-
-// Timsort utils
-void    insertion_sort(t_stack **a, int n);
-void    merge(t_stack **a, t_stack **b, int l, int m, int r);
-void    timsort(t_stack **a, t_stack **b, int n);
-
-// Error handling
-void    error_exit(t_stack **a, t_stack **b);
-
-// Parsing and validation
-bool     is_valid_input(int ac, char **av);
 
 #endif

@@ -1,77 +1,33 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdio.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <limits.h>
 # include <stdbool.h>
 # include "libft.h"
+# include "ft_printf.h"
 
-/* Define the structure for a stack node (using libft's t_list)
-typedef struct s_list {
-    void *content;              // Pointer to integer stored in the node
-    struct s_list *next;        // Pointer to the next node
-} t_list; */
+// operations
+void push_b(t_stack **from, t_stack **to);
+void push_a(t_stack **from, t_stack **to);
 
-// Define the structure for a stack
-typedef struct s_stack {
-    t_list *head;               // Pointer to the top of the stack
-    t_list *tail;               // Pointer to the bottom of the stack
-    int size;                   // Number of elements in the stack
-} t_stack;
+// sorting
+void push_swap_sort(t_stack **a, t_stack **b);
+t_stack *find_min(t_stack *a);
+void move_to_top(t_stack **a, t_stack *min_node);
 
-// Define the structure for an operation
-typedef struct s_operation {
-    char *name;                  // Name of the operation (e.g., "sa", "pb", "ra")
-    struct s_operation *next;    // Pointer to the next operation
-} t_operation;
+// parsing
+bool     is_sorted(t_stack *stack);
+bool    not_integer(const char *str);
+bool    is_duplicate(t_stack *stack, int value);
+bool    not_within_int_range(const char *str);
+bool    not_valid_input(int ac, char **av);
 
-// Define the structure for a list of operations
-typedef struct s_operation_list {
-    t_operation *head;           // Pointer to the first operation
-    t_operation *tail;           // Pointer to the last operation
-    int size;                    // Number of operations
-} t_operation_list;
-
-// Stack utility functions
-t_stack *stack_init(void);
-void stack_push(t_stack *stack, int value);
-int stack_pop(t_stack *stack);
-bool stack_is_empty(t_stack *stack);
-void stack_free(t_stack *stack);
-int stack_peek(t_stack *stack);
-bool stack_is_sorted(t_stack *stack);
-
-// Input validation and parsing
-bool validate_input(int argc, char **argv);
-t_stack *parse_input(int argc, char **argv);
-
-// Error handling
-void handle_error(void);
-
-// Sorting algorithms
-void handle_simple_case(t_stack *stack_a, t_operation_list *ops);
-void handle_medium_case(t_stack *stack_a, t_stack *stack_b, t_operation_list *ops);
-
-// Operations for stack
-void sa(t_stack *stack_a, t_operation_list *ops);
-void sb(t_stack *stack_b, t_operation_list *ops);
-void ss(t_stack *stack_a, t_stack *stack_b, t_operation_list *ops);
-void pa(t_stack *stack_a, t_stack *stack_b, t_operation_list *ops);
-void pb(t_stack *stack_a, t_stack *stack_b, t_operation_list *ops);
-void ra(t_stack *stack_a, t_operation_list *ops);
-void rb(t_stack *stack_b, t_operation_list *ops);
-void rr(t_stack *stack_a, t_stack *stack_b, t_operation_list *ops);
-void rra(t_stack *stack_a, t_operation_list *ops);
-void rrb(t_stack *stack_b, t_operation_list *ops);
-void rrr(t_stack *stack_a, t_stack *stack_b, t_operation_list *ops);
-
-// Operation list functions
-t_operation *create_operation(char *name);
-t_operation_list *init_operation_list(void);
-void add_operation(t_operation_list *list, char *name);
-void print_operations(t_operation_list *list);
-void free_operation_list(t_operation_list *list);
+// stack_utils
+t_stack *create_stack(int ac, char **av);
+void    free_stack(t_stack **stack);
+void    error_exit(t_stack **a, t_stack **b);
+void    print_stack(t_stack *stack, char *name);
 
 #endif
