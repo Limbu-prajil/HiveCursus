@@ -1,18 +1,5 @@
 #include "../includes/push_swap.h"
 
-void    sort_stack(t_stack **a, t_stack **b)
-{
-    int size;
-
-    size = stack_size(*a);
-    if (size == 2)
-        sa(a);
-    else if (size == 3)
-        sort_three(a);
-    else
-        timsort(a, b, size);
-}
-
 void    sort_three(t_stack **a)
 {
     if ((*a)->value > (*a)->next->value && (*a)->value > (*a)->next->next->value)
@@ -116,4 +103,17 @@ void    timsort(t_stack **a, t_stack **b, int n)
         }
         run *= 2;
     }
+}
+
+void    sort_stack(t_stack **a, t_stack **b)
+{
+    int size;
+
+    size = stack_size(*a);
+    if (size == 2)
+        sa(a);
+    else if (size == 3)
+        sort_three(a);
+    else
+        timsort(a, b, size);
 }
