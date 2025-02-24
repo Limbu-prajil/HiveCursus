@@ -12,6 +12,17 @@
 
 #include "push_swap.h"
 
+bool	is_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
+}
+
 bool	not_integer(const char *str)
 {
 	int	i;
@@ -51,44 +62,43 @@ bool	is_duplicate(t_stack *stack, int value)
 	return (false);
 }
 
-static bool	check_duplicate_and_push(t_stack **stack, const char *str)
-{
-	t_stack	*new;
-	int		value;
-
-	if (not_integer(str) || not_within_int_range(str))
-		return (true);
-	value = ft_atoi(str);
-	if (is_duplicate(*stack, value))
-		return (true);
-	new = (t_stack *)malloc(sizeof(t_stack));
-	if (!new)
-		return (true);
-	new->value = value;
-	new->next = *stack;
-	*stack = new;
-	return (false);
-}
-
 bool	not_valid_input(int ac, char **av)
 {
 	int		i;
 	int		j;
 	char	**split;
 	t_stack	*stack;
+	t_stack	*new;
 
 	stack = NULL;
 	i = 1;
 	while (i < ac)
 	{
 		split = ft_split(av[i]);
-		if (!split || !split[0])
-			return (free_stack(&stack), true);
+		if (!split[0])
+			return (true);
 		j = 0;
 		while (split[j])
 		{
-			if (check_duplicate_and_push(&stack, split[j]))
-				return (free_stack(&stack), true);
+			if (not_integer(split[j]) || not_within_int_range(split[j]))
+			{
+				free_stack(&stack);
+				return (true);
+			}
+			if (is_duplicate(stack, ft_atoi(split[j])))
+			{
+				free_stack(&stack);
+				return (true);
+			}
+			new = (t_stack *)malloc(sizeof(t_stack));
+			if (!new)
+			{
+				free_stack(&stack);
+				return (true);
+			}
+			new->value = ft_atoi(split[j]);
+			new->next = stack;
+			stack = new;
 			j++;
 		}
 		i++;

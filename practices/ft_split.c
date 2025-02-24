@@ -10,10 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define WD_NUM 1000
 #define WD_LEN 1000
+
+static void free_tab(char **tab)
+{
+    int i;
+
+    i = 0;
+    while (tab[i])
+    {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
+}
 
 static void	*stop_leak(char **tab, int j)
 {
@@ -37,7 +51,7 @@ static char	*skip_spaces(char *str)
 static char	**split(char *str, char **tab, int *j)
 {
 	int	k;
-
+	
 	k = 0;
 	str = skip_spaces(str);
 	while (*str)
@@ -59,7 +73,7 @@ static char	**split(char *str, char **tab, int *j)
 	return (tab);
 }
 
-char	**ft_split(char *str)
+char **ft_split(char *str)
 {
 	int		j;
 	char	**tab;
@@ -71,4 +85,27 @@ char	**ft_split(char *str)
 	tab = split(str, tab, &j);
 	tab[j] = 0;
 	return (tab);
+}
+
+int main(void)
+{
+    char **result;
+    char str[] = "  Hello   world!  This is a test. And its  a   last  one! ";
+    int i;
+
+    result = ft_split(str);
+    if (!result)
+    {
+        printf("Memory allocation failed!\n");
+        return (1);
+    }
+    i = 0;
+    while (result[i])
+    {
+        printf("Word %d: %s\n", i + 1, result[i]);
+        i++;
+    }
+    free_tab(result);
+
+    return (0);
 }

@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 #define WD_NUM 1000
 #define WD_LEN 1000
@@ -27,48 +28,40 @@ static void	*stop_leak(char **tab, int j)
 	return (NULL);
 }
 
-static char	*skip_spaces(char *str)
-{
-	while (*str == ' ' || *str == '\t' || *str == '\n')
-		str++;
-	return (str);
-}
-
-static char	**split(char *str, char **tab, int *j)
-{
-	int	k;
-
-	k = 0;
-	str = skip_spaces(str);
-	while (*str)
-	{
-		if (*str > 32)
-		{
-			k = 0;
-			tab[*j] = (char *)malloc(sizeof(char ) * WD_LEN);
-			if (!tab[*j])
-				return (stop_leak(tab, *j));
-			while (*str > 32)
-				tab[*j][k++] = *str++;
-			tab[*j][k] = '\0';
-			(*j)++;
-		}
-		else
-			str++;
-	}
-	return (tab);
-}
-
 char	**ft_split(char *str)
 {
+	int		i;
 	int		j;
+	int		k;
 	char	**tab;
 
+	i = 0;
 	j = 0;
 	tab = (char **)malloc(sizeof(char *) * WD_NUM);
-	if (!tab)
+	while (!tab)
 		return (NULL);
-	tab = split(str, tab, &j);
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] > 32)
+		{
+			k = 0;
+			tab[j] = (char *)malloc(sizeof(char ) * WD_LEN);
+			while (!tab[j])
+				return (stop_leak(tab, j));
+			while (str[i] > 32)
+			{
+				tab[j][k] = str[i];
+				i++;
+				k++;
+			}
+			tab[j][k] = '\0';
+			j++;
+		}
+		else
+			i++;
+	}
 	tab[j] = 0;
 	return (tab);
 }

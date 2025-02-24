@@ -12,9 +12,10 @@
 
 #include "libft.h"
 
-void  ft_lstadd_back(t_stack **lst,t_stack *new_node)
+void	ft_lstadd_back(t_stack **lst, t_stack *new_node)
 {
-	t_stack *temp;
+	t_stack	*temp;
+
 	if (!lst || !new_node)
 		return ;
 	if (*lst == NULL)
