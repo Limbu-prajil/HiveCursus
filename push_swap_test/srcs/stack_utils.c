@@ -12,6 +12,19 @@
 
 #include "push_swap.h"
 
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
 void	free_stack(t_stack **stack)
 {
 	t_stack	*tmp;
@@ -26,15 +39,13 @@ void	free_stack(t_stack **stack)
 
 void	error_exit(t_stack **a, t_stack **b)
 {
-	if (a)
-		free_stack(a);
-	if (b)
-		free_stack(b);
+	free_stack(a);
+	free_stack(b);
 	write(2, "Error\n", 6);
 	exit(1);
 }
 
-static void	process_split(char **split, t_stack **a)
+void	process_split(char **split, t_stack **a)
 {
 	t_stack	*new_node;
 	int		len;
@@ -46,23 +57,13 @@ static void	process_split(char **split, t_stack **a)
 	{
 		new_node = ft_lstnew(ft_atoi(split[len - 1]));
 		if (!new_node)
-			error_exit(a, NULL);
+		{
+			free_split(split);
+			error_exit(a, &new_node);
+		}
 		ft_lstadd_front(a, new_node);
 		len--;
 	}
-}
-
-static void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
 }
 
 t_stack	*create_stack(int ac, char **av)
@@ -76,8 +77,11 @@ t_stack	*create_stack(int ac, char **av)
 	while (i > 0)
 	{
 		split = ft_split(av[i]);
-		if (!split)
+		if (!split || !*split)
+		{
+			free_split(split);
 			error_exit(&a, NULL);
+		}
 		process_split(split, &a);
 		free_split(split);
 		i--;

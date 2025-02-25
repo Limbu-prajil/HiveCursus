@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-#include "../includes/push_swap.h"
-#include "../libft/libft.h"
-=======
 #include "push_swap.h"
->>>>>>> 8ecde523285e98afb0b452b4f0a0c3ac8970f57d
 
 bool is_integer(const char *str)
 {
@@ -72,7 +67,6 @@ bool    is_valid_input(int ac, char **av)
                 free_stack(&stack);
                 return (false);
             }
-            // Add the value to the stack for duplicate checking
             t_stack *new = (t_stack *)malloc(sizeof(t_stack));
             if (!new)
             {

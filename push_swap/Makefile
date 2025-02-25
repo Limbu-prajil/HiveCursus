@@ -10,8 +10,10 @@ SRC = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/error.c \
 	$(SRC_DIR)/stack_utils.c \
 	$(SRC_DIR)/parsing.c \
-	$(SRC_DIR)/sorting/sort_more.c \
-	$(SRC_DIR)/sorting/sort_stack.c \
+	$(SRC_DIR)/sorting/sort_algo.c \
+	$(SRC_DIR)/sorting/find_pivots.c \
+	$(SRC_DIR)/sorting/merge_sorted_toA.c \
+	$(SRC_DIR)/sorting/push_chunks_toB.c \
 	$(SRC_DIR)/sorting/sort_three.c \
 	$(SRC_DIR)/operations/swap.c \
 	$(SRC_DIR)/operations/push.c \
@@ -20,7 +22,7 @@ SRC = $(SRC_DIR)/main.c \
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR)/$(INC_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR)/$(INC_DIR) -I$(PRINTF_DIR)/$(INC_DIR)
 
 all: $(NAME)
 

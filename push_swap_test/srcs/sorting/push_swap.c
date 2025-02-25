@@ -46,6 +46,38 @@ void	move_to_top(t_stack **a, t_stack *min_node)
 	//ft_printf("Moved %d to the top\n", min_node->value);
 }
 
+/*
+void	move_to_top(t_stack **a, t_stack *min_node)
+{
+	t_stack	*tmp;
+	int		ra_count;
+	int		rra_count;
+
+	tmp = *a;
+	ra_count = 0;
+	while (tmp != min_node && ++ra_count)
+		tmp = tmp->next;
+	tmp = *a;
+	rra_count = 0;
+	while (tmp->next)
+	{
+		rra_count++;
+		tmp = tmp->next;
+	}
+	if (ra_count <= rra_count)
+		while (ra_count-- > 0)
+		{
+			rotate(a);
+			ft_printf("ra\n");
+		}
+	else
+		while (rra_count-- > 0)
+		{
+			reverse_rotate(a);
+			ft_printf("rra\n");
+		}
+} */
+
 void	push_swap(t_stack **a, t_stack **b)
 {
 	t_stack	*min_node;
@@ -62,7 +94,5 @@ void	push_swap(t_stack **a, t_stack **b)
 		//ft_printf("-----------------------------------\n");
 	}
 	while (*b)
-	{
 		push_a(b, a);
-	}
 }

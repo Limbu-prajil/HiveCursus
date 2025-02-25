@@ -23,6 +23,8 @@
 // operations
 void	push_b(t_stack	**from, t_stack	**to);
 void	push_a(t_stack	**from, t_stack	**to);
+void	rotate(t_stack **stack);
+void	reverse_rotate(t_stack **stack);
 
 // sorting
 void	push_swap(t_stack	**a, t_stack	**b);
@@ -39,6 +41,8 @@ bool	not_valid_input(int ac, char	**av);
 // stack_utils
 t_stack	*create_stack(int ac, char	**av);
 void	free_stack(t_stack	**stack);
+void	free_split(char **split);
+void	process_split(char **split, t_stack **a);
 void	error_exit(t_stack	**a, t_stack	**b);
 void	print_stack(t_stack	*stack, char	*name);
 

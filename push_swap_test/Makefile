@@ -10,6 +10,7 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/stack_utils.c \
 	$(SRC_DIR)/parsing.c \
 	$(SRC_DIR)/sorting/push_swap.c \
+	$(SRC_DIR)/operations/rotate.c \
 	$(SRC_DIR)/operations/push.c \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

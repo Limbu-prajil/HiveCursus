@@ -26,7 +26,9 @@ void	push_b(t_stack **from, t_stack **to)
 	if (*to)
 		(*to)->prev = node_to_push;
 	*to = node_to_push;
+	node_to_push = NULL;
 	//ft_printf("Pushed %d to stack B. ", node_to_push->value);
+	free_stack(&node_to_push);
 	ft_printf("pb\n");
 }
 
@@ -39,8 +41,10 @@ void	push_a(t_stack **from, t_stack **to)
 	node_to_push = *from;
 	*from = (*from)->next;
 	if (*from)
-		(*from)->prev = NULL;
+	(*from)->prev = NULL;
 	ft_lstadd_front(to, node_to_push);
+	node_to_push = NULL;
 	//ft_printf("Pushed %d to stack A. ", node_to_push->value);
+	free_stack(&node_to_push);
 	ft_printf("pa\n");
 }

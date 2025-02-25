@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-#include "../includes/push_swap.h"
-#include "../libft/libft.h"
+#include "push_swap.h"
 
 // Function to print the stack vertically
 void    print_stack_vertical(t_stack *stack, const char *stack_name)
@@ -9,15 +7,12 @@ void    print_stack_vertical(t_stack *stack, const char *stack_name)
     write(1, ":\n", 2);
     while (stack)
     {
-        ft_putnbr(stack->value, 1);
+        ft_putnbr_fd(stack->value, 1);
         write(1, "\n", 1);
         stack = stack->next;
     }
     write(1, "\n", 1);
 }
-=======
-#include "push_swap.h"
->>>>>>> 8ecde523285e98afb0b452b4f0a0c3ac8970f57d
 
 int main(int ac, char **av)
 {
@@ -33,36 +28,18 @@ int main(int ac, char **av)
     }
     a = create_stack(ac, av);
     b = NULL;
-<<<<<<< HEAD
-
-    // Print stack a before sorting
-    write(1, "Before sorting:\n", 16);
-    print_stack_vertical(a, "Stack a");
-
-    // Check if the stack is already sorted
-=======
-    
->>>>>>> 8ecde523285e98afb0b452b4f0a0c3ac8970f57d
+    //write(1, "Before sorting:\n", 16);
+    //print_stack_vertical(a, "Stack a");
     if (is_sorted(a))
     {
         write(1, "Stack is already sorted.\n", 24);
         free_stack(&a);
         return (0);
     }
-
-<<<<<<< HEAD
-    // Sort the stack
     sort_stack(&a, &b);
-
-    // Print stack a after sorting
-    write(1, "After sorting:\n", 15);
-    print_stack_vertical(a, "Stack a");
-
-    // Free the stacks
-=======
+    //write(1, "After sorting:\n", 15);
+    //print_stack_vertical(a, "Stack a");
     sort_stack(&a, &b);
-    
->>>>>>> 8ecde523285e98afb0b452b4f0a0c3ac8970f57d
     free_stack(&a);
     free_stack(&b);
     return (0);

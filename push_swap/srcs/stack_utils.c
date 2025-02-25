@@ -13,7 +13,6 @@ t_stack *create_stack(int ac, char **av)
     while (i < ac)
     {
         split = ft_split(av[i]);
-        //split = ft_split_del(av[i], ' ');
         if (!split)
             error_exit(&stack, NULL);
         j = 0;

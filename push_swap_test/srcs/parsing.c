@@ -63,7 +63,9 @@ static bool	check_duplicate_and_push(t_stack **stack, const char *str)
 		return (true);
 	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
-		return (true);
+	{
+		error_exit(stack, &new);
+	}
 	new->value = value;
 	new->next = *stack;
 	*stack = new;
@@ -82,8 +84,8 @@ bool	not_valid_input(int ac, char **av)
 	while (i < ac)
 	{
 		split = ft_split(av[i]);
-		if (!split || !split[0])
-			return (free_stack(&stack), true);
+		if (!split || !*split)
+			return (free_split(split), free_stack(&stack), true);
 		j = 0;
 		while (split[j])
 		{
@@ -91,6 +93,7 @@ bool	not_valid_input(int ac, char **av)
 				return (free_stack(&stack), true);
 			j++;
 		}
+		free_split(split);
 		i++;
 	}
 	free_stack(&stack);
