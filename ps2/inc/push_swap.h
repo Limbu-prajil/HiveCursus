@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 10:58:07 by ocassany          #+#    #+#             */
-/*   Updated: 2023/08/15 15:56:40 by ocassany         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -66,5 +54,6 @@ void	rrr(t_data *stacks);
 
 void	initialization(int argc, char **argv, t_data *stacks);
 void	free_stack(t_list *stack);
+void	free_array(char **array);
 
 #endif

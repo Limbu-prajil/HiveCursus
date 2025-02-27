@@ -1,60 +1,54 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ocassany <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/21 09:40:41 by ocassany          #+#    #+#              #
-#    Updated: 2023/08/13 17:50:31 by ocassany         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = push_swap
 
 SRCS = src/main.c \
-	src/check_args.c \
-	src/error_msg.c \
-	src/initialization.c \
-	src/ft_printf.c \
-	src/operations1.c \
-	src/operations2.c \
-	src/operations3.c \
-	src/operations4.c \
-	src/sort.c \
-	src/sort2.c \
-	src/find_limits.c \
-	src/find_depth.c \
-	src/best.c \
-	src/calcs.c \
-	src/execs.c \
-	src/free_stack.c
+	src/initNcheck/check_args.c \
+	src/initNcheck/initialization.c \
+	src/ops/calcs.c \
+	src/ops/execs.c \
+	src/ops/push.c \
+	src/ops/swap.c \
+	src/ops/rotate.c \
+	src/ops/rev-rot.c \
+	src/sort/sort.c \
+	src/sort/sort2.c \
+	src/utils/find_max.c \
+	src/utils/find_min.c \
+	src/utils/find_depth.c \
+	src/utils/find_best.c \
+	src/utils/free_stack.c \
+	src/utils/free_array.c \
+	src/utils/error_msg.c \
+	src/utils/ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
 
-CC = gcc
+CC = cc
 
 LIB = inc/libft/
 
-CFLAGS = -g -Wall -Wextra -Werror -I$(LIB)
+CFLAGS = -Wall -Wextra -Werror -I$(LIB)
 
 RM = rm -rf
 
-$(NAME) : $(OBJS) $(LIB)libft.a
-	@$(CC) $(CFLAGS) $(OBJS) -L$(LIB) -lft -o $(NAME) -lreadline
-	@echo "\npush_swap successfully created !\n"
+all : $(NAME)
 
 $(LIB)libft.a:
 	@make -C $(LIB)
 
-all : $(NAME)
+$(NAME) : $(OBJS) $(LIB)libft.a
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIB) -lft -o $(NAME) -lreadline
+	@echo "\npush_swap sucksesfooli created !\n"
 
 clean :
 	@$(RM) $(OBJS)
 	@make clean -C $(LIB)
+	@echo "\nall objects sucksesfooli cleaned !\n"
 
 fclean : clean
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB)
+	@echo "\narchives and execs sucksesfooli Fcleaned !\n"
 
 re : fclean all
+
+.PHONY = all clean fclean re
