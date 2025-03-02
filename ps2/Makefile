@@ -36,7 +36,7 @@ $(LIB)libft.a:
 	@make -C $(LIB)
 
 $(NAME) : $(OBJS) $(LIB)libft.a
-	@$(CC) $(CFLAGS) $(OBJS) -L$(LIB) -lft -o $(NAME) -lreadline
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIB) -lft -o $(NAME)
 	@echo "\npush_swap sucksesfooli created !\n"
 
 clean :
