@@ -1,6 +1,7 @@
 #include "../../inc/push_swap.h"
+#include <stdio.h>
 
-int	ft_atoi_ps(const char *nptr)
+long long	ft_atoi_ps(const char *nptr)
 {
 	int			i;
 	int			sign;
@@ -51,6 +52,7 @@ void	init_string(char **argv, t_data *stacks)
 {
 	char	**nbrs;
 	int		i;
+	long long	nbr;		
 	t_list	*tmp;
 
 	nbrs = ft_split(argv[0], ' ');
@@ -62,7 +64,14 @@ void	init_string(char **argv, t_data *stacks)
 	i = 0;
 	while (nbrs[i])
 	{
-		tmp = ft_lstnew(ft_atoi_ps(nbrs[i]));
+		nbr = ft_atoi_ps(nbrs[i]);
+		if (nbr < INT_MIN || nbr > INT_MAX)
+		{	
+			free_array(nbrs);
+			free_stack(stacks->a);
+			error_msg();
+		}
+		tmp = ft_lstnew(nbr);
 		ft_lstadd_back(stacks, tmp);
 		i++;
 	}

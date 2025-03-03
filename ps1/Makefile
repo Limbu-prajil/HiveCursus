@@ -1,90 +1,53 @@
-SHELL = /bin/sh
-.SUFFIXES:
-.SUFFIXES: .c .o
 NAME = push_swap
-NAME_BON = checker
-ifeq ($(BONUS), 1)
-NAME = $(NAME_BON)
-endif
+OBJ_DIR = obj
 
-CFLAGS += -Wall -Wextra -Werror
-CFLAGS += -D BONUS=$(BONUS)
-DEPFLAGS = -MT $@ -MMD -MP 
-LDFLAGS = -Llibft
-LDLIBS = -lft
+SRCS = main.c \
+	init_stack.c \
+	do_push.c \
+	do_sort3.c \
+	get_index_dest.c \
+	get_index_min.c \
+	push.c \
+	rerot.c \
+	rot.c \
+	sort.c \
+	swap.c \
+	whatif_push_ab.c \
 
-man = main.c init_stack.c do_sort3.c do_push.c push.c swap.c rot.c rerot.c swap.c get_index_min.c get_index_dest.c  whatif_push_ab.c sort.c
-bon = main_bonus.c check_bonus.c init_stack.c push.c swap.c rot.c rerot.c swap.c
+OBJS = $(SRCS:%.c=%.o)
 
-ifeq ($(DEBUG), 1)
-CFLAGS += -g -O0
-endif
+CC = cc
 
-obj_common = $(common:%.c=%.o)
-obj_man = $(man:%.c=%.o)
-obj_bon = $(bon:%.c=%.o)
+LIB = libft
 
-dep = $(obj_common:.o=.d) $(obj_macro:.o=.d) $(obj_man:.o=.d)
-dep_bonus = $(obj_common:.o=.d) $(obj_macro:.o=.d) $(obj_bon:.o=.d)
+CFLAGS = -Wall -Wextra -Werror -I$(LIB)
 
+RM = rm -rf
 
-.PHONY: all clean fclean re bonus
-.PHONY: FORCE test
+all : $(NAME)
 
-all: $(NAME)
+$(LIB)/libft.a:
+	@make -C $(LIB)
 
-#call make in SUBDIR only for its default target: all
-#prerequisite FORCE is crucial, as it causes the recipe to be run everytime
-#the target is considered -- we have to run libft's make every time, as we have
-#to check for changes in its src; the target itself however must not be a
-#phony target, otherwise the "calling" rule's recipe would also be run every
-#time
-libft/libft.a : FORCE
-	$(MAKE) -C libft
+$(OBJ_DIR)/%.o: $(SRCS)
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+$(NAME) : $(OBJS) $(LIB)/libft.a
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIB) -lft -o $(NAME)
+	@echo "\npush_swap sucksesfooli created !\n"
 
-%.o : %.c
-#$(directory)/%.o : %.c $(directory)/%.d
-%.o : %.c %.d libft/libft.a
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+clean :
+	@$(RM) $(OBJS)
+	@make clean -C $(LIB)
+	rm -rf $(OBJ_DIR)
+	@echo "\nall objects sucksesfooli cleaned !\n"
 
+fclean : clean
+	@$(RM) $(NAME)
+	@make fclean -C $(LIB)
+	@echo "\narchives and execs sucksesfooli Fcleaned !\n"
 
-ifeq ($(BONUS), 1)
-objects = $(obj_common) $(obj_macro) $(obj_bon)
-else
-$(obj_macro) : $(obj_man) 
-objects = $(obj_common) $(obj_macro) $(obj_man)
-endif
+re : fclean all
 
-$(NAME) : $(objects)
-ifeq ($(TEST), 1)
-	$(CC) $^ -o $(NAME) $(LDFLAGS) $(LDLIBS) -LLeakSanitizer -llsan
-else
-	$(CC) $^ -o $(NAME) $(LDFLAGS) $(LDLIBS)
-endif
-
-bonus:
-	$(MAKE) BONUS=1
-
-
-clean:
-	-$(MAKE) -C libft clean 2> /dev/null
-	-rm -f $(obj_common) $(obj_man) $(obj_bon) $(dep) $(dep_bonus)
-
-fclean: clean
-	-$(MAKE) -C libft fclean 2> /dev/null
-	-rm $(NAME) $(NAME_BON)
-	@-rm -rf LeakSanitizer
-
-re: fclean all 
-
-test:
-	git clone --recursive https://github.com/mhahnFr/LeakSanitizer.git
-	make -C LeakSanitizer
-
-$(dep): 
-
-$(dep_bonus): 
-
--include $(wildcard $(dep) $(dep_bonus))
+.PHONY = all clean fclean re

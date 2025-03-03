@@ -1,7 +1,4 @@
-#include "do_sort3.h"
-#include "rot.h"
-#include "swap.h"
-#include "rerot.h"
+#include "push_swap.h"
 #include "libft/libft.h"
 
 static void	do_sort3_case01(t_stack *stk)

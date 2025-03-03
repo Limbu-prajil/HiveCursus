@@ -1,8 +1,4 @@
-#include "main.h"
-#include "init_stack.h"
-#include "sort.h"
-#include <unistd.h>
-#include <stdlib.h>
+#include "push_swap.h"
 
 int	has_duplicate(t_stack stk)
 {

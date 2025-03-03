@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   whatif_push_ab.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pdietric <pdietric@student.42heilbronn.de  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 23:02:51 by pdietric          #+#    #+#             */
-/*   Updated: 2024/08/09 09:41:08 by pdietric         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "whatif_push_ab.h"
-#include "get_index_dest.h"
+#include "push_swap.h"
 
 static int	min(int a, int b)
 {

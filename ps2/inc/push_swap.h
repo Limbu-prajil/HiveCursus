@@ -6,6 +6,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include "libft/libft.h"
+# include <limits.h>
 
 int		best_combo(t_data *stacks, int depth_a, int depth_b);
 int		best_depth_b(t_list *st, int nbr);

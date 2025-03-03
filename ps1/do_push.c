@@ -1,8 +1,4 @@
-#include "do_push.h"
-#include "rot.h"
-#include "rerot.h"
-#include "swap.h"
-#include "push.h"
+#include "push_swap.h"
 #include "libft/libft.h"
 
 static void	prep_common(t_stack *a, t_stack *b, t_rot act)

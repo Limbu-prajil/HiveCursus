@@ -1,27 +1,27 @@
 #include "../../inc/push_swap.h"
 
-void	critical_art_b(t_data *stacks, t_list *tmp, int da, int ops)
+void	critical_art_b(t_data *stacks, t_list *sta, int da, int ops)
 {
 	int		best_nbr;
 	int		best_depth_a;
 
 	best_nbr = -42;
 	best_depth_a = -42;
-	while (tmp->next != stacks->a)
+	while (sta->next != stacks->a)
 	{
-		if (best_combo(stacks, da, best_depth_b(stacks->b, tmp->nbr)) < ops)
+		if (best_combo(stacks, da, best_depth_b(stacks->b, sta->nbr)) < ops)
 		{
-			ops = best_combo(stacks, da, best_depth_b(stacks->b, tmp->nbr));
-			best_nbr = tmp->nbr;
+			ops = best_combo(stacks, da, best_depth_b(stacks->b, sta->nbr));
+			best_nbr = sta->nbr;
 			best_depth_a = da;
 		}
 		da++;
-		tmp = tmp->next;
+		sta = sta->next;
 	}
-	if (best_combo(stacks, da, best_depth_b(stacks->b, tmp->nbr)) < ops)
+	if (best_combo(stacks, da, best_depth_b(stacks->b, sta->nbr)) < ops)
 	{
-		ops = best_combo(stacks, da, best_depth_b(stacks->b, tmp->nbr));
-		best_nbr = tmp->nbr;
+		ops = best_combo(stacks, da, best_depth_b(stacks->b, sta->nbr));
+		best_nbr = sta->nbr;
 		best_depth_a = da;
 	}
 	combo_exec(stacks, best_depth_a, best_depth_b(stacks->b, best_nbr));
@@ -29,38 +29,38 @@ void	critical_art_b(t_data *stacks, t_list *tmp, int da, int ops)
 
 void	sort_until_three(t_data *stacks)
 {
-	t_list	*tmp;
+	t_list	*sta;
 
 	while (ft_lstsize(stacks->a) > 3)
 	{
-		tmp = stacks->a;
-		critical_art_b(stacks, tmp, 0, INT_MAX);
+		sta = stacks->a;
+		critical_art_b(stacks, sta, 0, INT_MAX);
 		pb(stacks);
 	}
 }
 
-void	critical_art_a(t_data *stacks, t_list *tmp, int db, int ops)
+void	critical_art_a(t_data *stacks, t_list *stb, int db, int ops)
 {
 	int		best_nbr;
 	int		best_depth_b;
 
 	best_nbr = -42;
 	best_depth_b = -42;
-	while (tmp->next != stacks->b)
+	while (stb->next != stacks->b)
 	{
-		if (best_combo(stacks, best_depth_a(stacks->a, tmp->nbr), db) < ops)
+		if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db) < ops)
 		{
-			ops = best_combo(stacks, best_depth_a(stacks->a, tmp->nbr), db);
-			best_nbr = tmp->nbr;
+			ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db);
+			best_nbr = stb->nbr;
 			best_depth_b = db;
 		}
 		db++;
-		tmp = tmp->next;
+		stb = stb->next;
 	}
-	if (best_combo(stacks, best_depth_a(stacks->a, tmp->nbr), db) < ops)
+	if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db) < ops)
 	{
-		ops = best_combo(stacks, best_depth_a(stacks->a, tmp->nbr), db);
-		best_nbr = tmp->nbr;
+		ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db);
+		best_nbr = stb->nbr;
 		best_depth_b = db;
 	}
 	combo_exec(stacks, best_depth_a(stacks->a, best_nbr), best_depth_b);
@@ -68,12 +68,12 @@ void	critical_art_a(t_data *stacks, t_list *tmp, int db, int ops)
 
 void	sort_a(t_data *stacks)
 {
-	t_list	*tmp;
+	t_list	*stb;
 
 	while (stacks->b)
 	{
-		tmp = stacks->b;
-		critical_art_a(stacks, tmp, 0, INT_MAX);
+		stb = stacks->b;
+		critical_art_a(stacks, stb, 0, INT_MAX);
 		pa(stacks);
 	}
 }
