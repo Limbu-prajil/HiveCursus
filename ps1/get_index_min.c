@@ -1,4 +1,4 @@
-#include "get_index_min.h"
+#include "push_swap.h"
 
 int	get_index_min(t_stack stk)
 {

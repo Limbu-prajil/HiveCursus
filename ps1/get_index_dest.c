@@ -1,5 +1,4 @@
-#include "get_index_dest.h"
-#include "get_index_min.h"
+#include "push_swap.h"
 
 static int	get_index_max(t_stack stk)
 {

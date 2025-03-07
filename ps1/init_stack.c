@@ -1,6 +1,5 @@
-#include "init_stack.h"
+#include "push_swap.h"
 #include "libft/libft.h"
-#include <stdlib.h>
 
 static int	is_int(char *str, int len)
 {

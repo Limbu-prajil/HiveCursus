@@ -19,22 +19,22 @@ int	best_combo(t_data *stacks, int depth_a, int depth_b)
 	return (0);
 }
 
-int	best_depth_a(t_list *st, int nbr)
+int	best_depth_a(t_list *sta, int nbrb)
 {
 	int		i;
 	t_list	*tmp;
 
 	i = 1;
-	if (nbr < st->nbr && nbr > st->prev->nbr)
+	if (nbrb < sta->nbr && nbrb > sta->prev->nbr)
 		i = 0;
-	else if (nbr > find_max(st) || nbr < find_min(st))
-		i = find_depth(st, find_min(st));
+	else if (nbrb > find_max(sta) || nbrb < find_min(sta))
+		i = find_depth(sta, find_min(sta));
 	else
 	{
-		tmp = st->next;
-		while (nbr < st->nbr || nbr > tmp->nbr)
+		tmp = sta->next;
+		while (nbrb < sta->nbr || nbrb > tmp->nbr)
 		{
-			st = st->next;
+			sta = sta->next;
 			tmp = tmp->next;
 			i++;
 		}
@@ -42,22 +42,22 @@ int	best_depth_a(t_list *st, int nbr)
 	return (i);
 }
 
-int	best_depth_b(t_list *st, int nbr)
+int	best_depth_b(t_list *stb, int nbra)
 {
 	int		i;
 	t_list	*tmp;
 
 	i = 1;
-	if (nbr > st->nbr && nbr < st->prev->nbr)
+	if (nbra > stb->nbr && nbra < stb->prev->nbr)
 		i = 0;
-	else if (nbr > find_max(st) || nbr < find_min(st))
-		i = find_depth(st, find_max(st));
+	else if (nbra > find_max(stb) || nbra < find_min(stb))
+		i = find_depth(stb, find_max(stb));
 	else
 	{
-		tmp = st->next;
-		while (nbr > st->nbr || nbr < tmp->nbr)
+		tmp = stb->next;
+		while (nbra > stb->nbr || nbra < tmp->nbr)
 		{
-			st = st->next;
+			stb = stb->next;
 			tmp = tmp->next;
 			i++;
 		}

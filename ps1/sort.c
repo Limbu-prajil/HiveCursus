@@ -1,11 +1,4 @@
-#include "sort.h"
-#include "whatif_push_ab.h"
-#include "get_index_min.h"
-#include "do_sort3.h"
-#include "do_push.h"
-#include "push.h"
-#include "rot.h"
-#include "rerot.h"
+#include "push_swap.h"
 #include "libft/libft.h"
 
 static int	absval(int num)
