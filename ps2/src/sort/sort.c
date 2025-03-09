@@ -1,17 +1,5 @@
 #include "../../inc/push_swap.h"
 
-void	sort_b(t_data *stacks)
-{
-	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
-		pb(stacks);
-	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
-		pb(stacks);
-	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
-		sort_until_three(stacks);
-	if (!check_sorted(stacks->a))
-		sort_three(stacks);
-}
-
 void	sort_three(t_data *stacks)
 {
 	if (stacks->a->nbr == find_max(stacks->a))
@@ -28,6 +16,18 @@ void	sort_three(t_data *stacks)
 	}
 	else
 		sa(stacks);
+}
+
+void	sort_b(t_data *stacks)
+{
+	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
+		pb(stacks);
+	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
+		pb(stacks);
+	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
+		sort_until_three(stacks);
+	if (!check_sorted(stacks->a))
+		sort_three(stacks);
 }
 
 void	sort(t_data *stacks)
