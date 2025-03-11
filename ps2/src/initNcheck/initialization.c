@@ -1,6 +1,5 @@
 #include "../../inc/push_swap.h"
-#include <stdio.h>
-
+/*
 long long	ft_atoi_ps(const char *nptr)
 {
 	int			i;
@@ -25,7 +24,7 @@ long long	ft_atoi_ps(const char *nptr)
 		i++;
 	}
 	return (sign * res);
-}
+} */
 
 void	init_mult(int argc, char **argv, t_data *stacks)
 {
@@ -37,7 +36,7 @@ void	init_mult(int argc, char **argv, t_data *stacks)
 	i = 0;
 	while (i < argc - 1)
 	{
-		tmp = ft_lstnew(ft_atoi_ps(argv[i]));
+		tmp = ft_lstnew(ft_atol(argv[i]));
 		ft_lstadd_back(stacks, tmp);
 		if (stacks->a->nbr > INT_MAX || stacks->a->nbr < INT_MIN)
 		{
@@ -55,7 +54,9 @@ void	init_string(char **argv, t_data *stacks)
 	long long	nbr;		
 	t_list	*tmp;
 
-	nbrs = ft_split(argv[0], ' ');
+	nbrs = ft_split(argv[0]);
+	if (nbrs == NULL)
+		error_msg();
 	if (!check_asciinbr(nbrs))
 	{
 		free_array(nbrs);
@@ -64,16 +65,15 @@ void	init_string(char **argv, t_data *stacks)
 	i = 0;
 	while (nbrs[i])
 	{
-		nbr = ft_atoi_ps(nbrs[i]);
+		nbr = ft_atol(nbrs[i++]);
 		if (nbr < INT_MIN || nbr > INT_MAX)
-		{	
+		{
 			free_array(nbrs);
 			free_stack(stacks->a);
 			error_msg();
 		}
 		tmp = ft_lstnew(nbr);
 		ft_lstadd_back(stacks, tmp);
-		i++;
 	}
 	free_array(nbrs);
 }

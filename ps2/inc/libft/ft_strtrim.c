@@ -3,31 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/11 09:50:24 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/16 16:30:59 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/18 09:53:57 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:54:02 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static size_t	trim_start(char const *s1, char const *set)
+{
+	size_t	i;
+
+	i = 0;
+	while (ft_memchr(set, s1[i], ft_strlen(set)) && s1[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+static size_t	trim_end(char const *s1, char const *set)
+{
+	size_t	i;
+
+	i = ft_strlen(s1) - 1;
+	while (ft_memchr(set, s1[i], ft_strlen(set)) && s1[i] >= 0)
+	{
+		i--;
+	}
+	return (i);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int	len_s1;
-	int	start_index;
-	int	end_index;
+	char			*str;
+	size_t			end;
+	size_t			start;
+	size_t			i;
 
-	if (!s1)
-		return (NULL);
-	if (!set)
-		return (ft_strdup(s1));
-	len_s1 = ft_strlen(s1);
-	start_index = 0;
-	while (s1[start_index] && ft_strchr(set, s1[start_index]))
-		start_index++;
-	end_index = len_s1 - 1;
-	while (end_index >= start_index && ft_strchr(set, s1[end_index]))
-		end_index--;
-	return (ft_substr(s1, start_index, (end_index - start_index + 1)));
+	if (!s1 || !set)
+		return (0);
+	end = trim_end(s1, set);
+	start = trim_start(s1, set);
+	if (start == ft_strlen(s1) || !*s1)
+		return (ft_strdup(""));
+	str = (char *) malloc(sizeof(char) * ((end - start) + 2));
+	if (!str)
+		return (0);
+	i = 0;
+	while (start <= end)
+	{
+		str[i] = s1[start];
+		i++;
+		start++;
+	}
+	str[i] = 0;
+	return (str);
 }

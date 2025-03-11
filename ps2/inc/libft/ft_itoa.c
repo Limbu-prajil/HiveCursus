@@ -3,58 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 17:58:42 by ocassany          #+#    #+#             */
-/*   Updated: 2023/08/14 18:28:45 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/18 09:43:58 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:44:07 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	n_len(long int n)
+static int	ft_intsize(long n)
 {
-	int			nbr_chr;
+	size_t	intsize;
 
-	nbr_chr = 0;
+	intsize = 0;
 	if (n < 0)
 	{
-		nbr_chr++;
-		n = n * -1;
+		intsize++;
+		n = -n;
 	}
-	while (n > 9)
+	while (n >= 1)
 	{
-		nbr_chr++;
+		intsize++;
 		n /= 10;
 	}
-	nbr_chr++;
-	return (nbr_chr);
+	return (intsize);
+}
+
+static char	*ft_gen(char *rtn, long nbr, int len, int isneg)
+{
+	if (nbr != 0)
+		rtn = malloc(sizeof(char) * (len + 1));
+	else
+		return (rtn = ft_strdup("0"));
+	if (!rtn)
+		return (0);
+	isneg = 0;
+	if (nbr < 0)
+	{
+		isneg++;
+		nbr = -nbr;
+	}
+	rtn[len] = '\0';
+	while (--len)
+	{
+		rtn[len] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	if (isneg == 1)
+		rtn[0] = '-';
+	else
+		rtn[0] = (nbr % 10) + '0';
+	return (rtn);
 }
 
 char	*ft_itoa(int n)
 {
-	char		*tab;
-	int			nbr_chr;
-	long int	num;
+	int		len;
+	char	*rtn;
+	long	nbr;
+	int		isneg;
 
-	num = n;
-	nbr_chr = n_len(num);
-	if (n == 0)
-		return (ft_strdup("0"));
-	tab = malloc((nbr_chr + 1) * sizeof(char));
-	if (!tab)
-		return (NULL);
-	tab[nbr_chr] = '\0';
-	if (num < 0)
-	{
-		tab[0] = '-';
-		num *= -1;
-	}
-	while (nbr_chr > 0 && num > 0)
-	{
-		tab[nbr_chr - 1] = (num % 10) + '0';
-		num /= 10;
-		nbr_chr--;
-	}
-	return (tab);
+	nbr = n;
+	len = ft_intsize(nbr);
+	rtn = 0;
+	isneg = 0;
+	rtn = ft_gen(rtn, nbr, len, isneg);
+	if (!(rtn))
+		return (0);
+	return (rtn);
 }

@@ -22,7 +22,7 @@ SRCS = src/main.c \
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -g
+CC = cc
 
 LIB = inc/libft/
 

@@ -3,28 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 20:29:31 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/11 09:50:10 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/18 09:52:01 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:52:03 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+char	*ft_join(const char *s1, const char *s2)
+{
+	char	*join;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	join = (char *)malloc((sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1)));
+	if (!(join))
+		return (NULL);
+	while (s1[i])
+	{
+		join[j] = s1[i];
+		i++;
+		j++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		join[j] = s2[i];
+		j++;
+		i++;
+	}
+	join[j] = '\0';
+	return (join);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*tab;
-	int		bigsize;
-
-	if (!s1 || !s2)
+	if (s1 == NULL)
 		return (NULL);
-	bigsize = ft_strlen(s1) +ft_strlen(s2) + 1;
-	tab = malloc(bigsize);
-	if (!tab)
+	if (s2 == NULL)
 		return (NULL);
-	ft_memcpy(tab, s1, ft_strlen(s1));
-	tab[ft_strlen(s1)] = '\0';
-	ft_strlcat(tab, s2, bigsize);
-	return (tab);
+	return (ft_join(s1, s2));
 }

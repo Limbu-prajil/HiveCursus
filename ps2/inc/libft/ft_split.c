@@ -1,58 +1,51 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 18:32:28 by ocassany          #+#    #+#             */
-/*   Updated: 2023/08/14 18:32:50 by ocassany         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static int	nbr_str(char const *s, char c)
-{
-	int		i;
-	int		nbr;
+# define WD_NUM 1000
+# define WD_LEN 1000
 
-	nbr = 0;
-	i = 0;
-	while (s[i])
+static void	*stop_leak(char **tab, int j)
+{
+	j = j - 1;
+	while (tab[j])
 	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
-			nbr++;
-		i++;
+		free(tab[j]);
+		j--;
 	}
-	return (nbr);
+	free(tab);
+	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *str)
 {
-	char	**array;
-	size_t	i;
-	size_t	a;
-	size_t	start_index;
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	char **tab = (char**)malloc(sizeof(char*) * WD_NUM);
 
-	if (!s)
+	while (!tab)
 		return (NULL);
-	array = ft_calloc(sizeof(char *), (nbr_str(s, c) + 1));
-	if (!array)
-		return (NULL);
-	a = 0;
-	i = 0;
-	while (i <= ft_strlen(s) && s[i])
-	{
-		if (s[i] != c)
-		{
-			start_index = i;
-			while (s[i] && s[i] != c)
-				i++;
-			array[a] = ft_substr(s, start_index, i - start_index);
-			a++;
-		}
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
 		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] > 32)
+		{
+			k = 0;
+			tab[j] = (char*)malloc(sizeof(char) * WD_LEN);
+			while (!tab[j])
+				return (stop_leak(tab, j));
+			while (str[i] > 32)
+			{
+				tab[j][k] = str[i];
+				i++;
+				k++;
+			}
+			tab[j][k] = '\0';
+			j++;
+		}
+		else
+			i++;
 	}
-	return (array);
+	tab[j] = 0;
+	return (tab);
 }
