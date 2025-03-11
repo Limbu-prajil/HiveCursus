@@ -1,61 +1,53 @@
 #include <unistd.h>
 
-int		ft_atoi(char *str)
+void	ft_putchar(char c)
 {
-	int n = 0;
-
-	while (*str >= '0' && *str <= '9')
-	{
-		n *= 10;
-		n += *str - '0';
-		++str;
-	}
-	return (n);
-}
-
-void	ft_putnbr(int n)
-{
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	char c = (n % 10) + '0';
 	write(1, &c, 1);
 }
 
-int		is_prime(int n)
+void	ft_putposnbr(int n)
+{
+	if (n > 9)
+		ft_putposnbr(n / 10);
+	ft_putchar(n % 10 + '0');
+}
+
+int		ft_atoi_nc(char *s)
+{
+	int	r = 0;
+	while (*s >= '0' && *s <= '9')
+		r = r * 10 + *s++ - '0';
+	return (r);
+}
+
+int is_prime(int n)
 {
 	int i = 2;
-
 	while (i < n)
-	{
-		if (n % i == 0)
+		if (!(n % i++))
 			return (0);
-		++i;
-	}
 	return (1);
 }
 
-int		add_prime_sum(int n)
+void	add_prime_sum(int n)
 {
-	int sum = 0;
-	int i = 2;
-
-	while (i <= n)
-	{
-		if (is_prime(i) == 1)
-			sum += i;
-		++i;
-	}
-	return (sum);
+	int	i;
+	int	prime_sum = 0;
+	if (n == 1)
+		prime_sum = 1;
+	i = 1;
+	while (++i <= n)
+		if (is_prime(i))
+			prime_sum += i;
+	ft_putposnbr(prime_sum);
 }
 
-int		main(int argc, char **argv)
+int		main(int ac, char **av)
 {
-	int n;
-
-	if (argc == 2 && (n = ft_atoi(argv[1])))
-		ft_putnbr(add_prime_sum(n));
+	if (ac == 2 && ft_atoi_nc(av[1]) > 0)
+		add_prime_sum(ft_atoi_nc(av[1]));
 	else
-		ft_putnbr(0);
+		write(1, "0", 1);
 	write(1, "\n", 1);
-	return (0);
+	return (1);
 }
