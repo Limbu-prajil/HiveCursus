@@ -5,7 +5,7 @@ void	rev_wstr(char *str)
 {
 	int i = 0;
 	int j;
-	int first_word = 0;
+	int first_word = 1;
 
 	while (str[i] != '\0')
 		++i;
@@ -19,12 +19,12 @@ void	rev_wstr(char *str)
 		j = i;
 		while (j >= 0 && str[j] != ' ' && str[j] != '\t')
 			--j;
-			
+
 		printf("j = %d\n", j);
-		if (first_word == 1)
+		if (first_word == 0)
 			write(1, " ", 1);
 		write(1, str + j + 1, i - j);
-		first_word = 1;
+		first_word = 0;
 		i = j;
 	}
 }
