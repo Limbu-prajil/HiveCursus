@@ -18,6 +18,18 @@ void	sort_three(t_data *stacks)
 		sa(stacks);
 }
 
+void	sort_until_three(t_data *stacks)
+{
+	t_list	*sta;
+
+	while (ft_lstsize(stacks->a) > 3)
+	{
+		sta = stacks->a;
+		critical_art_b(stacks, sta, 0, INT_MAX);
+		pb(stacks);
+	}
+}
+
 void	sort_b(t_data *stacks)
 {
 	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
@@ -28,6 +40,18 @@ void	sort_b(t_data *stacks)
 		sort_until_three(stacks);
 	if (!check_sorted(stacks->a))
 		sort_three(stacks);
+}
+
+void	sort_a(t_data *stacks)
+{
+	t_list	*stb;
+
+	while (stacks->b)
+	{
+		stb = stacks->b;
+		critical_art_a(stacks, stb, 0, INT_MAX);
+		pa(stacks);
+	}
 }
 
 void	sort(t_data *stacks)

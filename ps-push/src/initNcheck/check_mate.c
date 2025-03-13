@@ -14,7 +14,7 @@ int	check_sorted(t_list *stack)
 	return (1);
 }
 
-int check_dup(t_data *stacks)
+int check_dupes(t_data *stacks)
 {
     t_list *tmp;
     t_list *tmp2;
@@ -43,7 +43,7 @@ int check_dup(t_data *stacks)
     return 0;
 }
 
-int	check_asciinbr(char **str)
+int	check_is_digits(char **str)
 {
 	int	i;
 	int	j;
