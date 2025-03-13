@@ -1,11 +1,11 @@
 #include "../../inc/push_swap.h"
 
-void	init_mult(int argc, char **argv, t_data *stacks)
+void	multi_init(int argc, char **argv, t_data *stacks)
 {
 	int		i;
 	t_list	*tmp;
 
-	if (!check_asciinbr(argv))
+	if (!digits(argv))
 		error_msg(NULL, NULL);
 	i = 0;
 	while (i < argc - 1)
@@ -18,7 +18,7 @@ void	init_mult(int argc, char **argv, t_data *stacks)
 	}
 }
 
-void	init_string(char **argv, t_data *stacks)
+void	str_init(char **argv, t_data *stacks)
 {
 	char	**nbrs;
 	int		i;
@@ -28,7 +28,7 @@ void	init_string(char **argv, t_data *stacks)
 	nbrs = ft_split_del((char const *)argv[0], ' ');
 	if (nbrs == NULL || nbrs[0] == NULL)
 		error_msg(nbrs, NULL);
-	if (!check_asciinbr(nbrs))
+	if (!digits(nbrs))
 		error_msg(nbrs, NULL);
 	i = 0;
 	while (nbrs[i])
@@ -42,14 +42,14 @@ void	init_string(char **argv, t_data *stacks)
 	free_array(nbrs);
 }
 
-void	initialization(int argc, char **argv, t_data *stacks)
+void	start_init(int argc, char **argv, t_data *stacks)
 {
 	if (argc == 2)
 	{
 		if (ft_strlen(argv[0]) == 0)
 			error_msg(NULL, NULL);
-		init_string(argv, stacks);
+		str_init(argv, stacks);
 	}
 	else if (argc > 2)
-		init_mult(argc, argv, stacks);
+		multi_init(argc, argv, stacks);
 }

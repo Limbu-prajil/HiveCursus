@@ -1,6 +1,6 @@
 #include "../../inc/push_swap.h"
 
-void	critical_art_a(t_data *stacks, t_list *stb, int db, int ops)
+void	opti_ops_to_stack_a(t_data *stacks, t_list *stb, int depth_b, int ops)
 {
 	int		best_nbr;
 	int		best_depth_b;
@@ -9,25 +9,25 @@ void	critical_art_a(t_data *stacks, t_list *stb, int db, int ops)
 	best_depth_b = -42;
 	while (stb->next != stacks->b)
 	{
-		if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db) < ops)
+		if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b) < ops)
 		{
-			ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db);
+			ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b);
 			best_nbr = stb->nbr;
-			best_depth_b = db;
+			best_depth_b = depth_b;
 		}
-		db++;
+		depth_b++;
 		stb = stb->next;
 	}
-	if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db) < ops)
+	if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b) < ops)
 	{
-		ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), db);
+		ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b);
 		best_nbr = stb->nbr;
-		best_depth_b = db;
+		best_depth_b = depth_b;
 	}
 	combo_exec(stacks, best_depth_a(stacks->a, best_nbr), best_depth_b);
 }
 
-void	critical_art_b(t_data *stacks, t_list *sta, int depth_a, int ops)
+void	opti_ops_to_stack_b(t_data *stacks, t_list *sta, int depth_a, int ops)
 {
 	int		best_nbr;
 	int		best_depth_a;

@@ -1,22 +1,19 @@
 NAME = push_swap
 
 SRCS = src/main.c \
-	src/initNcheck/check_args.c \
-	src/initNcheck/initialization.c \
-	src/ops/calcs.c \
-	src/ops/execs.c \
+	src/initNcheck/check_mate.c \
+	src/initNcheck/init_to_stack.c \
 	src/ops/push.c \
 	src/ops/swap.c \
 	src/ops/rotate.c \
 	src/ops/rev-rot.c \
-	src/sort/sort.c \
-	src/sort/sort2.c \
-	src/utils/find_max.c \
-	src/utils/find_min.c \
-	src/utils/find_depth.c \
-	src/utils/find_best.c \
-	src/utils/free_stack.c \
-	src/utils/free_array.c \
+	src/sort/turk_sort.c \
+	src/sort/opti_ops_to_stacks.c \
+	src/sort/calc_opti_ops_combo.c \
+	src/sort/exec_opti_ops_combo.c \
+	src/utils/find_max_or_min.c \
+	src/utils/find_best_depths.c \
+	src/utils/free_stack_or_array.c \
 	src/utils/error_msg.c \
 	src/utils/ft_printf.c
 

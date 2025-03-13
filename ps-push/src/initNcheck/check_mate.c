@@ -1,6 +1,6 @@
 #include "../../inc/push_swap.h"
 
-int	check_sorted(t_list *stack)
+int	sorted_already(t_list *stack)
 {
 	t_list	*tmp;
 
@@ -14,7 +14,7 @@ int	check_sorted(t_list *stack)
 	return (1);
 }
 
-int check_dupes(t_data *stacks)
+int	duplicates(t_data *stacks)
 {
     t_list *tmp;
     t_list *tmp2;
@@ -43,7 +43,7 @@ int check_dupes(t_data *stacks)
     return 0;
 }
 
-int	check_is_digits(char **str)
+int	digits(char **str)
 {
 	int	i;
 	int	j;

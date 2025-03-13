@@ -5,13 +5,13 @@ void	sort_three(t_data *stacks)
 	if (stacks->a->nbr == find_max(stacks->a))
 	{
 		ra(stacks);
-		if (!check_sorted(stacks->a))
+		if (!sorted_already(stacks->a))
 			sa(stacks);
 	}
 	else if (stacks->a->next->nbr == find_max(stacks->a))
 	{
 		rra(stacks);
-		if (!check_sorted(stacks->a))
+		if (!sorted_already(stacks->a))
 			sa(stacks);
 	}
 	else
@@ -25,36 +25,36 @@ void	sort_until_three(t_data *stacks)
 	while (ft_lstsize(stacks->a) > 3)
 	{
 		sta = stacks->a;
-		critical_art_b(stacks, sta, 0, INT_MAX);
+		opti_ops_to_stack_b(stacks, sta, 0, INT_MAX);
 		pb(stacks);
 	}
 }
 
-void	sort_b(t_data *stacks)
+void	sort_stack_b(t_data *stacks)
 {
-	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
+	if (ft_lstsize(stacks->a) > 3 && !sorted_already(stacks->a))
 		pb(stacks);
-	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
+	if (ft_lstsize(stacks->a) > 3 && !sorted_already(stacks->a))
 		pb(stacks);
-	if (ft_lstsize(stacks->a) > 3 && !check_sorted(stacks->a))
+	if (ft_lstsize(stacks->a) > 3 && !sorted_already(stacks->a))
 		sort_until_three(stacks);
-	if (!check_sorted(stacks->a))
+	if (!sorted_already(stacks->a))
 		sort_three(stacks);
 }
 
-void	sort_a(t_data *stacks)
+void	sort_stack_a(t_data *stacks)
 {
 	t_list	*stb;
 
 	while (stacks->b)
 	{
 		stb = stacks->b;
-		critical_art_a(stacks, stb, 0, INT_MAX);
+		opti_ops_to_stack_a(stacks, stb, 0, INT_MAX);
 		pa(stacks);
 	}
 }
 
-void	sort(t_data *stacks)
+void	turk_sort(t_data *stacks)
 {
 	if (ft_lstsize(stacks->a) == 2)
 		sa(stacks);
@@ -62,9 +62,9 @@ void	sort(t_data *stacks)
 		sort_three(stacks);
 	else
 	{
-		sort_b(stacks);
-		sort_a(stacks);
-		while (!check_sorted(stacks->a))
+		sort_stack_b(stacks);
+		sort_stack_a(stacks);
+		while (!sorted_already(stacks->a))
 		{
 			if (find_depth(stacks->a,
 					find_min(stacks->a)) > ft_lstsize(stacks->a) / 2)

@@ -8,11 +8,11 @@ int	main(int argc, char **argv)
 	stacks.b = NULL;
 	if (argc > 1)
 	{
-		initialization(argc, argv + 1, &stacks);
-		if (check_dup(&stacks))
+		start_init(argc, argv + 1, &stacks);
+		if (duplicates(&stacks))
 			error_msg(NULL, stacks.a);
-		if (!check_sorted(stacks.a))
-			sort(&stacks);
+		if (!sorted_already(stacks.a))
+			turk_sort(&stacks);
 		free_stack(stacks.a);
 	}
 	return (0);
