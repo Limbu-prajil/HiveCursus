@@ -13,9 +13,11 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1024
+#endif
+
 
 # include <stddef.h>
 # include <stdint.h>

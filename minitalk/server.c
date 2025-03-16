@@ -1,65 +1,167 @@
+#include "minitalk.h"
 #include "libft/libft.h"
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
+/*
+t_server g_server = {{0}, 0, 0, 0, 0};  // Global struct to hold server state
+
+void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
+{
+    (void)context;
+
+    // If a new client connects, reset server state
+    if (g_server.client_pid != siginfo->si_pid)
+    {
+        g_server.client_pid = siginfo->si_pid;
+        g_server.index = 0;
+    }
+
+    // Shift character left and set bit if SIGUSR1 is received
+    g_server.character = (g_server.character << 1) | (signum == SIGUSR1);
+    g_server.bit_count++;
+
+    // Once 8 bits are received, store the character
+    if (g_server.bit_count == 8)
+    {
+        if (g_server.index < BUFFER_SIZE - 1)
+            g_server.buffer[g_server.index++] = g_server.character;
+
+        if (g_server.character == '\0')  // When null terminator is received, print and reset buffer
+        {
+            ft_printf("%s\n", g_server.buffer);
+            ft_bzero(g_server.buffer, BUFFER_SIZE);
+            g_server.index = 0;
+        }
+        g_server.bit_count = 0;
+        g_server.character = 0;
+    }
+
+    // Send acknowledgment signal to client
+    if (kill(siginfo->si_pid, SIGUSR1) == -1)
+        exit(ft_printf("Error sending signal\n"));
+}
+
+int main(void)
+{
+    struct sigaction sa;
+
+    ft_bzero(&sa, sizeof(struct sigaction));
+    sa.sa_sigaction = &handle_client_signal;
+    sa.sa_flags = SA_SIGINFO;
+
+    if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1)
+        exit(ft_printf("Error setting up signal handler\n"));
+
+    ft_printf("Server PID: %d\n", getpid());
+
+    while (1)
+        pause();
+
+    return (0);
+}
+*/
 
 /*
- * 1 << (7 - bit_count)
- * shifts the one to the left 7 - bit_count times
- * ex: 1 << 4 -> 10000
- * (...)
- * evaluates to a 1 if we have a value or 0 if none
- * ex: (0100) -> 1 and (0000) -> 0
- * c |= ...
- * is a bitwise or, if any of the bits is 1, stays 1
- * othwise set to 0
- * so we start from the right and set each bit we need to 1
+// The server needs to reconstruct the binary data sent by the client.
+void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
+{
+    static char character;  // Holds the received character
+    static int bit_count;   // Counts the number of bits received
+    (void)context;  // Unused parameter
+
+    // Check if the signal received is SIGUSR1
+    if (signum == SIGUSR1)
+        character = character | 1;  // Set the least significant bit of the character
+    bit_count++;  // Increment the bit count
+
+    // Check if 8 bits have been received
+    if (bit_count == 8)
+    {
+        // Write the received character to the standard output
+        write(1, &character, 1);
+        bit_count = 0;     // Reset the bit count
+        character = 0;     // Reset the character
+    }
+    character = character << 1;  // Shift the character to the left
+
+    // Send a SIGUSR1 signal back to the client to acknowledge each bit received
+    if (kill(siginfo->si_pid, SIGUSR1) == -1)
+        exit(ft_printf("Error sending signal\n"));
+}
+
+int main(void)
+{
+    struct sigaction sa;
+
+    // Initialize sa structure with zeros
+    ft_bzero(&sa, sizeof(struct sigaction));
+
+    // Set the signal handler function
+    sa.sa_sigaction = &handle_client_signal;
+    sa.sa_flags = SA_SIGINFO;
+
+    // Set up signal handlers for SIGUSR1 and SIGUSR2
+    if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1)
+        exit(ft_printf("Error setting up signal handler\n"));
+
+    // Print the server's process ID
+    ft_printf("Server PID: %d\n", getpid());
+
+    // Infinite loop to wait for signals
+    while (1)
+        pause();
+
+    return (0);
+}
 */
-static void	handle_signal(int signo, siginfo_t *info, void *context)
-{
-	static unsigned char	c;
-	static int				bit_count;
-	pid_t					client_pid;
 
-	client_pid = info->si_pid;
-	if (signo == SIGUSR1)
-	{
-		bit_count++;
-	}
-	if (signo == SIGUSR2)
-	{
-		c |= (1 << (7 - bit_count));
-		bit_count++;
-	}
-	if (bit_count == 8)
-	{
-		ft_printf("%c", c);
-		bit_count = 0;
-		c = 0;
-	}
-	kill(client_pid, SIGUSR1);
-	(void)context;
+void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
+{
+    static char character = 0;  // Holds the current character being built
+    static int bit_count = 0;   // Tracks number of received bits
+    static char buffer[BUFFERSIZE]; // Buffer to store the received string
+    static int buffer_index = 0; // Index to track buffer position
+    (void)context;  // Unused parameter
+
+    // If SIGUSR1 is received, set the least significant bit
+    if (signum == SIGUSR1)
+        character |= 1;
+
+    bit_count++;  // Increment the bit count
+
+    if (bit_count == 8)  // When 8 bits (1 char) are received
+    {
+        buffer[buffer_index++] = character; // Store character in buffer
+        if (character == '\0' || buffer_index >= BUFFERSIZE - 1) // If end of string or buffer is full
+        {
+            ft_printf("%s\n", buffer); // Print full message
+            buffer_index = 0; // Reset buffer for next message
+        }
+        character = 0; // Reset character for next byte
+        bit_count = 0; // Reset bit count
+    }
+
+    character <<= 1;  // Shift left for the next bit
+
+    // Acknowledge the client by sending SIGUSR1
+    if (kill(siginfo->si_pid, SIGUSR1) == -1)
+        exit(ft_printf("Error sending signal\n"));
 }
 
-int	main(void)
+int main(void)
 {
-	pid_t				pid;
-	struct sigaction	sig_action;
+    struct sigaction sa;
 
-	pid = getpid();
-	if (!pid)
-	{
-		ft_printf("there was an error getting pid");
-		exit(EXIT_FAILURE);
-	}
-	sig_action.sa_flags = SA_SIGINFO;
-	sig_action.sa_sigaction = handle_signal;
-	ft_printf("%i\n", pid);
-	sigaction(SIGUSR1, &sig_action, NULL);
-	sigaction(SIGUSR2, &sig_action, NULL);
-	while (1)
-	{
-		pause();
-	}
-	return (EXIT_SUCCESS);
+    ft_bzero(&sa, sizeof(struct sigaction));
+    sa.sa_sigaction = &handle_client_signal;
+    sa.sa_flags = SA_SIGINFO;
+
+    if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1)
+        exit(ft_printf("Error setting up signal handler\n"));
+
+    ft_printf("Server PID: %d\n", getpid());
+
+    while (1)
+        pause();
+
+    return (0);
 }
+

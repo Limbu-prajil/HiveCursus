@@ -1,31 +1,62 @@
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "minitalk.h"
 #include "libft/libft.h"
+/*
+t_server g_server = {{0}, 0, 0, 0, 0};  // Global struct to hold server state
 
-// The server needs to reconstruct the binary data sent by the client.
 void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
 {
-    static char character;  // Holds the received character
-    static int bit_count;   // Counts the number of bits received
-    (void)context;  // Unused parameter
+    (void)context;
 
-    // Check if the signal received is SIGUSR1
+    // Shift character left and set bit if SIGUSR1 is received
+    g_server.character = (g_server.character << 1) | (signum == SIGUSR1);
+    g_server.bit_count++;
+
+    // Once 8 bits are received, store the character
+    if (g_server.bit_count == 8)
+    {
+        if (g_server.index < BUFFERSIZE - 1)
+            g_server.buffer[g_server.index++] = g_server.character;
+
+        if (g_server.character == '\0')  // When null terminator is received, print and reset buffer
+        {
+            ft_printf("%s\n", g_server.buffer);
+            ft_bzero(g_server.buffer, BUFFERSIZE);
+            g_server.index = 0;
+        }
+        g_server.bit_count = 0;
+        g_server.character = 0;
+    }
+    character <<=1;
+    // Send acknowledgment signal to client
+    if (kill(siginfo->si_pid, SIGUSR1) == -1)
+        exit(ft_printf("Error sending signal\n"));
+}
+*/
+
+void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
+{
+    static char character = 0;
+    static int bit_count = 0;
+    static char buffer[BUFFERSIZE];
+    static int buffer_index = 0;
+    (void)context;
+
     if (signum == SIGUSR1)
-        character = character | 1;  // Set the least significant bit of the character
-    bit_count++;  // Increment the bit count
-
-    // Check if 8 bits have been received
+        character |= 1;
+    bit_count++;
     if (bit_count == 8)
     {
-        // Write the received character to the standard output
-        write(1, &character, 1);
-        bit_count = 0;     // Reset the bit count
-        character = 0;     // Reset the character
+        buffer[buffer_index++] = character;
+        if (character == '\0' || buffer_index >= BUFFERSIZE - 1)
+        {
+            ft_printf("%s\n", buffer);
+            ft_bzero(buffer, BUFFER_SIZE);
+            buffer_index = 0;
+        }
+        character = 0;
+        bit_count = 0;
     }
-    character = character << 1;  // Shift the character to the left
-
-    // Send a SIGUSR1 signal back to the client to acknowledge each bit received
+    character <<= 1;
     if (kill(siginfo->si_pid, SIGUSR1) == -1)
         exit(ft_printf("Error sending signal\n"));
 }
@@ -34,23 +65,14 @@ int main(void)
 {
     struct sigaction sa;
 
-    // Initialize sa structure with zeros
     ft_bzero(&sa, sizeof(struct sigaction));
-
-    // Set the signal handler function
     sa.sa_sigaction = &handle_client_signal;
     sa.sa_flags = SA_SIGINFO;
-
-    // Set up signal handlers for SIGUSR1 and SIGUSR2
     if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1)
         exit(ft_printf("Error setting up signal handler\n"));
-
-    // Print the server's process ID
     ft_printf("Server PID: %d\n", getpid());
-
-    // Infinite loop to wait for signals
     while (1)
         pause();
-
     return (0);
 }
+
