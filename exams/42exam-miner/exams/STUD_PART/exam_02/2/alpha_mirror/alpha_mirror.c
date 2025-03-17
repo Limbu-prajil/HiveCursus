@@ -26,7 +26,7 @@ int		ft_isalpha(char c)
 
 int		ft_alpha_mirror(int c)
 {
-	return (c = (c >= 'A' && c <= 'Z') ? 'Z' - (c - 'A') : 'z' - (c - 'a'));
+	return (c = (c >= 'A' && c <= 'Z') ? 'Z' - c + 'A' : 'z' - c + 'a');
 }
 
 int		main(int ac, char **av)
