@@ -3,56 +3,111 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 18:32:28 by ocassany          #+#    #+#             */
-/*   Updated: 2023/08/14 18:32:50 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/12 18:22:16 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 23:37:15 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
 
-static int	nbr_str(char const *s, char c)
+static int	ft_is_separator(char to_test, char separator)
 {
-	int		i;
-	int		nbr;
-
-	nbr = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
-			nbr++;
-		i++;
-	}
-	return (nbr);
+	if (to_test == separator)
+		return (1);
+	return (0);
 }
+
+static size_t	ft_count_words(const char *s, char c)
+{
+	int		is_word;
+	size_t	word_counter;
+	size_t	counter;
+
+	is_word = 0;
+	word_counter = 0;
+	counter = 0;
+	while (s[counter])
+	{
+		if (ft_is_separator(s[counter], c))
+			is_word = 0;
+		else if (!is_word)
+		{
+			word_counter++;
+			is_word = 1;
+		}
+		counter++;
+	}
+	return (word_counter);
+}
+
+static void	*ft_free_words(char **r, size_t total_word_counter)
+{
+	while (total_word_counter > 0)
+	{
+		free(r[total_word_counter - 1]);
+		total_word_counter--;
+	}
+	free(r);
+	return (NULL);
+}
+
+static int	ft_next_word(const char *s, char c, size_t *index, char **word)
+{
+	size_t	counter;
+	size_t	start;
+	size_t	end;
+
+	while (s[*index] && ft_is_separator(s[*index], c))
+		(*index)++;
+	start = *index;
+	while (s[*index] && !ft_is_separator(s[*index], c))
+		(*index)++;
+	end = *index;
+	if (start == end)
+		return (0);
+	*word = malloc((end - start + 1) * sizeof(char));
+	if (!*word)
+		return (-1);
+	counter = 0;
+	while (counter < end - start)
+	{
+		(*word)[counter] = s[start + counter];
+		counter++;
+	}
+	(*word)[counter] = 0;
+	return (1);
+}
+
+char			**ft_split(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
-	char	**array;
-	size_t	i;
-	size_t	a;
-	size_t	start_index;
+	char	**splitted;
+	size_t	counter;
+	size_t	index;
+	char	*word;
+	int		next_result;
 
-	if (!s)
+	splitted = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	if (!splitted)
 		return (NULL);
-	array = ft_calloc(sizeof(char *), (nbr_str(s, c) + 1));
-	if (!array)
-		return (NULL);
-	a = 0;
-	i = 0;
-	while (i <= ft_strlen(s) && s[i])
+	counter = 0;
+	if (ft_count_words(s, c))
 	{
-		if (s[i] != c)
+		index = 0;
+		while (s[index])
 		{
-			start_index = i;
-			while (s[i] && s[i] != c)
-				i++;
-			array[a] = ft_substr(s, start_index, i - start_index);
-			a++;
+			next_result = ft_next_word(s, c, &index, &word);
+			if (next_result == 1)
+				splitted[counter++] = word;
+			else if (next_result == -1)
+				return (ft_free_words(splitted, counter));
 		}
-		i++;
 	}
-	return (array);
+	splitted[ft_count_words(s, c)] = 0;
+	return (splitted);
 }

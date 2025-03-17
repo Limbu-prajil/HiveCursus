@@ -3,31 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 09:03:39 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/10 09:52:33 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/11 12:09:46 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/19 11:02:30 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+
+char	*ft_strnstr(const char *big, const char *little, size_t len);
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	i;
-	size_t	len_little;
+	size_t	counter;
+	size_t	little_len;
+	size_t	big_len;
 
-	if ((!big || !little) && !len)
-		return (NULL);
-	len_little = ft_strlen(little);
-	if (!len_little)
+	big_len = ft_strlen(big);
+	(void) big_len;
+	if (little[0] == '\0')
 		return ((char *)big);
-	i = 0;
-	while (big[i] && i <= (len - 1))
+	little_len = ft_strlen(little);
+	if (len < little_len)
+		return (NULL);
+	counter = 0;
+	while (counter <= len - little_len && big[counter])
 	{
-		if ((len_little + i) <= len && !ft_strncmp(&big[i], little, len_little))
-			return ((char *)&big[i]);
-		i++;
+		if (ft_strncmp(big + counter, little, little_len) == 0)
+		{
+			return ((char *)(big + counter));
+		}
+		counter++;
 	}
 	return (NULL);
 }

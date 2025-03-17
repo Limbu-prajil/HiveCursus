@@ -3,28 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 17:25:54 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/04 14:57:11 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/07 18:35:54 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 22:23:13 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t	i;
+	size_t	counter;
+	size_t	src_size;
 
-	i = 0;
-	if (size > 0)
+	src_size = ft_strlen(src);
+	if (size <= 0)
 	{
-		while (src[i] && i < size - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
+		return (src_size);
 	}
-	return (ft_strlen(src));
+	if (src_size == 0)
+	{
+		dst[0] = '\0';
+		return (src_size);
+	}
+	counter = 0;
+	while (counter < size - 1 && src[counter])
+	{
+		dst[counter] = src[counter];
+		counter++;
+	}
+	dst[counter] = '\0';
+	return (src_size);
 }

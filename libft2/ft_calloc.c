@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 10:14:44 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/15 15:26:52 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/11 13:51:38 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 22:24:32 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nelem, size_t elsize);
+
+void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	void	*tab;
-	size_t	res;
+	void	*result;
 
-	if (!nmemb || !size)
-		return (malloc(0));
-	res = size * nmemb;
-	if (res / size != nmemb)
-		return (0);
-	tab = (void *)malloc(res);
-	if (!tab)
-		return (0);
-	ft_bzero(tab, res);
-	return (tab);
+	if (nelem != 0 && SIZE_MAX / nelem < elsize)
+		return (NULL);
+	result = malloc(nelem * elsize);
+	if (!result)
+		return (NULL);
+	ft_bzero(result, nelem * elsize);
+	return (result);
 }

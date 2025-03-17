@@ -4,7 +4,7 @@ void    print_bits(unsigned char octet);
 
 int main (int argc, char **argv)
 {
-    unsigned char octet;
+    unsigned char octet = 0;
 
     if (argc == 2) 
 

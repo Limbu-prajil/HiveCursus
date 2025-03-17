@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/05 13:17:23 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/05 15:19:42 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/08 15:38:25 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/15 00:47:57 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+
+char	*ft_strrchr(const char *s, int c);
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	*f;
-	int		len_s;
+	size_t	counter;
+	size_t	len;
 
-	f = (char *)s;
-	len_s = ft_strlen(s);
-	while (len_s > 0)
+	len = ft_strlen(s);
+	if (s[len] == '\0' && (unsigned char)c == '\0')
+		return ((char *)(s + len));
+	counter = 0;
+	while ((const char *)&s[(len - 1) - counter] >= s)
 	{
-		if (f[len_s] == (char)c)
-			return (&f[len_s]);
-		len_s--;
+		if (s[(len - 1) - counter] == (unsigned char)c)
+			return ((char *)(s + ((len - 1) - counter)));
+		counter++;
 	}
-	if (f[len_s] == (char)c)
-		return (&f[len_s]);
 	return (NULL);
 }

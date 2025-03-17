@@ -3,62 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 12:33:05 by kjullien          #+#    #+#             */
-/*   Updated: 2024/11/14 22:27:33 by kjullien         ###   ########.fr       */
+/*   Created: 2024/11/18 09:38:52 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:41:14 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stddef.h>
 
-static int	ft_issign(const char c)
+int	ft_atoi(const char *c)
 {
-	if (c == '-' || c == '+')
-	{
-		return (1);
-	}
-	return (0);
-}
+	int					i;
+	int					r;
+	long long			result;
 
-static int	ft_isspace(const char c)
-{
-	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
-		|| c == '\v')
+	i = 0;
+	r = 1;
+	result = 0;
+	while ((c[i] == '\n' || c[i] == '\r' || c[i] == ' ' || c[i] == '\t'
+			|| c[i] == '\v' || c[i] == '\f') && c[i])
+		i++;
+	if (c[i] == '-')
+		r = -1;
+	if (c[i] == '-' || c[i] == '+')
+		i++;
+	while (c[i] >= '0' && c[i] <= '9')
 	{
-		return (1);
+		if (result < 0 && r == -1)
+			return (0);
+		if (result < 0 && r == 1)
+			return (-1);
+		result *= 10;
+		result += c[i] - '0';
+		i++;
 	}
-	return (0);
-}
-
-int			ft_atoi(const char *nptr);
-
-int	ft_atoi(const char *nptr)
-{
-	int		total;
-	size_t	counter;
-	int		sign;
-
-	sign = 1;
-	counter = 0;
-	total = 0;
-	while (ft_isspace(nptr[counter]))
-	{
-		counter++;
-	}
-	if (ft_issign(nptr[counter]))
-	{
-		if (nptr[counter] == '-')
-		{
-			sign = -1;
-		}
-		counter++;
-	}
-	while (ft_isdigit(nptr[counter]))
-	{
-		total = total * 10 + (nptr[counter] - '0');
-		counter++;
-	}
-	return (total * sign);
+	return (r * result);
 }

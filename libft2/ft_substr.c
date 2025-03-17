@@ -3,37 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 15:40:35 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/14 10:38:11 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/12 14:13:48 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 22:24:02 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
+
+static char	*ft_handle_big_start(void)
+{
+	char	*r;
+
+	r = malloc(1 * sizeof(char));
+	if (!r)
+		return (NULL);
+	r[0] = '\0';
+	return (r);
+}
+
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*str;
-	size_t			i;
-	unsigned int	len_s;
+	size_t	s_len;
+	size_t	counter;
+	char	*r;
+	size_t	r_size;
 
-	if (!s)
+	s_len = ft_strlen(s);
+	if (start > s_len)
+		return (ft_handle_big_start());
+	if (s_len - start < len)
+		r_size = s_len - start;
+	else
+		r_size = len;
+	r = malloc((r_size + 1) * sizeof(char));
+	if (!r)
 		return (NULL);
-	len_s = ft_strlen(s);
-	if (start >= len_s)
-		return (ft_strdup(""));
-	if (len > len_s - start)
-		len = len_s - start;
-	str = (char *)malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len && s[start + i])
+	counter = 0;
+	while (counter < r_size)
 	{
-		str[i] = s[start + i];
-		i++;
+		*(r + counter) = *(s + start + counter);
+		counter++;
 	}
-	str[i] = '\0';
-	return (str);
+	*(r + counter) = '\0';
+	return (r);
 }

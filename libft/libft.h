@@ -7,8 +7,6 @@
 # include <strings.h>
 # include <unistd.h>
 
-# define BUFFER_SIZE 1024
-
 typedef struct s_list
 {
 	int				nbr;
@@ -35,7 +33,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 
 int		ft_atoi(const char *nptr);
-long	ft_atol(const char *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);

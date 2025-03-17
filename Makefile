@@ -8,4 +8,4 @@ pull:
 push:
 	git push origin master
 
-all: commit pull push
+all: pull commit push

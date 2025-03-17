@@ -3,58 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 17:58:42 by ocassany          #+#    #+#             */
-/*   Updated: 2023/08/14 18:28:45 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/13 13:18:41 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 22:48:58 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
+#include <stdlib.h>
 
-static int	n_len(long int n)
+static char	*ft_handle_zero_and_int_min(int n)
 {
-	int			nbr_chr;
+	char	*r;
 
-	nbr_chr = 0;
-	if (n < 0)
+	if (n == 0)
 	{
-		nbr_chr++;
-		n = n * -1;
+		r = malloc(2 * sizeof(char));
+		if (!r)
+			return (NULL);
+		ft_memcpy(r, "0", 2);
 	}
-	while (n > 9)
+	if (n == INT_MIN)
 	{
-		nbr_chr++;
-		n /= 10;
+		r = malloc(12 * sizeof(char));
+		if (!r)
+			return (NULL);
+		ft_memcpy(r, "-2147483648", 12);
 	}
-	nbr_chr++;
-	return (nbr_chr);
+	return (r);
 }
+
+static void	ft_handle_sign(int *n, int *size, int *sign)
+{
+	if (*n < 0)
+	{
+		*size = *size + 1;
+		*sign = -1;
+		*n = *n * -1;
+	}
+}
+
+static int	ft_nbr_size(int n)
+{
+	int	size;
+
+	size = 0;
+	while (n > 0)
+	{
+		n = n / 10;
+		size++;
+	}
+	return (size);
+}
+
+char		*ft_itoa(int n);
 
 char	*ft_itoa(int n)
 {
-	char		*tab;
-	int			nbr_chr;
-	long int	num;
+	int		size;
+	int		sign;
+	char	*r;
+	int		counter;
 
-	num = n;
-	nbr_chr = n_len(num);
-	if (n == 0)
-		return (ft_strdup("0"));
-	tab = malloc((nbr_chr + 1) * sizeof(char));
-	if (!tab)
+	if (n == 0 || n == INT_MIN)
+		return (ft_handle_zero_and_int_min(n));
+	sign = 1;
+	size = 0;
+	ft_handle_sign(&n, &size, &sign);
+	size += ft_nbr_size(n);
+	r = malloc((size + 1) * sizeof(char));
+	if (!r)
 		return (NULL);
-	tab[nbr_chr] = '\0';
-	if (num < 0)
+	counter = size - 1;
+	while (n > 0)
 	{
-		tab[0] = '-';
-		num *= -1;
+		r[counter--] = (n % 10) + '0';
+		n = n / 10;
 	}
-	while (nbr_chr > 0 && num > 0)
-	{
-		tab[nbr_chr - 1] = (num % 10) + '0';
-		num /= 10;
-		nbr_chr--;
-	}
-	return (tab);
+	if (sign == -1)
+		r[0] = '-';
+	r[size] = '\0';
+	return (r);
 }

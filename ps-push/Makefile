@@ -15,7 +15,6 @@ SRCS = src/main.c \
 	src/utils/find_best_depths.c \
 	src/utils/free_stack_or_array.c \
 	src/utils/error_msg.c \
-	src/utils/ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -3,28 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 20:29:31 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/11 09:50:10 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/12 16:35:11 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 22:28:27 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
+
+char	*ft_strjoin(char const *s1, char const *s2);
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*tab;
-	int		bigsize;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*r;
+	size_t	counter;
 
-	if (!s1 || !s2)
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	r = malloc((s1_len + s2_len + 1) * sizeof(char));
+	if (!r)
 		return (NULL);
-	bigsize = ft_strlen(s1) +ft_strlen(s2) + 1;
-	tab = malloc(bigsize);
-	if (!tab)
-		return (NULL);
-	ft_memcpy(tab, s1, ft_strlen(s1));
-	tab[ft_strlen(s1)] = '\0';
-	ft_strlcat(tab, s2, bigsize);
-	return (tab);
+	counter = 0;
+	while (counter < s1_len)
+	{
+		*(r + counter) = *(s1 + counter);
+		counter++;
+	}
+	while (counter < s2_len + s1_len)
+	{
+		*(r + counter) = *(s2 + counter - s1_len);
+		counter++;
+	}
+	*(r + counter) = '\0';
+	return (r);
 }

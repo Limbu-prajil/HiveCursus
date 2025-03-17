@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocassany <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kjullien <kjullien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 11:36:57 by ocassany          #+#    #+#             */
-/*   Updated: 2023/02/18 16:39:37 by ocassany         ###   ########.fr       */
+/*   Created: 2024/11/13 15:44:32 by kjullien          #+#    #+#             */
+/*   Updated: 2024/11/14 22:25:56 by kjullien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char			*array;
-	unsigned int	i;
+	size_t	len;
+	size_t	counter;
+	char	*r;
 
-	if (!s || !f)
+	len = ft_strlen(s);
+	r = malloc((len + 1) * sizeof(char));
+	if (!r)
 		return (NULL);
-	array = ft_calloc((ft_strlen(s) + 1), sizeof(char));
-	if (!array)
-		return (NULL);
-	i = 0;
-	while (s[i])
+	counter = 0;
+	while (counter < len)
 	{
-		array[i] = f(i, s[i]);
-		i++;
+		r[counter] = f(counter, s[counter]);
+		counter++;
 	}
-	return (array);
+	r[counter] = '\0';
+	return (r);
 }
