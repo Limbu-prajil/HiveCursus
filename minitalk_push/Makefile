@@ -1,5 +1,5 @@
 NAME := minitalk
-FLAGS := -Wall -Wextra -Werror
+FLAGS := -Wall -Wextra -Werror -g
 
 LIBFT_NAME := libft/libft.a
 LIBFT_SOURCES := $(wildcard libft/*.c)
