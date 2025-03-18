@@ -6,6 +6,6 @@ pull:
 	git pull origin master
 
 push:
-	git push origin master
+	git push -u origin master
 
 all: pull commit push
