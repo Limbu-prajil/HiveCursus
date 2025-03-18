@@ -2,7 +2,7 @@ pull:
 	git pull origin master
 
 commit:
-	git add .
+	git add -A
 	git commit -m "Automated commit"
 
 push:
