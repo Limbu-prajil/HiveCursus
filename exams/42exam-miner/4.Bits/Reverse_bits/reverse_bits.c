@@ -16,12 +16,12 @@ Example 3:
 Input: 255 (Binary: 11111111)
 Reversed Output: 11111111
 */
-
+/*
 // Function that reverses the bits of a byte (unsigned char)
 unsigned char reverse_bits(unsigned char octet)
 {
     int index;
-    
+
     unsigned char result;
 
     result = 0;
@@ -32,11 +32,25 @@ unsigned char reverse_bits(unsigned char octet)
     {
         // Store in result the reverse on the left and add the least significant bit of octet
         result = (result << 1) | (octet & 1);
-        
+
         // Shift octet to the right to process the next bit
         octet >>= 1;
     }
     return (result);
+} */
+
+unsigned char	reverse_bits(unsigned char octet)
+{
+	int		i = 7;
+	unsigned char	res = 0;
+
+	while (i >= 0)
+	{
+		res = res * 2 + (octet % 2);
+		octet = octet / 2;
+		i--;
+	}
+	return (res);
 }
 
 void print_bits(unsigned char octet)
@@ -54,11 +68,11 @@ void print_bits(unsigned char octet)
 
 // Main function
 
-int main() 
+int main()
 {
     unsigned char value = 10; // Binary: 00001010
     unsigned char reversed = reverse_bits(value);
-    
+
     print_bits(value); // Expected output: 00001010
     printf("\n");
     print_bits(reversed); // Expected output: 01010000
@@ -66,7 +80,7 @@ int main()
 
     value = 5; // Binary: 00000101
     reversed = reverse_bits(value);
-    
+
     print_bits(value); // Expected output: 00000101
     printf("\n");
     print_bits(reversed); // Expected output: 10100000
@@ -74,7 +88,7 @@ int main()
 
     value = 255; // Binary: 11111111
     reversed = reverse_bits(value);
-    
+
     print_bits(value); // Expected output: 11111111
     printf("\n");
     print_bits(reversed); // Expected output: 11111111
