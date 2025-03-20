@@ -57,7 +57,7 @@ void	rra_rb_exec(t_data *stacks, int depth_a, int depth_b);
 void	ra_rrb_exec(t_data *stacks, int depth_a, int depth_b);
 void	combo_exec(t_data *stacks, int depth_a, int depth_b);
 
-void	opti_ops_to_stack_b(t_data *stacks, t_list *sta, int depth_a, int ops);
+void	opti_ops_to_stack_b(t_data *stacks, int depth_a, int ops);
 void	opti_ops_to_stack_a(t_data *stacks, t_list *stb, int depth_b, int ops);
 
 #endif

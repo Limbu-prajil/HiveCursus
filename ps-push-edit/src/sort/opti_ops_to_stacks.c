@@ -25,26 +25,26 @@ void	opti_ops_to_stack_a(t_data *stacks, t_list *stb, int depth_b, int ops)
 	combo_exec(stacks, best_depth_a(stacks->a, best_nbr), best_depth_b);
 }
 
-void	opti_ops_to_stack_b(t_data *stacks, t_list *sta, int depth_a, int ops)
+void	opti_ops_to_stack_b(t_data *stacks, int depth_a, int ops)
 {
 	int		best_nbr;
 	int		best_depth_a;
 
-	while (sta->next != stacks->a)
+	while (stacks->a->next != stacks->a)
 	{
-		if (best_combo(stacks, depth_a, best_depth_b(stacks->b, sta->nbr)) < ops)
+		if (best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr)) < ops)
 		{
-			ops = best_combo(stacks, depth_a, best_depth_b(stacks->b, sta->nbr));
-			best_nbr = sta->nbr;
+			ops = best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr));
+			best_nbr = stacks->a->nbr;
 			best_depth_a = depth_a;
 		}
 		depth_a++;
-		sta = sta->next;
+		stacks->a = stacks->a->next;
 	}
-	if (best_combo(stacks, depth_a, best_depth_b(stacks->b, sta->nbr)) < ops)
+	if (best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr)) < ops)
 	{
-		ops = best_combo(stacks, depth_a, best_depth_b(stacks->b, sta->nbr));
-		best_nbr = sta->nbr;
+		ops = best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr));
+		best_nbr = stacks->a->nbr;
 		best_depth_a = depth_a;
 	}
 	combo_exec(stacks, best_depth_a, best_depth_b(stacks->b, best_nbr));

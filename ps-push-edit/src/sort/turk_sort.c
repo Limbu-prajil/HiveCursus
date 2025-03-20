@@ -20,12 +20,9 @@ void	sort_three(t_data *stacks)
 
 void	sort_until_three(t_data *stacks)
 {
-	t_list	*sta;
-
 	while (ft_lstsize(stacks->a) > 3)
 	{
-		sta = stacks->a;
-		opti_ops_to_stack_b(stacks, sta, 0, INT_MAX);
+		opti_ops_to_stack_b(stacks, 0, INT_MAX);
 		pb(stacks);
 	}
 }
