@@ -35,18 +35,17 @@ void	sort_stack_b(t_data *stacks)
 		pb(stacks);
 	if (ft_lstsize(stacks->a) > 3 && not_sorted(stacks->a))
 		sort_until_three(stacks);
+	while (ft_lstsize(stacks->a) > 3 && not_sorted(stacks->a))
+		pb(stacks);
 	if  (not_sorted(stacks->a))
 		sort_three(stacks);
 }
 
 void	sort_stack_a(t_data *stacks)
 {
-	t_list	*stb;
-
 	while (stacks->b)
 	{
-		stb = stacks->b;
-		opti_ops_to_stack_a(stacks, stb, 0, INT_MAX);
+		opti_ops_to_stack_a(stacks, 0, INT_MAX);
 		pa(stacks);
 	}
 }

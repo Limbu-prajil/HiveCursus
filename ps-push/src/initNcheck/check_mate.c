@@ -55,6 +55,7 @@ int	not_digits(char **str)
 		while (str[i][j])
 		{
 			if ((str[i][j] == '-' && ft_isdigit(str[i][j + 1])))
+				j++;
 			if (!ft_isdigit(str[i][j]))
 				return (1);
 			j++;

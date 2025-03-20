@@ -1,0 +1,62 @@
+#include "../../inc/push_swap.h"
+
+int	find_depth(t_list *stack, int nbr)
+{
+	int		d;
+
+	d = 0;
+	while (stack->next != stack)
+	{
+		if (stack->nbr == nbr)
+			return (d);
+		d++;
+		stack = stack->next;
+	}
+	return (d);
+}
+
+int	best_depth_in_a(t_list *sta, int stbnbr)
+{
+	int		i;
+	t_list	*stanext;
+
+	i = 1;
+	if (stbnbr < sta->nbr && stbnbr > sta->prev->nbr)
+		i = 0;
+	else if (stbnbr > find_max(sta) || stbnbr < find_min(sta))
+		i = find_depth(sta, find_min(sta));
+	else
+	{
+		stanext = sta->next;
+		while (stbnbr < sta->nbr || stbnbr > stanext->nbr)
+		{
+			sta = sta->next;
+			stanext = stanext->next;
+			i++;
+		}
+	}
+	return (i);
+}
+
+int	best_depth_in_b(t_list *stb, int stanbr)
+{
+	int		i;
+	t_list	*stbnext;
+
+	i = 1;
+	if (stanbr > stb->nbr && stanbr < stb->prev->nbr)
+		i = 0;
+	else if (stanbr > find_max(stb) || stanbr < find_min(stb))
+		i = find_depth(stb, find_max(stb));
+	else
+	{
+		stbnext = stb->next;
+		while (stanbr > stb->nbr || stanbr < stbnext->nbr)
+		{
+			stb = stb->next;
+			stbnext = stbnext->next;
+			i++;
+		}
+	}
+	return (i);
+}

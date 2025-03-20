@@ -1,51 +1,53 @@
 #include "../../inc/push_swap.h"
 
-void	opti_ops_to_stack_a(t_data *stacks, t_list *stb, int depth_b, int ops)
+void	opti_ops_to_stack_a(t_data *stacks, int depth_b, int opsnum)
 {
-	int		best_nbr;
-	int		best_depth_b;
+	int		best_nbr_to_push;
+	int		best_depth_in_b;
+	t_list	*stb;
 
+	stb = stacks->b;
 	while (stb->next != stacks->b)
 	{
-		if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b) < ops)
+		if (best_combo(stacks, best_depth_in_a(stacks->a, stb->nbr), depth_b) < opsnum)
 		{
-			ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b);
-			best_nbr = stb->nbr;
-			best_depth_b = depth_b;
+			opsnum = best_combo(stacks, best_depth_in_a(stacks->a, stb->nbr), depth_b);
+			best_nbr_to_push = stb->nbr;
+			best_depth_in_b = depth_b;
 		}
 		depth_b++;
 		stb = stb->next;
 	}
-	if (best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b) < ops)
+	if (best_combo(stacks, best_depth_in_a(stacks->a, stb->nbr), depth_b) < opsnum)
 	{
-		ops = best_combo(stacks, best_depth_a(stacks->a, stb->nbr), depth_b);
-		best_nbr = stb->nbr;
-		best_depth_b = depth_b;
+		opsnum = best_combo(stacks, best_depth_in_a(stacks->a, stb->nbr), depth_b);
+		best_nbr_to_push = stb->nbr;
+		best_depth_in_b = depth_b;
 	}
-	combo_exec(stacks, best_depth_a(stacks->a, best_nbr), best_depth_b);
+	combo_exec(stacks, best_depth_in_a(stacks->a, best_nbr_to_push), best_depth_in_b);
 }
 
-void	opti_ops_to_stack_b(t_data *stacks, int depth_a, int ops)
+void	opti_ops_to_stack_b(t_data *stacks, int depth_a, int opsnum)
 {
-	int		best_nbr;
-	int		best_depth_a;
+	t_list	*sta;
 
-	while (stacks->a->next != stacks->a)
+	sta = stacks->a;
+	while (sta->next != stacks->a)
 	{
-		if (best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr)) < ops)
+		if (best_depth_in_b(stacks->b, sta->nbr) < opsnum)
 		{
-			ops = best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr));
-			best_nbr = stacks->a->nbr;
-			best_depth_a = depth_a;
+			opsnum = best_depth_in_b(stacks->b, sta->nbr);
+			best_nbr_to_push = sta->nbr;
+			best_depth_in_a = depth_a;
 		}
 		depth_a++;
-		stacks->a = stacks->a->next;
+		sta = sta->next;
 	}
-	if (best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr)) < ops)
+	if (best_combo(stacks, depth_a, best_depth_in_b(stacks->b, sta->nbr)) < opsnum)
 	{
-		ops = best_combo(stacks, depth_a, best_depth_b(stacks->b, stacks->a->nbr));
-		best_nbr = stacks->a->nbr;
-		best_depth_a = depth_a;
+		opsnum = best_combo(stacks, depth_a, best_depth_in_b(stacks->b, sta->nbr));
+		best_nbr_to_push = sta->nbr;
+		best_depth_in_a = depth_a;
 	}
-	combo_exec(stacks, best_depth_a, best_depth_b(stacks->b, best_nbr));
+	combo_exec(stacks, best_depth_in_a, best_depth_in_b(stacks->b, best_nbr_to_push));
 }

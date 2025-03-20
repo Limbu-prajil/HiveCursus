@@ -15,10 +15,10 @@ int	find_depth(t_list *stack, int nbr)
 	return (d);
 }
 
-int	best_depth_a(t_list *sta, int stbnbr)
+int	best_depth_in_a(t_list *sta, int stbnbr)
 {
 	int		i;
-	t_list	*stack;
+	t_list	*stanext;
 
 	i = 1;
 	if (stbnbr < sta->nbr && stbnbr > sta->prev->nbr)
@@ -27,36 +27,18 @@ int	best_depth_a(t_list *sta, int stbnbr)
 		i = find_depth(sta, find_min(sta));
 	else
 	{
-		stack = sta->next;
-		while (stbnbr < sta->nbr || stbnbr > stack->nbr)
+		stanext = sta->next;
+		while (stbnbr < sta->nbr || stbnbr > stanext->nbr)
 		{
 			sta = sta->next;
-			stack = stack->next;
+			stanext = stanext->next;
 			i++;
 		}
 	}
 	return (i);
 }
 
-int	best_depth_b(t_list *stb, int stanbr)
+int	best_depth_in_b(t_data *stacks, t_list *stb, int stanbr)
 {
-	int		i;
-	t_list	*stack;
 
-	i = 1;
-	if (stanbr > stb->nbr && stanbr < stb->prev->nbr)
-		i = 0;
-	else if (stanbr > find_max(stb) || stanbr < find_min(stb))
-		i = find_depth(stb, find_max(stb));
-	else
-	{
-		stack = stb->next;
-		while (stanbr > stb->nbr || stanbr < stack->nbr)
-		{
-			stb = stb->next;
-			stack = stack->next;
-			i++;
-		}
-	}
-	return (i);
 }

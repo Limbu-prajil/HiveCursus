@@ -82,16 +82,17 @@ void	ra_rrb_exec(t_data *stacks, int depth_a, int depth_b)
 
 void	combo_exec(t_data *stacks, int depth_a, int depth_b)
 {
-	if (depth_a > ft_lstsize(stacks->a) / 2 
-		&& depth_b > ft_lstsize(stacks->b) / 2)
+	int sizea;
+	int sizeb;
+
+	sizea = ft_lstsize(stacks->a);
+	sizeb = ft_lstsize(stacks->b);
+	if (depth_a > sizea / 2 && depth_b > sizeb / 2)
 		rra_rrb_exec(stacks, depth_a, depth_b);
-	else if (depth_a <= ft_lstsize(stacks->a) / 2 
-		&& depth_b <= ft_lstsize(stacks->b) / 2)
+	else if (depth_a <= sizea / 2 && depth_b <= sizeb / 2)
 		ra_rb_exec(stacks, depth_a, depth_b);
-	else if (depth_a <= ft_lstsize(stacks->a) / 2 
-		&& depth_b > ft_lstsize(stacks->b) / 2)
+	else if (depth_a <= sizea / 2 && depth_b > sizeb / 2)
 		ra_rrb_exec(stacks, depth_a, depth_b);
-	else if (depth_a > ft_lstsize(stacks->a) / 2 
-		&& depth_b <= ft_lstsize(stacks->b) / 2)
+	else if (depth_a > sizea / 2 && depth_b <= sizeb / 2)
 		rra_rb_exec(stacks, depth_a, depth_b);
 }
