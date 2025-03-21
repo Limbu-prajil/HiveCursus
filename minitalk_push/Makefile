@@ -17,21 +17,25 @@ libft/%.o: libft/%.c libft/libft.h
 
 server: server.o $(LIBFT_NAME)
 	cc $(FLAGS) $^ -o $@
+	echo "Server processid!"
 
 server.o: server.c minitalk.h
 	cc $(FLAGS) -c $< -o $@
 
 client: client.o $(LIBFT_NAME)
 	cc $(FLAGS) $^ -o $@
+	echo "Client processid!"
 
 client.o: client.c minitalk.h
 	cc $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f client.o server.o $(LIBFT_OBJECTS)
+	echo "All objects cleaned!"
 
 fclean: clean
 	rm -f client server $(LIBFT_NAME)
+	echo "All others cleaned!"
 
 re: fclean all
 

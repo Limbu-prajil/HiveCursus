@@ -1,7 +1,4 @@
 #include "minitalk.h"
-#include "libft/libft.h"
-#include <stdio.h>
-
 
 void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
 {

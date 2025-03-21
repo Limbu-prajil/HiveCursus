@@ -7,7 +7,7 @@
 #include <limits.h>
 #include "libft/libft.h"
 
-#define BUFFERSIZE 1048576  // Define a reasonable buffer size
+#define BUFFERSIZE 1024  // Define a reasonable buffer size
 
 typedef struct s_server
 {

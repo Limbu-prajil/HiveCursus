@@ -1,5 +1,4 @@
 #include "minitalk.h"
-#include "libft/libft.h"
 
 int g_bit_received;
 
