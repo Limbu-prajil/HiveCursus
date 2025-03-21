@@ -63,8 +63,8 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 	
 $(NAME) : $(OBJS)
-	ar rcs $(NAME) $(OBJS)
-	echo "Libft sucksesfooli created!"
+	@ar rcs $(NAME) $(OBJS)
+	@echo "Libft sucksesfooli created!"
 
 all: $(NAME)
 
@@ -74,4 +74,4 @@ clean:
 fclean: clean 
 	$(RM) $(NAME)
 
-re: all clean fclean
+re: fclean all

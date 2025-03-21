@@ -1,20 +1,32 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/21 14:26:31 by plimbu            #+#    #+#              #
+#    Updated: 2025/03/21 14:26:35 by plimbu           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = push_swap
 
 SRCS = src/main.c \
 	src/initNcheck/check_mate.c \
 	src/initNcheck/init_to_stack.c \
+	src/sort/turk_sort.c \
+	src/sort/opti_ops_to_stack.c \
+	src/sort/best_opsnum.c \
+	src/sort/best_ops_to_exec.c \
+	src/utils/find_best_depth_in_a.c \
+	src/utils/find_max_or_min.c \
+	src/utils/free_stack_or_array.c \
+	src/utils/error_msg.c \
 	src/ops/push.c \
 	src/ops/swap.c \
 	src/ops/rotate.c \
 	src/ops/rev-rot.c \
-	src/sort/turk_sort.c \
-	src/sort/opti_ops_to_stacks.c \
-	src/sort/calc_opti_ops_combo.c \
-	src/sort/exec_opti_ops_combo.c \
-	src/utils/find_max_or_min.c \
-	src/utils/find_best_depths.c \
-	src/utils/free_stack_or_array.c \
-	src/utils/error_msg.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -33,17 +45,17 @@ $(LIB)libft.a:
 
 $(NAME) : $(OBJS) $(LIB)libft.a
 	@$(CC) $(CFLAGS) $(OBJS) -L$(LIB) -lft -o $(NAME)
-	@echo "push_swap sucksesfooli created!"
+	@echo "Push_Swap sucksesfooli created!"
 
 clean :
 	@$(RM) $(OBJS)
 	@make clean -C $(LIB)
-	@echo "all objects sucksesfooli cleaned!"
+	@echo "All objects from ps and libft sucksesfooli cleaned!"
 
 fclean : clean
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB)
-	@echo "archives and execs sucksesfooli Fcleaned!"
+	@echo "Archives and Execs from ps and libft sucksesfooli Fcleaned!"
 
 re : fclean all
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_to_stack.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 14:27:51 by plimbu            #+#    #+#             */
+/*   Updated: 2025/03/21 14:27:54 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/push_swap.h"
 
 void	multi_init(int argc, char **argv, t_data *stacks)
@@ -11,12 +23,11 @@ void	multi_init(int argc, char **argv, t_data *stacks)
 	i = 0;
 	while (i < argc - 1)
 	{
-		nbr = ft_atol(argv[i]);
+		nbr = ft_atol(argv[i++]);
 		if (nbr > INT_MAX || nbr < INT_MIN)
 			error_msg(NULL, stacks->a);
 		tmp = ft_lstnew(nbr);
 		ft_lstadd_back(stacks, tmp);
-		i++;
 	}
 }
 
@@ -24,7 +35,7 @@ void	str_init(char **argv, t_data *stacks)
 {
 	char	**nbrs;
 	int		i;
-	long long	nbr;		
+	long	nbr;		
 	t_list	*tmp;
 
 	nbrs = ft_split_del((char const *)argv[0], ' ');

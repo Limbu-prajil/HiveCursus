@@ -45,8 +45,8 @@ char	**ft_split_del(char const *s, char c);
 char	*ft_itoa(int n);
 char	*get_next_line(int fd);
 
-int		ft_lstsize(t_list *lst);
-long	ft_atol(const char *str);
+int     	ft_lstsize(t_list *lst);
+long    ft_atol(const char *str);
 int		ft_atoi(const char *nptr);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_isalpha(int c);

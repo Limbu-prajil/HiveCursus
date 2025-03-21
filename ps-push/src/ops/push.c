@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 14:29:22 by plimbu            #+#    #+#             */
+/*   Updated: 2025/03/21 14:29:31 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/push_swap.h"
 
 void	pa2(t_data *stacks, t_list *tmp)
@@ -15,7 +27,7 @@ void	pa(t_data *stacks)
 
 	if (!stacks->b)
 		return ;
-	tmp = stacks->b; 
+	tmp = stacks->b;
 	if (stacks->b->next != stacks->b)
 	{
 		tmp->prev->next = stacks->b->next;
@@ -50,7 +62,7 @@ void	pb(t_data *stacks)
 
 	if (!stacks->a)
 		return ;
-	tmp = stacks->a; 
+	tmp = stacks->a;
 	if (stacks->a->next != stacks->a)
 	{
 		tmp->prev->next = stacks->a->next;

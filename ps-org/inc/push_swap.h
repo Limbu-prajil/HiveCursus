@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 14:25:58 by plimbu            #+#    #+#             */
-/*   Updated: 2025/03/21 14:26:02 by plimbu           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -58,6 +46,6 @@ void	rra_rrb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b);
 void	ra_rb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b);
 void	ra_rrb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b);
 void	rra_rb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b);
-void	best_ops_to_exec(t_data *stacks, int best_d_in_a, int best_d_in_b);
+void	best_ops_to_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b);
 
 #endif
