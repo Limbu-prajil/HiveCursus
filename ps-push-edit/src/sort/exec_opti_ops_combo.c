@@ -1,98 +1,98 @@
 #include "../../inc/push_swap.h"
 
-void	rra_rrb_exec(t_data *stacks, int depth_a, int depth_b)
+void	rra_rrb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b)
 {
-	while (depth_a != ft_lstsize(stacks->a) && depth_b != ft_lstsize(stacks->b))
+	while (best_depth_in_a != ft_lstsize(stacks->a) && best_depth_in_b != ft_lstsize(stacks->b))
 	{
 		rrr(stacks);
-		depth_a++;
-		depth_b++;
+		best_depth_in_a++;
+		best_depth_in_b++;
 	}
-	if (depth_a == ft_lstsize(stacks->a))
+	if (best_depth_in_a == ft_lstsize(stacks->a))
 	{
-		while (depth_b != ft_lstsize(stacks->b))
+		while (best_depth_in_b != ft_lstsize(stacks->b))
 		{
 			rrb(stacks);
-			depth_b++;
+			best_depth_in_b++;
 		}
 	}
-	else if (depth_b == ft_lstsize(stacks->b))
+	else if (best_depth_in_b == ft_lstsize(stacks->b))
 	{
-		while (depth_a != ft_lstsize(stacks->a))
+		while (best_depth_in_a != ft_lstsize(stacks->a))
 		{
 			rra(stacks);
-			depth_a++;
+			best_depth_in_a++;
 		}
 	}
 }
 
-void	ra_rb_exec(t_data *stacks, int depth_a, int depth_b)
+void	ra_rb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b)
 {
-	while (depth_a != 0 && depth_b != 0)
+	while (best_depth_in_a != 0 && best_depth_in_b != 0)
 	{
 		rr(stacks);
-		depth_a--;
-		depth_b--;
+		best_depth_in_a--;
+		best_depth_in_b--;
 	}
-	if (depth_a == 0)
+	if (best_depth_in_a == 0)
 	{
-		while (depth_b != 0)
+		while (best_depth_in_b != 0)
 		{
 			rb(stacks);
-			depth_b--;
+			best_depth_in_b--;
 		}
 	}
-	else if (depth_b == 0)
+	else if (best_depth_in_b == 0)
 	{
-		while (depth_a != 0)
+		while (best_depth_in_a != 0)
 		{
 			ra(stacks);
-			depth_a--;
+			best_depth_in_a--;
 		}
 	}
 }
 
-void	rra_rb_exec(t_data *stacks, int depth_a, int depth_b)
+void	ra_rrb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b)
 {
-	while (depth_b != 0)
-	{
-		rb(stacks);
-		depth_b--;
-	}
-	while (depth_a != ft_lstsize(stacks->a))
-	{
-		rra(stacks);
-		depth_a++;
-	}
-}
-
-void	ra_rrb_exec(t_data *stacks, int depth_a, int depth_b)
-{
-	while (depth_b != ft_lstsize(stacks->b))
+	while (best_depth_in_b != ft_lstsize(stacks->b))
 	{
 		rrb(stacks);
-		depth_b++;
+		best_depth_in_b++;
 	}
-	while (depth_a != 0)
+	while (best_depth_in_a != 0)
 	{
 		ra(stacks);
-		depth_a--;
+		best_depth_in_a--;
 	}
 }
 
-void	combo_exec(t_data *stacks, int depth_a, int depth_b)
+void	rra_rb_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b)
+{
+	while (best_depth_in_b != 0)
+	{
+		rb(stacks);
+		best_depth_in_b--;
+	}
+	while (best_depth_in_a != ft_lstsize(stacks->a))
+	{
+		rra(stacks);
+		best_depth_in_a++;
+	}
+}
+
+void	best_ops_to_exec(t_data *stacks, int best_depth_in_a, int best_depth_in_b)
 {
 	int sizea;
 	int sizeb;
 
 	sizea = ft_lstsize(stacks->a);
 	sizeb = ft_lstsize(stacks->b);
-	if (depth_a > sizea / 2 && depth_b > sizeb / 2)
-		rra_rrb_exec(stacks, depth_a, depth_b);
-	else if (depth_a <= sizea / 2 && depth_b <= sizeb / 2)
-		ra_rb_exec(stacks, depth_a, depth_b);
-	else if (depth_a <= sizea / 2 && depth_b > sizeb / 2)
-		ra_rrb_exec(stacks, depth_a, depth_b);
-	else if (depth_a > sizea / 2 && depth_b <= sizeb / 2)
-		rra_rb_exec(stacks, depth_a, depth_b);
+	if (best_depth_in_a > sizea / 2 && best_depth_in_b > sizeb / 2)
+		rra_rrb_exec(stacks, best_depth_in_a, best_depth_in_b);
+	else if (best_depth_in_a <= sizea / 2 && best_depth_in_b <= sizeb / 2)
+		ra_rb_exec(stacks, best_depth_in_a, best_depth_in_b);
+	else if (best_depth_in_a <= sizea / 2 && best_depth_in_b > sizeb / 2)
+		ra_rrb_exec(stacks, best_depth_in_a, best_depth_in_b);
+	else if (best_depth_in_a > sizea / 2 && best_depth_in_b <= sizeb / 2)
+		rra_rb_exec(stacks, best_depth_in_a, best_depth_in_b);
 }

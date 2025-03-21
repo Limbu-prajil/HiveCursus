@@ -37,8 +37,3 @@ int	best_depth_in_a(t_list *sta, int stbnbr)
 	}
 	return (i);
 }
-
-int	best_depth_in_b(t_data *stacks, t_list *stb, int stanbr)
-{
-
-}

@@ -49,15 +49,15 @@ int		rra_rrb_calc(t_data *stacks, int depth_a, int depth_b);
 int		ra_rb_calc(int depth_a, int depth_b);
 int		rra_rb_calc(t_data *stacks, int depth_a, int depth_b);
 int		ra_rrb_calc(t_data *stacks, int depth_a, int depth_b);
-int		best_combo(t_data *stacks, int depth_a, int depth_b);
+int		best_opsnum(t_data *stacks, int depth_a, int depth_b);
 
 void	rra_rrb_exec(t_data *stacks, int depth_a, int depth_b);
 void	ra_rb_exec(t_data *stacks, int depth_a, int depth_b);
 void	rra_rb_exec(t_data *stacks, int depth_a, int depth_b);
 void	ra_rrb_exec(t_data *stacks, int depth_a, int depth_b);
-void	combo_exec(t_data *stacks, int depth_a, int depth_b);
+void	best_ops_to_exec(t_data *stacks, int depth_a, int depth_b);
 
-void	opti_ops_to_stack_b(t_data *stacks, int depth_a, int ops);
-void	opti_ops_to_stack_a(t_data *stacks, int depth_b, int ops);
+void	opti_ops_to_stack_b(t_data *stacks, int depth_a);
+void	opti_ops_to_stack_a(t_data *stacks, int depth_b, int opsnum);
 
 #endif

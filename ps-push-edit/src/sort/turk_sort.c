@@ -18,23 +18,8 @@ void	sort_three(t_data *stacks)
 		sa(stacks);
 }
 
-void	sort_until_three(t_data *stacks)
-{
-	while (ft_lstsize(stacks->a) > 3)
-	{
-		opti_ops_to_stack_b(stacks, 0, INT_MAX);
-		pb(stacks);
-	}
-}
-
 void	sort_stack_b(t_data *stacks)
 {
-	if (ft_lstsize(stacks->a) > 3 && not_sorted(stacks->a))
-		pb(stacks);
-	if (ft_lstsize(stacks->a) > 3 && not_sorted(stacks->a))
-		pb(stacks);
-	if (ft_lstsize(stacks->a) > 3 && not_sorted(stacks->a))
-		sort_until_three(stacks);
 	while (ft_lstsize(stacks->a) > 3 && not_sorted(stacks->a))
 		pb(stacks);
 	if  (not_sorted(stacks->a))
