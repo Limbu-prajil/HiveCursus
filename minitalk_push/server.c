@@ -24,7 +24,7 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
         // Resize buffer if needed
         if (buffer_index >= buffer_size - 1) // Leave space for '\0'
         {
-            buffer_size += 1;
+            buffer_size *= 3;
             new_buffer = (char *)malloc(buffer_size);
             if (!new_buffer)
             {

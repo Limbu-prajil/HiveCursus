@@ -17,7 +17,7 @@ libft/%.o: libft/%.c libft/libft.h
 
 server: server.o $(LIBFT_NAME)
 	cc $(FLAGS) $^ -o $@
-	echo "Server processid!"
+	@echo "Server processid!"
 
 server.o: server.c minitalk.h
 	cc $(FLAGS) -c $< -o $@
