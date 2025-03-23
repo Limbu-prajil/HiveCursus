@@ -14,8 +14,8 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
         buffer = (char *)malloc(buffer_size);
     if (!buffer)
         exit(ft_printf("Memory allocation failed\n"));
-    // Set the bit if SIGUSR1 is received
-    if (signum == SIGUSR1)
+    // Set the bit if SIGUSR2 is received
+    if (signum == SIGUSR2)
         character |= 1;
 
     bit_count++;
@@ -24,7 +24,7 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
         // Resize buffer if needed
         if (buffer_index >= buffer_size - 1) // Leave space for '\0'
         {
-            buffer_size *= 3;
+            buffer_size *= 2;
             new_buffer = (char *)malloc(buffer_size);
             if (!new_buffer)
             {

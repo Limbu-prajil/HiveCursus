@@ -9,13 +9,12 @@
 
 #define BUFFERSIZE 1024  // Define a reasonable buffer size
 
-typedef struct s_server
+typedef struct s_srv
 {
-    char    buffer[BUFFERSIZE];  // Store received characters
-    size_t  index;                // Current position in buffer
-    char    character;             // Reconstruct received character
-    int     bit_count;             // Track received bits
-    pid_t   client_pid;            // Track current client's PID
-}   t_server;
+    int	   buffer_index;           // Current position in buffer. Index to track buffer position
+    char    character;             // Reconstruct received character. Holds current character being built
+    int     bit_count;             // Tracks number of received bits. Reinitialise again for next tracking
+    char    buffer[BUFFERSIZE];    // Store received characters. Buffer to store recieved string
+}   t_srv;
 
 #endif

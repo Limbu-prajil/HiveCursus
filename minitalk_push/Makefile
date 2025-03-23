@@ -24,18 +24,18 @@ server.o: server.c minitalk.h
 
 client: client.o $(LIBFT_NAME)
 	cc $(FLAGS) $^ -o $@
-	echo "Client processid!"
+	@echo "Client processid!"
 
 client.o: client.c minitalk.h
 	cc $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f client.o server.o $(LIBFT_OBJECTS)
-	echo "All objects cleaned!"
+	@echo "All objects cleaned!"
 
 fclean: clean
 	rm -f client server $(LIBFT_NAME)
-	echo "All others cleaned!"
+	@echo "All others cleaned!"
 
 re: fclean all
 

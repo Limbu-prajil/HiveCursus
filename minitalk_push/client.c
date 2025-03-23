@@ -6,7 +6,7 @@ void send_bit(int pid, int bit)
 {
     int signal;
     
-    if (bit == 1)
+    if (bit == 0)
         signal = SIGUSR1;
     else
         signal = SIGUSR2;
@@ -23,7 +23,7 @@ void send_char(int pid, unsigned char c)
         g_bit_received = 0;
         send_bit(pid, (c >> i) & 1);
         while (!g_bit_received)
-            ;
+            pause();
     }
 }
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     if (sigaction(SIGUSR1, &sig, NULL) == -1)
         exit(ft_printf("Error setting up signal handler\n"));
     send_string(server_pid, argv[2]);
-    ft_printf("String sent\n");
+    ft_printf("Streeng sended\n");
 
     return (0);
 }
