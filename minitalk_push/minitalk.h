@@ -7,5 +7,12 @@
 #include <limits.h>
 #include "libft/libft.h"
 
-#endif
+typedef struct s_srv {
+    char    *buf;
+    char    c;
+    int     buf_size;
+    int     buf_idx;
+    int     bit_count;
+}   t_srv;
 
+#endif

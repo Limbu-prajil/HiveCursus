@@ -1,5 +1,5 @@
 #include "minitalk.h"
-
+/*
 void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
 {
     static char *buffer = NULL; // Dynamically allocated buffer
@@ -14,15 +14,12 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
         buffer = (char *)malloc(buffer_size);
     if (!buffer)
         exit(ft_printf("Memory allocation failed\n"));
-    // Set the bit if SIGUSR2 is received
-    if (signum == SIGUSR2)
+    if (signum == SIGUSR2) // Set the bit if SIGUSR2 is received
         character |= 1;
-
     bit_count++;
     if (bit_count == 8)  // If a full character is received
     {
-        // Resize buffer if needed
-        if (buffer_index >= buffer_size - 1) // Leave space for '\0'
+        if (buffer_index >= buffer_size - 1) // Resize buffer if needed. Leave space for '\0'
         {
             buffer_size *= 2;
             new_buffer = (char *)malloc(buffer_size);
@@ -36,7 +33,6 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
             buffer = new_buffer;
         }
         buffer[buffer_index++] = character; // Store the character
-
         if (character == '\0') // If end of string is received
         {
             ft_printf("%s\n", buffer); // Print the whole message
@@ -45,13 +41,54 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
             buffer_size = 1;
             buffer_index = 0;
         }
-
         character = 0; // Reset for next character
         bit_count = 0;
     }
-
     character <<= 1; // Shift for the next bit
-    // Acknowledge the client
+    if (kill(siginfo->si_pid, SIGUSR1) == -1) // Acknowledge the client
+        exit(ft_printf("Error sending signal\n"));
+} */
+
+void store_char(char **buffer, int *buf_size, int *buf_idx, char c)
+{
+    char *new_buf;
+    if (*buf_idx >= *buf_size - 1)
+    {
+        *buf_size *= 2;
+        new_buf = (char *)malloc(*buf_size);
+        if (!new_buf)
+            exit(ft_printf("Memory allocation failed\n"));
+        ft_memcpy(new_buf, *buffer, *buf_idx);
+        free(*buffer);
+        *buffer = new_buf;
+    }
+    (*buffer)[(*buf_idx)++] = c;
+}
+
+void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
+{
+    static t_srv states = {NULL, 0, 1, 0, 0};
+    (void)context;
+
+    if (!states.buf && !(states.buf = (char *)malloc(states.buf_size)))
+        exit(ft_printf("Memory allocation failed\n"));
+    if (signum == SIGUSR1)
+        states.c |= 1;
+    if (++states.bit_count == 8)
+    {
+        store_char(&states.buf, &states.buf_size, &states.buf_idx, states.c);
+        if (states.c == '\0')
+        {
+            ft_printf("%s\n", states.buf);
+            free(states.buf);
+            states.buf = NULL;
+            states.buf_size = 1;
+            states.buf_idx = 0;
+        }
+        states.c = 0;
+        states.bit_count = 0;
+    }
+    states.c <<= 1;
     if (kill(siginfo->si_pid, SIGUSR1) == -1)
         exit(ft_printf("Error sending signal\n"));
 }
