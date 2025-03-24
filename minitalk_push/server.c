@@ -49,45 +49,51 @@ void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
         exit(ft_printf("Error sending signal\n"));
 } */
 
-void store_char(char **buffer, int *buf_size, int *buf_idx, char c)
+void store_print(t_srv *s)
 {
     char *new_buf;
-    if (*buf_idx >= *buf_size - 1)
+    
+    if (s->buf_idx >= s->buf_size - 1)
     {
-        *buf_size *= 2;
-        new_buf = (char *)malloc(*buf_size);
+        s->buf_size *= 2;
+        new_buf = (char *)malloc(s->buf_size);
         if (!new_buf)
             exit(ft_printf("Memory allocation failed\n"));
-        ft_memcpy(new_buf, *buffer, *buf_idx);
-        free(*buffer);
-        *buffer = new_buf;
+        ft_memmove(new_buf, s->buf, s->buf_idx);
+        free(s->buf);
+        s->buf = new_buf;
     }
-    (*buffer)[(*buf_idx)++] = c;
+    s->buf[s->buf_idx++] = s->c;
+    if (s->c == '\0')
+    {
+        ft_printf("%s\n", s->buf);
+        free(s->buf);
+        s->buf = NULL;
+        s->c = 0;
+        s->buf_size = 1;
+        s->buf_idx = 0;
+        s->bit_count = 0;
+    }
+    s->c = 0;
+    s->bit_count = 0;
 }
 
 void handle_client_signal(int signum, siginfo_t *siginfo, void *context)
 {
-    static t_srv states = {NULL, 0, 1, 0, 0};
+    static t_srv states;
     (void)context;
 
+    states.buf = NULL;
+    states.c = 0;
+    states.buf_size = 1;
+    states.buf_idx = 0;
+    states.bit_count = 0;
     if (!states.buf && !(states.buf = (char *)malloc(states.buf_size)))
         exit(ft_printf("Memory allocation failed\n"));
     if (signum == SIGUSR1)
         states.c |= 1;
     if (++states.bit_count == 8)
-    {
-        store_char(&states.buf, &states.buf_size, &states.buf_idx, states.c);
-        if (states.c == '\0')
-        {
-            ft_printf("%s\n", states.buf);
-            free(states.buf);
-            states.buf = NULL;
-            states.buf_size = 1;
-            states.buf_idx = 0;
-        }
-        states.c = 0;
-        states.bit_count = 0;
-    }
+        store_print(&states);
     states.c <<= 1;
     if (kill(siginfo->si_pid, SIGUSR1) == -1)
         exit(ft_printf("Error sending signal\n"));
@@ -111,4 +117,3 @@ int main(void)
 
     return (0);
 }
-
