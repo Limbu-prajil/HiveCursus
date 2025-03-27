@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 18:22:23 by plimbu            #+#    #+#             */
+/*   Updated: 2025/03/27 18:22:28 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 int		g_bit_received;
@@ -18,12 +30,14 @@ void	send_char(int pid, unsigned char c)
 {
 	int	i;
 
-	for (i = 7; i >= 0; i--)
+	i = 7;
+	while (i >= 0)
 	{
 		g_bit_received = 0;
 		send_bit(pid, (c >> i) & 1);
 		while (!g_bit_received)
 			pause();
+		i--;
 	}
 }
 

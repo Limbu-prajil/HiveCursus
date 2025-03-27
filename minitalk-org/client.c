@@ -19,13 +19,14 @@ void send_bit(int pid, int bit)
 
 void send_char(int pid, unsigned char c)
 {
-    int i;
-    for (i = 7; i >= 0; i--) // Iterate through each bit of the character
+    int i = 7;
+    while (i >= 0) // Iterate through each bit of the character
     {
         g_bit_received = 0; // Reset the flag indicating bit reception
         send_bit(pid, (c >> i) & 1); // Send the current bit
         while (!g_bit_received)
-            ; // Wait for acknowledgment of bit reception
+            pause(); // Wait for acknowledgment of bit reception
+    	i--;
     }
 }
 
