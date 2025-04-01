@@ -3,34 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 15:02:53 by htran-th          #+#    #+#             */
-/*   Updated: 2024/05/14 19:54:35 by htran-th         ###   ########.fr       */
+/*   Created: 2024/11/18 09:52:01 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:52:03 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_join(const char *s1, const char *s2)
 {
-	char	*res;
-	size_t	s1_len;
-	size_t	s2_len;
+	char	*join;
+	int		i;
+	int		j;
 
-	if (!s1 && !s2)
-		return (ft_strdup(""));
-	if (!s1)
-		return (ft_strdup(s2));
-	else if (!s2)
-		return (ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	res = malloc ((s1_len + s2_len +1) * (sizeof(char)));
-	if (!res)
+	i = 0;
+	j = 0;
+	join = (char *)malloc((sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1)));
+	if (!(join))
 		return (NULL);
-	ft_memcpy(res, s1, s1_len);
-	ft_memcpy((res + s1_len), s2, s2_len);
-	res[s1_len + s2_len] = '\0';
-	return (res);
+	while (s1[i])
+	{
+		join[j] = s1[i];
+		i++;
+		j++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		join[j] = s2[i];
+		j++;
+		i++;
+	}
+	join[j] = '\0';
+	return (join);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	if (s1 == NULL)
+		return (NULL);
+	if (s2 == NULL)
+		return (NULL);
+	return (ft_join(s1, s2));
 }

@@ -44,7 +44,7 @@ static void	get_map_line(int fd, t_map *map)
 				handle_map_error(fd, map, strerror(errno));
 			break ;
 		}
-		map->temp_matrix = ft_strjoin_gnl(map->temp_matrix, map->line);
+		map->temp_matrix = ft_strjoin(map->temp_matrix, map->line);
 		if (!map->temp_matrix)
 		{
 			free (map->line);

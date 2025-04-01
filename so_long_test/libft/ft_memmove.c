@@ -3,39 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 18:38:46 by htran-th          #+#    #+#             */
-/*   Updated: 2024/05/14 17:58:30 by htran-th         ###   ########.fr       */
+/*   Created: 2024/11/18 09:48:38 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:48:44 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *to, const void *from, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	char	*destination;
-	char	*source;
+	unsigned char	*srcc;
+	unsigned char	*dstt;
+	size_t			i;
 
-	destination = (char *)to;
-	source = (char *)from;
-	if (to == NULL && from == NULL)
-		return (NULL);
-	if (destination <= source)
+	srcc = (unsigned char *)src;
+	dstt = (unsigned char *)dest;
+	if (dstt == srcc || len == 0)
+		return (dest);
+	i = -1;
+	if (srcc > dstt)
 	{
-		while (n--)
+		while (len > ++i)
+			dstt[i] = srcc[i];
+	}
+	else
+	{
+		while (len)
 		{
-			*destination++ = *source++;
+			dstt[len - 1] = srcc[len - 1];
+			len--;
 		}
 	}
-	else if (source < destination)
-	{
-		destination += n - 1;
-		source += n - 1;
-		while (n--)
-		{
-			*destination-- = *source--;
-		}
-	}
-	return (to);
+	return (dest);
 }

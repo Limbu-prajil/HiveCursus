@@ -3,58 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 22:35:49 by htran-th          #+#    #+#             */
-/*   Updated: 2024/05/14 17:44:24 by htran-th         ###   ########.fr       */
+/*   Created: 2024/11/18 09:43:58 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:44:07 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_len(int n)
+static int	ft_intsize(long n)
 {
-	int	len;
+	size_t	intsize;
 
-	len = 0;
+	intsize = 0;
 	if (n < 0)
 	{
-		len++;
-		n = (-1) * n;
+		intsize++;
+		n = -n;
 	}
-	if (n == 0)
-		len++;
-	while (n != 0)
+	while (n >= 1)
 	{
-		n = n / 10;
-		len++;
+		intsize++;
+		n /= 10;
 	}
-	return (len);
+	return (intsize);
+}
+
+static char	*ft_gen(char *rtn, long nbr, int len, int isneg)
+{
+	if (nbr != 0)
+		rtn = malloc(sizeof(char) * (len + 1));
+	else
+		return (rtn = ft_strdup("0"));
+	if (!rtn)
+		return (0);
+	isneg = 0;
+	if (nbr < 0)
+	{
+		isneg++;
+		nbr = -nbr;
+	}
+	rtn[len] = '\0';
+	while (--len)
+	{
+		rtn[len] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	if (isneg == 1)
+		rtn[0] = '-';
+	else
+		rtn[0] = (nbr % 10) + '0';
+	return (rtn);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*res;
-	long	num;
-	int		nlen;
-	int		i;
+	int		len;
+	char	*rtn;
+	long	nbr;
+	int		isneg;
 
-	nlen = get_len(n);
-	num = n;
-	res = malloc((nlen + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	i = nlen -1;
-	while (i >= 0)
-	{
-		if (num < 0)
-			num = (-1) * num;
-		res[i] = (num % 10) + 48;
-		num = num / 10;
-		i--;
-	}
-	res[nlen] = 0;
-	if (n < 0)
-		res[0] = '-';
-	return (res);
+	nbr = n;
+	len = ft_intsize(nbr);
+	rtn = 0;
+	isneg = 0;
+	rtn = ft_gen(rtn, nbr, len, isneg);
+	if (!(rtn))
+		return (0);
+	return (rtn);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 17:59:21 by htran-th          #+#    #+#             */
-/*   Updated: 2024/05/14 18:06:21 by htran-th         ###   ########.fr       */
+/*   Created: 2024/11/18 09:50:04 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:50:07 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	size_t	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (i < ft_strlen(s))
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-	write (fd, "\n", 1);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

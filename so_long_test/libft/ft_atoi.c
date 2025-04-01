@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 22:23:15 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/08 18:47:21 by htran-th         ###   ########.fr       */
+/*   Created: 2024/11/18 09:38:52 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:41:14 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	long long	res;
-	long long	check;
-	int			sign;
+#include "libft.h"
 
-	res = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if ((*str == '-') || (*str == '+'))
+int	ft_atoi(const char *c)
+{
+	int					i;
+	int					r;
+	long long			result;
+
+	i = 0;
+	r = 1;
+	result = 0;
+	while ((c[i] == '\n' || c[i] == '\r' || c[i] == ' ' || c[i] == '\t'
+			|| c[i] == '\v' || c[i] == '\f') && c[i])
+		i++;
+	if (c[i] == '-')
+		r = -1;
+	if (c[i] == '-' || c[i] == '+')
+		i++;
+	while (c[i] >= '0' && c[i] <= '9')
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while ((*str >= '0') && (*str <= '9'))
-	{
-		check = res * 10 + *str - '0';
-		if (check / 10 != res && sign == -1)
+		if (result < 0 && r == -1)
 			return (0);
-		if (check / 10 != res && sign == 1)
+		if (result < 0 && r == 1)
 			return (-1);
-		res = check;
-		str++;
+		result *= 10;
+		result += c[i] - '0';
+		i++;
 	}
-	return (sign * res);
+	return (r * result);
 }
