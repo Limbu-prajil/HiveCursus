@@ -1,20 +1,28 @@
 NAME		=	so_long
-CC			=	gcc
+CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
 MLX			=	mlx/Makefile.gen
 LFT			=	libft/libft.a
 INC			=	-I ./inc -I ./libft -I ./mlx
 LIB			=	-L ./libft -lft -L ./mlx -lmlx -lXext -lX11 -lm -lbsd
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
-SRC			=	src/so_long.c \
-				src/map_isvalid.c \
+SRC			=	src/base_destroy.c \
+				src/base_init.c \
+				src/create_base.c \
 				src/die.c \
-				src/render_game.c \
+				src/draw_map.c \
+				src/game_destroy.c \
 				src/game_hook.c \
-				src/redraw_base.c \
+				src/game_init.c \
+				src/get_axis.c \
+				src/map_init.c \
+				src/map_isvalid.c \
+				src/pixels.c \
 				src/player_movement.c\
-				gnl/get_next_line.c \
-				gnl/get_next_line_utils.c \
+				src/read_map.c \
+				src/redraw_base.c \
+				src/render_game.c \
+				src/so_long.c
 
 all:		$(MLX) $(LFT) obj $(NAME)
 
