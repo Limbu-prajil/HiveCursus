@@ -1,19 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ashobajo <ashobajo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 20:27:00 by ashobajo          #+#    #+#             */
-/*   Updated: 2024/09/21 19:15:25 by ashobajo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "so_long.h"
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
 
 int	isber(char *file)
 {
@@ -37,7 +22,7 @@ static void	print_error(const char *message)
 	write(1, "\033[0m\n", 6);
 }
 
-// printf("\033[1;32mWelcome to Solong by AbdulAzeez\033[0m\n");
+// printf("\033[1;32mWelcome to Solong\033[0m\n");
 int	main(int argc, char **argv)
 {
 	t_base	*base;
