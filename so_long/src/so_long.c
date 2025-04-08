@@ -1,18 +1,18 @@
 #include "so_long.h"
 
-int	isber(char *file)
-{
-	int				len;
+// int	isber(char *file)
+// {
+// 	int				len;
 
-	len = ft_strlen(file);
-	if (file == 0)
-		return (0);
-	if (len < 5)
-		return (0);
-	if (ft_strcmp(file + len - 4, ".ber") != 0)
-		return (0);
-	return (1);
-}
+// 	len = ft_strlen(file);
+// 	if (file == 0)
+// 		return (0);
+// 	if (len < 5)
+// 		return (0);
+// 	if (ft_strcmp(file + len - 4, ".ber") != 0)
+// 		return (0);
+// 	return (1);
+// }
 
 static void	print_error(const char *message)
 {
@@ -22,21 +22,25 @@ static void	print_error(const char *message)
 	write(1, "\033[0m\n", 6);
 }
 
-// printf("\033[1;32mWelcome to Solong\033[0m\n");
 int	main(int argc, char **argv)
 {
 	t_base	*base;
 
 	if (argc != 2)
 	{
-		print_error("usage: ./solong map.ber");
+		print_error("usage: ./solong map(n).ber");
 		return (1);
 	}
-	else if (ft_strlen(argv[1]) < 5)
-	{
-		print_error("invalid map.ber");
-		return (1);
-	}
+	// else if (ft_strlen(argv[1]) < 12)
+	// {
+	// 	print_error("invalid map name");
+	// 	return (1);
+	// }
+	// else if (isber(argv[1]) == 0)
+	// {
+	// 	print_error("invalid extension for map");
+	// 	return (1);
+	// }
 	base = base_init(argv[1]);
 	create_base(base);
 	mlx_hook(base->mlx_win, 2, 1L << 0, key_press, base);

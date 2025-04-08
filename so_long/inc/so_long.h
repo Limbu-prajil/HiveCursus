@@ -10,6 +10,8 @@
 # include <string.h>
 # include <unistd.h>
 
+# include <stdio.h>
+
 typedef struct s_axis
 {
 	int			x;
@@ -48,6 +50,7 @@ typedef struct s_base
 	t_img		*ground;
 }				t_base;
 
+int				isber(char *file);
 void			map_init(t_base *base, char *filename);
 t_base			*base_init(char *filename);
 void			game_init(t_base *base, char *filename);
@@ -64,7 +67,6 @@ unsigned int	mlx_get_pixel(t_img *img, int x, int y);
 void			map_isvalid(t_base *base, char *file);
 void			die(char *errmsg, int errnum);
 // static void	texture_load(t_base *base, t_img **img, char *path);
-int				isber(char *file);
 // static void	file_parse(t_base *base, char **file, char buf[], int fd);
 // static void	file_read(t_base *base, char **file, char buf[], int fd);
 // static char	*file_init(t_base *base, int fd);
