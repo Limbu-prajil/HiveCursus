@@ -3,7 +3,6 @@
 // int	isber(char *file)
 // {
 // 	int				len;
-
 // 	len = ft_strlen(file);
 // 	if (file == 0)
 // 		return (0);
@@ -31,11 +30,6 @@ int	main(int argc, char **argv)
 		print_error("usage: ./solong map(n).ber");
 		return (1);
 	}
-	// else if (ft_strlen(argv[1]) < 12)
-	// {
-	// 	print_error("invalid map name");
-	// 	return (1);
-	// }
 	// else if (isber(argv[1]) == 0)
 	// {
 	// 	print_error("invalid extension for map");

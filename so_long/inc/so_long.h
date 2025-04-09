@@ -20,18 +20,18 @@ typedef struct s_axis
 
 typedef struct s_game
 {
-	int			**map;
+	t_axis		player;
+	t_axis		exit;
+	t_axis		*coll;
 	int			height;
 	int			width;
-	t_axis		player;
+	int			**map;
 	int			player_up;
 	int			player_down;
 	int			player_left;
 	int			player_right;
 	int			player_move;
 	int			player_coll;
-	t_axis		exit;
-	t_axis		*coll;
 	int			count_coll;
 	int			count_exit;
 	int			count_player;
@@ -39,10 +39,10 @@ typedef struct s_game
 
 typedef struct s_base
 {
+	t_game		*game;
 	void		*mlx;
 	void		*mlx_win;
 	t_img		*mlx_img;
-	t_game		*game;
 	t_img		*player;
 	t_img		*exit;
 	t_img		*coll;
