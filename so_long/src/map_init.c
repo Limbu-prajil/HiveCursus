@@ -3,6 +3,7 @@
 static void	file_parse(t_base *base, char **file, char buf[], int fd)
 {
 	char			*tmp;
+	(void)buf;
 
 	tmp = ft_strjoin(*file, buf);
 	free(*file);
@@ -21,7 +22,7 @@ static void	file_read(t_base *base, char **file, char buf[], int fd)
 	ret = 1;
 	while (ret != 0)
 	{
-		ret = read(fd, buf, 1024);
+		ret = read(fd, buf, 4);
 		if (ret == -1)
 		{
 			free(*file);
@@ -53,7 +54,7 @@ void	map_init(t_base *base, char *filename)
 {
 	int				fd;
 	char			*file;
-	char			buf[1024 + 1];
+	char			buf[4 + 1];
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -61,6 +62,12 @@ void	map_init(t_base *base, char *filename)
 	file = file_init(base, fd);
 	file_read(base, &file, buf, fd);
 	close(fd);
+	printf("%s\n", file);
+	if (file[0] == 0 || file[0] == '\n')
+	{
+		free(file);
+		base_destroy(base, "map_init(): file is empty", 0);
+	}
 	read_map(base, file);
 	free(file);
 }
