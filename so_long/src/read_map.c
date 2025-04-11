@@ -17,14 +17,20 @@ void	map_height(t_base *base, char *file)
 	while (file[i] != 0)
 	{
 		j = 0;
-		while (file[i + j] != 0 && file[i + j] != '\n')
+		//while (file[i + j] != 0 && file[i + j] != '\n')
+		while(file[i + j] != '\n')
+		{
+			printf("%c ", file[i + j]);
 			j++;
+		}
 		if (base->game->width != j)
 		{
 			free(file);
 			base_destroy(base, "map format is invalid", 0);
 		}
-		i += base->game->width + 1;
+		printf("(%d) ", i);
+		i += (base->game->width + 1);
+		printf("(%d)\n", file[i + j]);
 		base->game->height++;
 	}
 }
