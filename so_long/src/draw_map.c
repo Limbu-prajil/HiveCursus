@@ -7,21 +7,24 @@ void	draw_map(t_base *base, char *file)
 	int	k;
 	int	obj;
 
-	j = 0;
+	i = -1;
 	k = 0;
 	obj = 0;
-	while (j < base->game->height)
+	while (++i < base->game->height)
 	{
-		base->game->map[j] = (int *)malloc(sizeof(int ) * base->game->width);
-		i = 0;
-		while (i < base->game->width)
+		base->game->map[i] = (int *)malloc(sizeof(int) * base->game->width);
+		if (base->game->map[i] == 0)
+		{
+			free(file);
+			base_destroy(base, "draw_map(): malloc()", errno);
+		}
+		j = 0;
+		while (j < base->game->width)
 		{
 			get_axis(base, file, k, &obj);
-			base->game->map[j][i] = file[k] - 48;
+			base->game->map[i][j++] = file[k] - 48;
 			k++;
-			i++;
 		}
 		k++;
-		j++;
 	}
 }

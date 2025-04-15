@@ -7,7 +7,7 @@ static void	texture_load(t_base *base, t_img **img, char *path)
 
 	*img = mlx_xpm_file_to_image(base->mlx, path, &width, &height);
 	if (*img == 0)
-		base_destroy(0, "texture_init(): can't load texture", 0);
+		base_destroy(0, "texture_load(): can't load img", 0);
 	(*img)->width = width;
 	(*img)->height = height;
 }
