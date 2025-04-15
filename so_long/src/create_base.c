@@ -35,7 +35,7 @@ static void	draw_env(t_base *base, int i, int j)
 		draw_square(base, base->player, i * 40, j * 40);
 }
 
-static void	draw_map(t_base *base)
+static void	draw_game_elements(t_base *base)
 {
 	int				i;
 	int				j;
@@ -57,6 +57,6 @@ static void	draw_map(t_base *base)
 
 void	create_base(t_base *base)
 {
-	draw_map(base);
+	draw_game_elements(base);
 	mlx_put_image_to_window(base->mlx, base->mlx_win, base->mlx_img, 0, 0);
 }
