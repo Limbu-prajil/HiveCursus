@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-// int	isber(char *file)
+//static int	isber(char *file)
 // {
 // 	int				len;
 // 	len = ft_strlen(file);

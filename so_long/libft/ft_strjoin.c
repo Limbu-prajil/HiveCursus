@@ -1,24 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/18 09:52:01 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:52:03 by plimbu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
+
+char	*ft_join(const char *s1, const char *s2)
+{
+	char	*join;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	join = (char *)malloc((sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1)));
+	if (!(join))
+		return (NULL);
+	while (s1[i])
+	{
+		join[j] = s1[i];
+		i++;
+		j++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		join[j] = s2[i];
+		j++;
+		i++;
+	}
+	join[j] = '\0';
+	return (join);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*cat_str;
-	char	*cat_str_start;
-	size_t	s1_len;
-	size_t	s2_len;
-
-	if (!s1 || !s2)
+	if (s1 == NULL)
 		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	cat_str = (char *) malloc (sizeof(char) * (s1_len + s2_len + 1));
-	if (!cat_str)
+	if (s2 == NULL)
 		return (NULL);
-	cat_str_start = cat_str;
-	while (*s1)
-		*cat_str++ = *s1++;
-	while (*s2)
-		*cat_str++ = *s2++;
-	*cat_str = '\0';
-	return (cat_str_start);
+	return (ft_join(s1, s2));
 }

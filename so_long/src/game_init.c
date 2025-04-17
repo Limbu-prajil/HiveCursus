@@ -4,7 +4,7 @@ void	game_init(t_base *base, char *filename)
 {
 	base->game = (t_game *)malloc(sizeof(t_game));
 	if (base->game == 0)
-		base_destroy(base, "game_init(): malloc()", errno);
+		base_destroy(base, "game_init(): malloc()");
 	base->game->map = 0;
 	base->game->player_up = 0;
 	base->game->player_down = 0;

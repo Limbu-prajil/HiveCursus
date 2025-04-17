@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashobajo <ashobajo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 23:50:29 by ashobajo          #+#    #+#             */
-/*   Updated: 2024/05/24 20:50:40 by ashobajo         ###   ########.fr       */
+/*   Created: 2024/11/18 09:54:15 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:54:17 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,28 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*new_str;
 	size_t	i;
+	size_t	slen;
+	char	*s2;
 
+	if (s == NULL)
+		return (NULL);
+	slen = ft_strlen(s);
+	if (len >= slen)
+		len = slen;
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s2)
+		return (NULL);
 	i = 0;
-	if (!s)
-		return (NULL);
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	new_str = (char *) malloc (sizeof(char) * (len + 1));
-	if (!new_str)
-		return (NULL);
-	while (i < len)
+	if (start < slen)
 	{
-		new_str[i] = s[start + i];
-		i++;
+		while (i < len)
+		{
+			s2[i] = s[start];
+			start++;
+			i++;
+		}
 	}
-	new_str[i] = '\0';
-	return (new_str);
+	s2[i] = '\0';
+	return (s2);
 }

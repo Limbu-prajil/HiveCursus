@@ -10,7 +10,7 @@ static void	print_move(t_base *base, int x, int y)
 	}
 }
 
-static void	iscollectable(t_base *base)
+static void	is_collectible(t_base *base)
 {
 	int				k;
 
@@ -44,10 +44,10 @@ void	redraw_base(t_base *base)
 	else if (base->game->player_right != 0)
 		move_right(base, x, y);
 	print_move(base, x, y);
-	iscollectable(base);
+	is_collectible(base);
 	create_base(base);
 	if (base->game->exit.x == base->game->player.x
 		&& base->game->exit.y == base->game->player.y)
 		if (base->game->count_coll == base->game->player_coll)
-			base_destroy(base, 0, 0);
+			base_destroy(base, 0);
 }

@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	base_destroy(t_base *base, char *errmsg, int errnum)
+void	base_destroy(t_base *base, char *errmsg)
 {
 	if (base != 0)
 	{
@@ -24,5 +24,5 @@ void	base_destroy(t_base *base, char *errmsg, int errnum)
 			game_destroy(base->game);
 		free(base);
 	}
-	die(errmsg, errnum);
+	error(errmsg);
 }

@@ -12,9 +12,9 @@ static void	draw_square(t_base *base, t_img *img, int x, int y)
 		i = -1;
 		while (++i < 40)
 		{
-			color = mlx_get_pixel(img, i, j);
-			if (color != mlx_rgb_to_int(0, 255, 255, 255))
-				mlx_draw_pixel(base->mlx_img, x + i, y + j, color);
+			color = get_pixel(img, i, j);
+			if (color != rgb_to_int(0, 255, 255, 255))
+				draw_pixel(base->mlx_img, x + i, y + j, color);
 		}
 	}
 }

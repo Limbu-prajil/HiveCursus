@@ -6,7 +6,7 @@ t_base	*base_init(char *filename)
 
 	base = (t_base *)malloc(sizeof(t_base));
 	if (base == 0)
-		base_destroy(0, "base_init(): malloc()", errno);
+		base_destroy(0, "base_init(): malloc()");
 	base->game = 0;
 	base->mlx = 0;
 	base->mlx_win = 0;

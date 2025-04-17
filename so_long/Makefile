@@ -9,12 +9,12 @@ OBJ		=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC		=	src/base_destroy.c \
 			src/base_init.c \
 			src/create_base.c \
-			src/die.c \
-			src/draw_map.c \
+			src/error.c \
+			src/map_init_values.c \
 			src/game_destroy.c \
 			src/game_hook.c \
 			src/game_init.c \
-			src/get_axis.c \
+			src/is_solvable.c \
 			src/map_init.c \
 			src/map_isvalid.c \
 			src/pixels.c \
@@ -27,7 +27,7 @@ SRC		=	src/base_destroy.c \
 all:	$(MLX) $(LFT) obj $(NAME)
 
 $(NAME):$(OBJ)
-		$(CC) $(FLAGS) -fsanitize=address -o $@ $^ $(LIB)
+		$(CC) $(FLAGS) -o $@ $^ $(LIB)
 
 $(MLX):
 		@echo "Compiling minilibx..."

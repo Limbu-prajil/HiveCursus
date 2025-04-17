@@ -2,7 +2,6 @@
 
 static int	isborder(t_base *base, int i)
 {
-	//printf("%d ", i);
 	if (i < base->game->width // 0 1 2 3 4
 		|| i % (base->game->width + 1) == 0 // 6 12 18 24
 		|| i % (base->game->width + 1) == (base->game->width - 1) // 10 16 22
@@ -24,7 +23,7 @@ static void	isvalid(t_base *base, char *file, int i)
 	else
 	{
 		free(file);
-		base_destroy(base, "map content is invalid", 0);
+		base_destroy(base, "map content is invalid");
 	}
 }
 
@@ -42,7 +41,7 @@ void	map_isvalid(t_base *base, char *file)
 			if (file[i] != '1')
 			{
 				free(file);
-				base_destroy(base, "map isn't surrounded by walls", 0);
+				base_destroy(base, "map isn't surrounded by walls");
 			}
 		}
 		else
@@ -53,6 +52,6 @@ void	map_isvalid(t_base *base, char *file)
 		|| base->game->count_coll < 1)
 	{
 		free(file);
-		base_destroy(base, "map configuration is invalid", 0);
+		base_destroy(base, "map configuration is invalid");
 	}
 }

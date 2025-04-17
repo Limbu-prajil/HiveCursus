@@ -58,12 +58,20 @@ int	main(int argc, char **argv)
 {
 	struct sigaction	sig;
 	int					server_pid;
+	int					i;
 
 	if (argc != 3)
 		exit(ft_printf("Correct usage: ./client [server's PID] [string]\n"));
+	i = 0;
+	while (argv[1][i])
+	{
+		if (!(argv[1][i] >= '0' && argv[1][i] <= '9'))
+			exit(ft_printf("Invalid PID: %s\n", argv[1]));
+		i++;
+	}
 	server_pid = ft_atoi(argv[1]);
-	if (kill(server_pid, 0) == -1 || server_pid == 0)
-		exit(ft_printf("Invalid PID: %s\n", argv[1]));
+	if (kill(server_pid, 0) == -1)
+		exit(ft_printf("Server not responding at: %s\n", argv[1]));
 	ft_bzero(&sig, sizeof(struct sigaction));
 	sig.sa_handler = &handle_server_signal;
 	if (sigaction(SIGUSR1, &sig, NULL) == -1)

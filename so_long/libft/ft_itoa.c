@@ -3,52 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashobajo <ashobajo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plimbu <plimbu@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 02:36:31 by ashobajo          #+#    #+#             */
-/*   Updated: 2024/05/24 18:09:11 by ashobajo         ###   ########.fr       */
+/*   Created: 2024/11/18 09:43:58 by plimbu            #+#    #+#             */
+/*   Updated: 2024/11/18 09:44:07 by plimbu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_digits(int n)
+static int	ft_intsize(long n)
 {
-	size_t	i;
+	size_t	intsize;
 
-	i = 1;
-	n /= 10;
-	while (n != 0)
+	intsize = 0;
+	if (n < 0)
 	{
-		i++;
+		intsize++;
+		n = -n;
+	}
+	while (n >= 1)
+	{
+		intsize++;
 		n /= 10;
 	}
-	return (i);
+	return (intsize);
+}
+
+static char	*ft_gen(char *rtn, long nbr, int len, int isneg)
+{
+	if (nbr != 0)
+		rtn = malloc(sizeof(char) * (len + 1));
+	else
+		return (rtn = ft_strdup("0"));
+	if (!rtn)
+		return (0);
+	isneg = 0;
+	if (nbr < 0)
+	{
+		isneg++;
+		nbr = -nbr;
+	}
+	rtn[len] = '\0';
+	while (--len)
+	{
+		rtn[len] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	if (isneg == 1)
+		rtn[0] = '-';
+	else
+		rtn[0] = (nbr % 10) + '0';
+	return (rtn);
 }
 
 char	*ft_itoa(int n)
 {
-	char		*str_num;
-	size_t		digits;
-	long int	num;
+	int		len;
+	char	*rtn;
+	long	nbr;
+	int		isneg;
 
-	num = n;
-	digits = get_digits(n);
-	if (n < 0)
-	{
-		num *= -1;
-		digits++;
-	}
-	str_num = (char *)malloc(sizeof(char) * (digits + 1));
-	if (!str_num)
-		return (NULL);
-	*(str_num + digits) = 0;
-	while (digits--)
-	{
-		*(str_num + digits) = num % 10 + '0';
-		num = num / 10;
-	}
-	if (n < 0)
-		*(str_num + 0) = '-';
-	return (str_num);
+	nbr = n;
+	len = ft_intsize(nbr);
+	rtn = 0;
+	isneg = 0;
+	rtn = ft_gen(rtn, nbr, len, isneg);
+	if (!(rtn))
+		return (0);
+	return (rtn);
 }
