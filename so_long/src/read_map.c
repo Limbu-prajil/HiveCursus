@@ -85,10 +85,11 @@ void	read_map(t_base *base, char *file)
 	}
 	init_tmpmap(base, file, tmpmap);
 	map_init_values(base, file);
-	if (!is_solvable(base, tmpmap))
+	is_solvable(base, tmpmap);
+	/* if (!is_solvable(base, tmpmap))
 	{
 		free(file);
 		free(tmpmap);
 		base_destroy(base, "The map is not solvable");
-	}
+	} */
 }
